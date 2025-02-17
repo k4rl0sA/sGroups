@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Restablece tu contraseña</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #0b4d8f;
+            color: #fff;
+            padding: 20px;
+        }
+        .logo {
+            max-width: 150px;
+            margin: 0 auto;
+        }
+        .content {
+            padding: 20px;
+        }
+        .button {
+            background-color: #0b4d8f;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://bogota.gov.co/sites/default/files/styles/1050px/public/2022-10/atencion-salud_0.jpeg" alt="Logo" class="logo">
+            <h1>Restablece tu contraseña</h1>
+        </div>
+        <div class="content">
+            <p>Hola {nombre},</p>
+            <p>Hemos recibido una solicitud para restablecer tu contraseña. Si no fuiste tú, ignora este correo.</p>
+            <p>Para restablecer tu contraseña, haz clic en el siguiente botón:</p>
+            <a href="{enlace}" class="button">Restablecer contraseña</a>
+            <p>Este enlace expirará en {expira}.</p>
+            <p>Si tienes algún problema, por favor contáctanos a {info}.</p>
+        </div>
+    </div>
+</body>
+</html>
