@@ -27,7 +27,6 @@ $menu = obtenerMenu($_SESSION['documento']);
                 <h2><?php echo($user[2]);?></h2>
               </div>
             </div>
-
             <!-- <div class='name'></div> -->
             <li class="search-box">
                 <i class="fa-solid fa-magnifying-glass icon"></i>
