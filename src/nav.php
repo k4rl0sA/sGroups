@@ -10,8 +10,8 @@ $menu = obtenerMenu($_SESSION['documento']);
             <a href="../Inicio"><img src="../libs/img/Logo128.png" alt="logo"></a>
             </span>
             <div class="text header-text">
-                <span class="name">Secretaria de Salud</span>
-                <span class="profession">Control EBEH</span>
+                <span class="name"><?php echo APP; ?></span>
+                <span class="profession">GROUP S&S</span>
             </div>
         </div>
         <i class="fa-solid fa-angle-right toggle"></i>
