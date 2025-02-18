@@ -89,7 +89,7 @@ $perfil = (!$perfi['responseResult']) ? '' : $perfi['responseResult'][0]['perfil
 					<div class='load'id='loader' z-index='0'></div>
 				</div>
 				<div class="content content-2">
-					<div class="title txt-center"><h2>REPORTE DIARIO</h2></div>
+					<div class="title txt-center"><h2>Funcionarios</h2></div>
 					<div id='<?php echo $mod; ?>-btns' class="header">
 					<?php echo $btns ?>
         			</div>
