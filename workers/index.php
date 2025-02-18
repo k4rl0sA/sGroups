@@ -34,7 +34,7 @@ $perfil = (!$perfi['responseResult']) ? '' : $perfi['responseResult'][0]['perfil
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title> Reporte Diario || <?php echo APP; ?></title>
+	<title> Funcionarios || <?php echo APP; ?></title>
     <link href="../libs/css/menu.css?v=2.0" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 	<link rel="stylesheet" href="../libs/css/app.css?v=20.0">
