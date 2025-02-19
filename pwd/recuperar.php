@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->fetch();
         
         $token = bin2hex(random_bytes(32)); // Token aleatorio
-        $expira = date('Y-m-d H:i:s', strtotime('+15 minutes'));
+        $expira = date('Y-m-d H:i:s', strtotime('-5 hours +15 minutes'));
 
         // Guardamos el token en la BD
         $stmt = $con->prepare("UPDATE usuarios SET token = ?, exp_tkn = ? WHERE id_usuario = ?");
