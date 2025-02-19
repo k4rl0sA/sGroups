@@ -16,7 +16,7 @@ if (!isset($_SESSION['documento'])) {
             </span>
             <div class="text header-text">
                 <span class="name"><?php echo APP; ?></span>
-                <span class="profession">GROUP S&S</span>
+                <span class="profession">S&S</span>
             </div>
         </div>
         <i class="fa-solid fa-angle-right toggle"></i>
