@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $placeholders = ["nombre"=>$rta['nombre'],"enlace"=>$enlace,"info"=>"assycoltecnologia@gmail.com","expira"=>$expira];
         $result = sendMail($mails, $subject, $body, $placeholders,'clave');
         if ($result) {
-            echo "Se ha enviado un correo a $email con las instrucciones para recuperar la contraseña.";
+            echo "Se ha enviado un correo a su cuenta registrada, con las instrucciones para recuperar la contraseña.";
         } else {
             echo "No se pudo enviar el correo.";
         }
