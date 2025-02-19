@@ -1,7 +1,12 @@
 <?php
 require_once __DIR__.'/../config/config.php';
 require_once __DIR__.'/gestion.php';
-$menu = obtenerMenu($_SESSION['documento']);
+if (!isset($_SESSION['documento'])) {
+    header('Location: logout.php');
+    exit();
+}else{
+    $menu = obtenerMenu($_SESSION['documento']);
+}
 ?>
 <div class="sidebar close">
     <header>
