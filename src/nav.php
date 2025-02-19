@@ -2,7 +2,7 @@
 require_once __DIR__.'/../config/config.php';
 require_once __DIR__.'/gestion.php';
 if (!isset($_SESSION['documento'])) {
-    header('Location: logout.php');
+    header('Location: ../logout.php');
     exit();
 }else{
     $menu = obtenerMenu($_SESSION['documento']);
