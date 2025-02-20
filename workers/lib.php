@@ -38,15 +38,11 @@ try {
 
 function whe_repDiar() {
     $filtros = [];
-    $perfil = obtenerPerfil($_SESSION['documento']);
-    if (!empty($_POST['fcol']) && $perfil == 'ADM') {
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fcol'])), 'operador' => 'IN'];
-    } else {
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
-    }
-    if (!empty($_POST['fdes']) && !empty($_POST['fhas'])) {
-        $filtros[] = ['campo' => 'fecha_report', 'valor' => $_POST['fdes'], 'operador' => '>='];
-        $filtros[] = ['campo' => 'fecha_report', 'valor' => $_POST['fhas'], 'operador' => '<='];
+    if (!empty($_POST['fdep'])) {
+        $filtros[] = ['campo' => 'U.departamento', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fdep'])), 'operador' => 'IN'];
+    }    
+    if (!empty($_POST['fid'])) {
+        $filtros[] = ['campo' => 'id_usuario', 'valor' => $_POST['fid'], 'operador' => '='];
     }
     return fil_where($filtros);
 }
@@ -55,11 +51,11 @@ function lis_repDiar() {
     $pag = si_noexiste('pag-repDiar', 1);
     $offset = ($pag - 1) * $regxPag;$filter = whe_repDiar();$where = $filter['where'];$params = $filter['params'];$types = $filter['types'];
     $tabla = "usuarios";
-	$sqltot="SELECT COUNT(*) total  FROM `usuarios` R WHERE " . $where;
+	$sqltot="SELECT COUNT(*) total  FROM `usuarios` U WHERE " . $where;
     $total = obtener_total_registros($sqltot,$params, $types);
-    $sql = "SELECT R.`id_rep` AS ACCIONES, R.id_rep AS Cod_Registro, R.`fecha_report` AS Fecha_Reporte, R.`cant_report` AS Registros_Reportados, COUNT(N.idrep) AS Registros_Digitados, U.`nombre` AS Colaborador, R.`fecha_create` AS Fecha_Creacion 
+    $sql = "SELECT U.`id_rep` AS ACCIONES, U.id_rep AS Cod_Registro, U.`fecha_report` AS Fecha_Reporte, U.`cant_report` AS Registros_Reportados, COUNT(N.idrep) AS Registros_Digitados, U.`nombre` AS Colaborador, U.`fecha_create` AS Fecha_Creacion 
  FROM `usuarios` R ";
-$where.=" GROUP BY R.id_rep, R.fecha_report, R.cant_report, U.nombre, R.fecha_create";
+$where.=" GROUP BY U.id_rep, U.fecha_report, U.cant_report, U.nombre, U.fecha_create";
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
 	// show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
      if ($datos === []) return no_reg();

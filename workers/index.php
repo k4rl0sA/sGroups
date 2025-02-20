@@ -7,14 +7,9 @@ if (!isset($_SESSION['nombre'])) {
 require_once __DIR__.'/../src/gestion.php';
 $mod='repDiar';
 $ya = new DateTime();
-// $estados=opc_arr([['v' => 'SI', 'l' => 'SI'], ['v' => 'NO', 'l' => 'NO']],'NO');
 $usu=$_SESSION['documento'];
-$sql="SELECT id_usuario, nombre FROM `usuarios` WHERE (EXISTS (SELECT id_usuario, nombre FROM `usuarios`  WHERE  id_usuario =".$usu." AND perfil IN (1) AND estado = 'A') OR id_usuario =".$usu.") and estado='A' ORDER BY 2";
-$colaborador=opc_sql($sql,$usu);
-// var_dump($colaborador);
-// var_dump($sql);
-$hoy = date("Y-m-d");
-$ayer = date("Y-m-d",strtotime($hoy."- 2 days"));
+$sql="SELECT idcatadeta,descripcion from catadeta where idcatalogo=1 and estado='A' ORDER BY 2";
+$departamentos=opc_sql($sql,$usu);
 $acc=acceBtns('repDiar');
 $btns='<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
 if (isset($acc['crear']) && $acc['crear'] == 'SI') {
@@ -23,15 +18,13 @@ if (isset($acc['crear']) && $acc['crear'] == 'SI') {
 if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     $btns .= '<button id="openModal" class="upload-btn" data-mod='.$mod.' title="Importar"><i class="fas fa-upload"></i></button>';
 }
-$perfi=datos_mysql("SELECT perfil as perfil FROM usuarios WHERE id_usuario='{$_SESSION['documento']}'");
-$perfil = (!$perfi['responseResult']) ? '' : $perfi['responseResult'][0]['perfil'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title> Funcionarios || <?php echo APP; ?></title>
+	<title> Empleados || <?php echo APP; ?></title>
     <link href="../libs/css/menu.css?v=2.0" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 	<link rel="stylesheet" href="../libs/css/app.css?v=20.0">
@@ -72,9 +65,9 @@ $perfil = (!$perfi['responseResult']) ? '' : $perfi['responseResult'][0]['perfil
                 			<input type="number" class="captura"  size=10 id="fid" name="fid" OnChange="actualizar();">
     					</div>
 						<div class="input-box">
-							<label for="choices-multiple-remove-button">Empleado :</label>
-                			<select class='choices-multiple-remove-button' id="fcol" name="fcol" multiple OnChange="actualizar();">
-								 <?php echo $colaborador; ?>
+							<label for="choices-multiple-remove-button">Departamentos :</label>
+                			<select class='choices-multiple-remove-button' id="fdep" name="fdep" multiple OnChange="actualizar();">
+								 <?php echo $departamentos; ?>
                 			</select>
     					</div>
 						<div class="input-box">
