@@ -359,7 +359,7 @@ function exec_sql($sql, $params = [], $types = "", $fetch_all = true) {
       } 
   } catch (mysqli_sql_exception $e) {
       log_error("exec_sql: Excepción en la consulta: " . $e->getMessage());
-      return ($e->getMessage());
+      return json_encode($e->getMessage());
       // return null;
   } finally {
       if ($result) {
