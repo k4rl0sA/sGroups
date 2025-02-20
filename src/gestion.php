@@ -492,7 +492,7 @@ try {
 	}
   return $arr;
 } catch (mysqli_sql_exception $e) {
-  $error_message = "Error ".$e->getCode()." : "$e->getMessage();
+  // $error_message = "Error ".$e->getCode()." : "$e->getMessage();
   log_error($error_message); // Log del error
   $response['status'] = 'error';
   $response['message'] = "Error ".$e->getCode() ." en la consulta. Por favor, contacte al administrador del sistema. (Error interno: Desajuste de parámetros en Mysql)"; 
