@@ -1,13 +1,13 @@
 <?php
 require_once __DIR__ . '/../config/config.php';
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 if (!isset($_SESSION['nombre'])) {
     header('Location: ../index.php');
     exit();
 }
 require_once __DIR__.'/../src/gestion.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 echo ini_get('display_errors');
 echo ini_get('error_reporting');
 $mod='repDiar';
