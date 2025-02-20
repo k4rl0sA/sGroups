@@ -55,10 +55,10 @@ function lis_repDiar() {
     $pag = si_noexiste('pag-repDiar', 1);
     $offset = ($pag - 1) * $regxPag;$filter = whe_repDiar();$where = $filter['where'];$params = $filter['params'];$types = $filter['types'];
     $tabla = "usuarios";
-	$sqltot="SELECT COUNT(*) total  FROM `usuarios` R LEFT JOIN nove_repdiar N ON R.id_rep = N.idrep LEFT JOIN usuarios U ON R.usu_create = U.id_usuario WHERE " . $where;
+	$sqltot="SELECT COUNT(*) total  FROM `usuarios` R WHERE " . $where;
     $total = obtener_total_registros($sqltot,$params, $types);
     $sql = "SELECT R.`id_rep` AS ACCIONES, R.id_rep AS Cod_Registro, R.`fecha_report` AS Fecha_Reporte, R.`cant_report` AS Registros_Reportados, COUNT(N.idrep) AS Registros_Digitados, U.`nombre` AS Colaborador, R.`fecha_create` AS Fecha_Creacion 
- FROM `usuarios` R LEFT JOIN nove_repdiar N ON R.id_rep = N.idrep LEFT JOIN usuarios U ON R.usu_create = U.id_usuario";
+ FROM `usuarios` R ";
 $where.=" GROUP BY R.id_rep, R.fecha_report, R.cant_report, U.nombre, R.fecha_create";
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
 	// show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
