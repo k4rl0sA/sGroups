@@ -360,7 +360,6 @@ function exec_sql($sql, $params = [], $types = "", $fetch_all = true) {
   } catch (mysqli_sql_exception $e) {
       log_error("exec_sql: Excepción en la consulta: " . $e->getMessage());
       var_dump($e->getMessage());
-      ini_set('display_errors',1);
       return null;
   } finally {
       if ($result) {
