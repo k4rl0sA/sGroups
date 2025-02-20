@@ -1336,7 +1336,7 @@ function countFilter(a) {
             // Para inputs normales o selects, verificamos si tienen un valor
             if (elemento.value.trim() !== '') {
                 contador++;
-            }openModal
+            }
         }
     });
     return contador;
