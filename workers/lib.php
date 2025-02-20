@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../src/gestion.php';
 $perf = perfil($_POST['tb']);
@@ -20,7 +17,7 @@ if (!isset($_POST['csrf_tkn']) || $_POST['csrf_tkn'] !== $_SESSION['csrf_tkn']) 
 $a = filter_var($_POST['a'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $tb = filter_var($_POST['tb'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $func = $a . '_' . $tb;
-if (!function_exists($func)) {
+if (!function_exists($fun)) {
     log_error("Error 21: Función no encontrada. Intento de llamar a: " . $func);
     http_response_code(400);
     echo json_encode(['error' => 'Función no encontrada', 'funcion' => $func]);
