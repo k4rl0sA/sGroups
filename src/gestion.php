@@ -11,7 +11,7 @@ require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
 //Funcion para cerrar la sesion
 function usuSess(){
-  return $usu = isset($_SESSION['documento']) ? $_SESSION['documento'] : 'Usuario Desconocido';
+  return $usu = isset($_SESSION['documento']) ? $_SESSION['document'] : 'Usuario Desconocido';
 }
 //Funcion conectar a BD
 function db_connect() {
