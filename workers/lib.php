@@ -42,7 +42,7 @@ function whe_repDiar() {
         $filtros[] = ['campo' => 'U.departamento', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fdep'])), 'operador' => 'IN'];
     }    
     if (!empty($_POST['fid'])) {
-        $filtros[] = ['campo' => 'id_usuario', 'valor' => $_POST['fid'], 'operador' => '='];
+        $filtros[] = ['campo' => 'id_usuario', 'valor' => $_POST['fid'], 'operador' => 'like %'];
     }
     return fil_where($filtros);
 }
