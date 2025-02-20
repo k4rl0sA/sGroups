@@ -102,7 +102,7 @@ $where.=" GROUP BY R.id_rep, R.fecha_report, R.cant_report, U.nombre, R.fecha_cr
 			return "";
 		}else{
 			$id=divide($_POST['id']);
-			$sql="SELECT * FROM repor_diario WHERE id_rep='".$id[0]."'";
+			$sql="SELECT * FROM usuarios WHERE id_rep='".$id[0]."'";
 			$info=datos_mysql($sql);
 			return $info['responseResult'][0];		
 		} 
@@ -110,7 +110,7 @@ $where.=" GROUP BY R.id_rep, R.fecha_report, R.cant_report, U.nombre, R.fecha_cr
     function gra_repDiar(){
 		$id=divide($_POST['id']);
 			if (empty($id[0])) { //verifica si el id no esta vacio para realizar un update o un insert
-                $sql = "INSERT INTO repor_diario VALUES(NULL,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,'A')";
+                $sql = "INSERT INTO usuarios VALUES(NULL,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,'A')";
                 $params = [
                     ['type' => 's', 'value' => $_POST['fec']],
                     ['type' => 'i', 'value' => $_POST['can']],
@@ -118,7 +118,7 @@ $where.=" GROUP BY R.id_rep, R.fecha_report, R.cant_report, U.nombre, R.fecha_cr
                 ];
                 // $types = "sii"; 
 			}else{
-                $sql = "UPDATE repor_diario SET cant_report = ? WHERE id_rep = ?";
+                $sql = "UPDATE usuarios SET cant_report = ? WHERE id_rep = ?";
                 $params = [
                     ['type' => 'i', 'value' => $_POST['can']],
                     ['type' => 'i', 'value' => $id[0]]
