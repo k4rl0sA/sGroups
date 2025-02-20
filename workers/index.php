@@ -68,7 +68,11 @@ $perfil = (!$perfi['responseResult']) ? '' : $perfi['responseResult'][0]['perfil
 					<div class="title txt-center"><h2>Filtros</h2></div>
 					<div class="frm-filter poppins-font" id='<?php echo $mod; ?>-fil'>
 						<div class="input-box">
-							<label for="choices-multiple-remove-button">Colaborador :</label>
+							<label for="choices-multiple-remove-button">Empleado :</label>
+                			<input type="number" class="captura"  size=10 id="fid" name="fid" OnChange="actualizar();">
+    					</div>
+						<div class="input-box">
+							<label for="choices-multiple-remove-button">Empleado :</label>
                 			<select class='choices-multiple-remove-button' id="fcol" name="fcol" multiple OnChange="actualizar();">
 								 <?php echo $colaborador; ?>
                 			</select>
