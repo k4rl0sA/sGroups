@@ -140,7 +140,7 @@ function obtenerComponente($documento) {
 //Función para crear el menu 
 function obtenerMenu($usuario) {
   $conn = db_connect();
-  $stmt = $conn->prepare("SELECT m.id, m.link, m.icono, m.enlace, m.menu FROM adm_menu m JOIN adm_menuusuarios mu ON m.id=mu.idmenu JOIN usuarios u ON mu.perfil=u.perfil WHERE u.id_usuario = ? AND m.estado='A' AND u.estado='A' ORDER BY m.id ASC");
+  $stmt = $conn->prepare("SELECT m.id, m.link, m.icono, m.enlace, m.menu,m.contenedor FROM adm_menu m JOIN adm_menuusuarios mu ON m.id=mu.idmenu JOIN usuarios u ON mu.perfil=u.perfil WHERE u.id_usuario = ? AND m.estado='A' AND u.estado='A' ORDER BY m.id ASC");
   $stmt->bind_param("s", $usuario);
   $stmt->execute();
   $result = $stmt->get_result();
