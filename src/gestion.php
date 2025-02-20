@@ -138,7 +138,7 @@ function obtenerComponente($documento) {
   return exec_sql($sql, $params, $types, false);
 }
 //Función para crear el menu 
-function obtenerMenu($usuario) {
+/* function obtenerMenu($usuario) {
   $conn = db_connect();
   $stmt = $conn->prepare("SELECT m.id, m.link, m.icono, m.enlace, m.menu,m.contenedor FROM adm_menu m JOIN adm_menuusuarios mu ON m.id=mu.idmenu JOIN usuarios u ON mu.perfil=u.perfil WHERE u.id_usuario = ? AND m.estado='A' AND u.estado='A' ORDER BY m.id ASC");
   $stmt->bind_param("s", $usuario);
@@ -150,36 +150,33 @@ function obtenerMenu($usuario) {
   }
   return $menu;
 }
-
-/* function obtenerMenu($usuario) {
-  $sql = "SELECT m.id, m.link, m.icono, m.enlace, m.menu, m.contenedor 
-      FROM adm_menu m 
-      JOIN adm_menuusuarios mu ON m.id = mu.idmenu 
-      JOIN usuarios u ON mu.perfil = u.perfil 
-      WHERE u.id_usuario = ? AND m.estado = 'A' AND u.estado = 'A' 
-      ORDER BY m.id ASC";
-  $params = [['type' => 's', 'value' => $usuario]];
-  $result = mysql_prepd($sql, $params);
-  if ($result['status'] === 'error') {
-      log_error("Error al obtener el menú: " . $result['message']);
-      return [];
-  }
-  $menu = $result['responseResult'];
-  $menuOrganizado = [];
-  foreach ($menu as $item) {
-      if ($item['menu'] == 0) {
-          // Es un menú principal
-          $item['submenu'] = []; // Inicializar submenú vacío
-          $menuOrganizado[$item['id']] = $item;
-      } else {
-          // Es un submenú
-          if (isset($menuOrganizado[$item['menu']])) {
-              $menuOrganizado[$item['menu']]['submenu'][] = $item;
-          }
-      }
-  }
-  return array_values($menuOrganizado);
-} */
+ */
+function obtenerMenu($usuario) {
+$sql = "SELECT m.id, m.link, m.icono, m.enlace, m.menu, m.contenedor 
+        FROM adm_menu m 
+        JOIN adm_menuusuarios mu ON m.id = mu.idmenu 
+        JOIN usuarios u ON mu.perfil = u.perfil 
+        WHERE u.id_usuario = ? AND m.estado = 'A' AND u.estado = 'A' ORDER BY m.id ASC";
+    $params = [['type' => 's', 'value' => $usuario]];
+    $result = mysql_prepd($sql, $params);
+    if ($result['status'] === 'error') {
+        log_error("Error al obtener el menú: " . $result['message']);
+        return [];
+    }
+    $menu = $result['responseResult'] ?? [];
+    $menuOrganizado = [];
+    foreach ($menu as $item) {
+        if ($item['menu'] == 0) {
+            $item['submenu'] = [];
+            $menuOrganizado[$item['id']] = $item;
+        } else {
+            if (isset($menuOrganizado[$item['menu']])) {
+                $menuOrganizado[$item['menu']]['submenu'][] = $item;
+            }
+        }
+    }
+    return array_values($menuOrganizado);
+}
 //Funcion para crear elementos option de un desplegable no por BD
 function opc_arr($a = [], $b = "", $c = true) {
   $rta = "<option value='' class='alerta'>SELECCIONE</option>";
