@@ -133,9 +133,11 @@ function obtenerPerfil($documento) {
   return exec_sql($sql, $params, $types, false);
 }
 function obtenerComponente($documento) {
-  $sql = "SELECT FN_COMPONENTE(?)";
+  $sql = "SELECT componente
+        FROM usuarios
+        WHERE id_usuario = ? AND estado = 'A'";
   $params = [$documento];
-  $types = "s";
+  $types = "i";
   return exec_sql($sql, $params, $types, false);
 }
 //Función para crear el menu 
