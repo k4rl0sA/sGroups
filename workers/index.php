@@ -8,6 +8,8 @@ if (!isset($_SESSION['nombre'])) {
     exit();
 }
 require_once __DIR__.'/../src/gestion.php';
+echo ini_get('display_errors');
+echo ini_get('error_reporting');
 $mod='repDiar';
 
 $ya = new DateTime();
