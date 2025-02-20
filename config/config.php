@@ -62,4 +62,5 @@ ini_set('log_errors', '1');
 ini_set('error_log', ERROR_LOG_PATH ?: __DIR__ . '/../errors.log');
 // Otras configuraciones de la aplicación
 setlocale(LC_TIME, 'es_CO');
-date_default_timezone_set('America/Bogota');
+
+//date_default_timezone_set('America/Bogota');
