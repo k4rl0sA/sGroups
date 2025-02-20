@@ -80,7 +80,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
   }
   function cmp_repDiar(){
 	$rta="";
-	$t=['id_rep'=>'','fecha_report'=>'','cant_report'=>''];
+	$t=['id_usuario'=>'','fecha_report'=>'','cant_report'=>''];
 	$w='repDiar';
 	$uPd = $_REQUEST['id']=='0' ? true : false;
 	$d=get_repDiar(); 
@@ -88,7 +88,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 	if ($d=="") {$d=$t;}
 	$o='docder';
 	// var_dump($_POST);
-	$c[]=new cmp('id','h',100,$d['id_rep'],$w,'',0,'','','',false,'','col-1');
+	$c[]=new cmp('id','h',100,$d['id_usuario'],$w,'',0,'','','',false,'','col-1');
 	$c[]=new cmp('fec','d',10,$d['fecha_report'],$w.' '.$o,'Fecha Reporte','','','',true,$uPd,'','col-2',"validDate(this,-3,0);");
 	$c[]=new cmp('can','n',9,$d['cant_report'],$w.' '.$o,'Cantidad Registros','','','',true,true,'','col-2');
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
@@ -100,7 +100,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 			return "";
 		}else{
 			$id=divide($_POST['id']);
-			$sql="SELECT * FROM usuarios WHERE id_rep='".$id[0]."'";
+			$sql="SELECT * FROM usuarios WHERE id_usuario='".$id[0]."'";
 			$info=datos_mysql($sql);
 			return $info['responseResult'][0];		
 		} 
@@ -116,7 +116,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
                 ];
                 // $types = "sii"; 
 			}else{
-                $sql = "UPDATE usuarios SET cant_report = ? WHERE id_rep = ?";
+                $sql = "UPDATE usuarios SET cant_report = ? WHERE id_usuario = ?";
                 $params = [
                     ['type' => 'i', 'value' => $_POST['can']],
                     ['type' => 'i', 'value' => $id[0]]
