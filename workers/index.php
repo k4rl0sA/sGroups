@@ -4,15 +4,13 @@ if (!isset($_SESSION['nombre'])) {
     header('Location: ../index.php');
     exit();
 }
-// include __DIR__.'/../src/nav.php';
 require_once __DIR__.'/../src/gestion.php';
 $mod='repDiar';
-
 
 $ya = new DateTime();
 // $estados=opc_arr([['v' => 'SI', 'l' => 'SI'], ['v' => 'NO', 'l' => 'NO']],'NO');
 $usu=$_SESSION['documento'];
-$sql="SELECT id_usuario, nombre FROM `usuarios` WHERE (EXISTS (SELECT id_usuario, nombre FROM `usuarios`  WHERE  id_usuario =".$usu." AND perfil IN ('ADM') AND estado = 'A') OR id_usuario =".$usu.") and estado='A' ORDER BY 2";
+$sql="SELECT id_usuario, nombre FROM `usuarios` WHERE (EXISTS (SELECT id_usuario, nombre FROM `usuarios`  WHERE  id_usuario =".$usu." AND perfil IN (1) AND estado = 'A') OR id_usuario =".$usu.") and estado='A' ORDER BY 2";
 $colaborador=opc_sql($sql,$usu);
 // var_dump($colaborador);
 // var_dump($sql);

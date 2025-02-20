@@ -125,6 +125,7 @@ function rol($a) {
   }
   return $rta;
 }
+
 function obtenerPerfil($documento) {
   $sql = "SELECT perfil FROM `usuarios`  WHERE id_usuario = ?";
   $params = [$documento];
