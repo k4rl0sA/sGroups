@@ -6,7 +6,6 @@ if (!isset($_SESSION['nombre'])) {
 }
 require_once __DIR__.'/../src/gestion.php';
 $mod='repDiar';
-
 $ya = new DateTime();
 // $estados=opc_arr([['v' => 'SI', 'l' => 'SI'], ['v' => 'NO', 'l' => 'NO']],'NO');
 $usu=$_SESSION['documento'];
