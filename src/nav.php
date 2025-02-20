@@ -40,17 +40,17 @@ if (!isset($_SESSION['documento'])) {
             <ul class="menu-links">
                 <?php foreach ($menu as $item): ?>
                     <li class="nav-link" title="<?php echo htmlspecialchars($item['link']); ?>">
-                        <a href="<?php echo htmlspecialchars($item['enlace']); ?>" class="main-item <?php echo !empty($item['submenu']) ? 'has-submenu' : ''; ?>">
+                        <a href="<?php echo htmlspecialchars($item['enlace']); ?>" class="main-item <?php echo isset($item['submenu']) ? 'has-submenu' : ''; ?>">
                             <i class="<?php echo htmlspecialchars($item['icono']); ?> icon"></i>
                             <span class="text nav-text"><?php echo htmlspecialchars($item['link']); ?></span>
-                            <?php if (!empty($item['submenu'])): ?>
+                            <?php if (isset($item['submenu'])): ?>
                                 <i class="fa-solid fa-chevron-down submenu-arrow"></i>
                             <?php endif; ?>
                         </a>
-                        <?php if (!empty($item['submenu'])): ?>
+                        <?php if (isset($item['submenu'])): ?>
                             <ul class="sub-menu">
                                 <?php foreach ($item['submenu'] as $subitem): ?>
-                                    <li class="nav-link" title="<?php echo htmlspecialchars($subitem['link']); ?>">
+                                    <li class="nav-link" title="<?php echo htmlspecialchars($item['link']); ?>">
                                         <a href="<?php echo htmlspecialchars($subitem['enlace']); ?>">
                                             <i class="<?php echo htmlspecialchars($subitem['icono']); ?> icon"></i>
                                             <span class="text nav-text"><?php echo htmlspecialchars($subitem['link']); ?></span>
