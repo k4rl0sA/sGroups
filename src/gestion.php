@@ -289,6 +289,10 @@ function fil_where($filtros) {
               $where .= " AND 0"; // Condición siempre falsa para arrays vacíos
           }
       } elseif ($valor !== null && $valor !== "") {
+        if ($operador === 'like') {
+          // Si el operador es LIKE, agregamos los caracteres % al valor
+          $valor = "%$valor%";
+      }
           $where .= " AND $campo $operador ?";
           // Escapa el valor ANTES de agregarlo a $params
           $escaped_valor = limpiar_y_escapar_array($valor);
