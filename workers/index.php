@@ -70,14 +70,6 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 								 <?php echo $departamentos; ?>
                 			</select>
     					</div>
-						<div class="input-box">
-							<label for="fdes">Fecha Desde</label>
-    					    <input  type="date" class='captura' id="fdes" name="fdes" value='<?php echo $ayer; ?>' OnChange="actualizar();">
-    					</div>
-						<div class="input-box">
-						<label for="fhas">Fecha Hasta</label>
-    					    <input  type="date" class='captura' id="fhas" name="fhas" value='<?php echo $hoy; ?>' OnChange="actualizar();">
-    					</div>
 						<!-- <button  class="btn" OnClick="creaBtns('<?php /* echo $mod;  */?>');">Aplicar</button> -->
 					</div>
 					<div class='load'id='loader' z-index='0'></div>
