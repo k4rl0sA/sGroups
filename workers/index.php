@@ -1,4 +1,5 @@
 <?php
+ini_set('display_errors','1');
 require_once __DIR__ . '/../config/config.php';
 if (!isset($_SESSION['nombre'])) {
     header('Location: ../index.php');
