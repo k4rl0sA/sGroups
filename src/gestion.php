@@ -133,7 +133,7 @@ function obtenerPerfil($documento) {
   return exec_sql($sql, $params, $types, false);
 }
 function obtenerComponente($documento) {
-  $sql = "SELECT componente
+  $sql = "SELECT departamento
         FROM usuarios
         WHERE id_usuario = ? AND estado = 'A'";
   $params = [$documento];
