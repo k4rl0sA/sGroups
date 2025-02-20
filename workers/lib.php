@@ -54,7 +54,7 @@ function lis_repDiar() {
 	$sqltot="SELECT COUNT(*) total  FROM `usuarios` U WHERE " . $where;
     $total = obtener_total_registros($sqltot,$params, $types);
     $sql = "SELECT U.`id_usuario` AS ACCIONES, U.id_usuario AS Documento,nombre,CTLG(1,departamento) AS Departamento, 
-    ciudad,perfil,U.`n_contacto` AS Telefono, CTLG(3,eps) AS EPS, U.arl AS ARL, 
+    CTLG(2,ciudad) Ciudad,CTLG(3,perfil) Perfil,U.`n_contacto` AS Telefono, CTLG(4,eps) AS EPS, CTLG(5,U.arl) AS ARL, 
     U.correo AS Correo,estado  
  FROM `usuarios` U ";
 $where.=" GROUP BY U.Departamento,U.nombre";
