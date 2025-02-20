@@ -138,7 +138,7 @@ function obtenerComponente($documento) {
   return exec_sql($sql, $params, $types, false);
 }
 //Función para crear el menu 
-function obtenerMenu($usuario) {
+/* function obtenerMenu($usuario) {
   $conn = db_connect();
   $stmt = $conn->prepare("SELECT m.id, m.link, m.icono, m.enlace, m.menu,m.contenedor FROM adm_menu m JOIN adm_menuusuarios mu ON m.id=mu.idmenu JOIN usuarios u ON mu.perfil=u.perfil WHERE u.id_usuario = ? AND m.estado='A' AND u.estado='A' ORDER BY m.id ASC");
   $stmt->bind_param("s", $usuario);
@@ -149,9 +149,36 @@ function obtenerMenu($usuario) {
       $menu[] = $row;
   }
   return $menu;
+} */
+function obtenerMenu($usuario) {
+  $conn = db_connect();
+  $stmt = $conn->prepare("SELECT m.id, m.link, m.icono, m.enlace, m.menu, m.contenedor FROM adm_menu m 
+                          JOIN adm_menuusuarios mu ON m.id = mu.idmenu 
+                          JOIN usuarios u ON mu.perfil = u.perfil 
+                          WHERE u.id_usuario = ? AND m.estado = 'A' AND u.estado = 'A' ORDER BY m.id ASC");
+  $stmt->bind_param("s", $usuario);
+  $stmt->execute();
+  $result = $stmt->get_result();
+  $menu = [];
+  while ($row = $result->fetch_assoc()) {
+      $menu[] = $row;
+  }
+  return construirMenuJerarquico($menu);
 }
- 
-//Funcion para crear elementos option de un desplegable no por BD
+function construirMenuJerarquico($menuItems, $menuPadre = 0) {
+  $menu = [];
+  foreach ($menuItems as $item) {
+      if ($item['menu'] == $menuPadre) {
+          $submenu = construirMenuJerarquico($menuItems, $item['id']);
+          if ($submenu) {
+              $item['submenu'] = $submenu;
+          }
+          $menu[] = $item;
+      }
+  }
+  return $menu;
+}
+//Funcion para crear elementos option de un desplegable no por BD0
 function opc_arr($a = [], $b = "", $c = true) {
   $rta = "<option value='' class='alerta'>SELECCIONE</option>";
   if (!empty($a)) { // Usar !empty() para verificar si el array no está vacío
