@@ -493,8 +493,8 @@ try {
   return $arr;
 } catch (mysqli_sql_exception $e) {
   $code=$e->getCode();
-  $error_message = "Error $code : $e->getMessage()";
-  log_error($error_message); // Log del error
+  $msj=$e->getMessage();
+  log_error($"Error $code : $msj"); // Log del error
   $response['status'] = 'error';
   $response['message'] = "Error ".$e->getCode() ." en la consulta. Por favor, contacte al administrador del sistema. (Error interno: Desajuste de parámetros en Mysql)"; 
   // die(json_encode(['code' => 30, 'message' => 'Error BD', 'errors' => ['code' => $e->getCode(), 'message' => $e->getMessage()]]));
