@@ -53,9 +53,11 @@ function lis_repDiar() {
     $tabla = "usuarios";
 	$sqltot="SELECT COUNT(*) total  FROM `usuarios` U WHERE " . $where;
     $total = obtener_total_registros($sqltot,$params, $types);
-    $sql = "SELECT U.`id_rep` AS ACCIONES, U.id_rep AS Cod_Registro, U.`fecha_report` AS Fecha_Reporte, U.`cant_report` AS Registros_Reportados, COUNT(N.idrep) AS Registros_Digitados, U.`nombre` AS Colaborador, U.`fecha_create` AS Fecha_Creacion 
- FROM `usuarios` R ";
-$where.=" GROUP BY U.id_rep, U.fecha_report, U.cant_report, U.nombre, U.fecha_create";
+    $sql = "SELECT U.`id_usuario` AS ACCIONES, U.id_usuario AS Documento,nombre,CTLG(1,departamento) AS Departamento, 
+    ciudad,perfil,U.`n_contacto` AS Telefono, CTLG(3,eps) AS EPS, U.arl AS ARL, 
+    U.correo AS Correo,estado  
+ FROM `usuarios` U ";
+$where.=" GROUP BY U.Departamento,U.nombre";
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
 	// show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
      if ($datos === []) return no_reg();
