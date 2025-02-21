@@ -89,8 +89,15 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 	$o='docder';
 	// var_dump($_POST);
 	$c[]=new cmp('id','h',100,$d['id_usuario'],$w,'',0,'','','',false,'','col-1');
-	$c[]=new cmp('fec','d',10,$d['fecha_report'],$w.' '.$o,'Fecha Reporte','','','',true,$uPd,'','col-2',"validDate(this,-3,0);");
-	$c[]=new cmp('can','n',9,$d['cant_report'],$w.' '.$o,'Cantidad Registros','','','',true,true,'','col-2');
+    $c[]=new cmp('nom','t',100,$d['Nnombre'],$w.' '.$o,'Cantidad Registros','','','',true,true,'','col-2');
+    $c[]=new cmp('dep','s',3,$d['departamento'],$w.' '.$o,'Departamento','','','',true,true,'','col-2');
+    $c[]=new cmp('ciu','s',3,$d['ciudad'],$w.' '.$o,'Ciudad','','','',true,true,'','col-2');
+    $c[]=new cmp('per','s',3,$d['perfil'],$w.' '.$o,'Perfil','','','',true,true,'','col-2');
+    $c[]=new cmp('tel','n',10,$d['telefono'],$w.' '.$o,'Telefono','','','',true,true,'','col-2');
+
+	$c[]=new cmp('eps','s',3,$d['eps'],$w.' '.$o,'EPS','','','',true,true,'','col-2',"validDate(this,-3,0);");
+	$c[]=new cmp('arl','s',3,$d['arl'],$w.' '.$o,'ARL','','','',true,true,'','col-2');
+    $c[]=new cmp('cor','t',50,$d['correo'],$w.' '.$o,'Correo','','','',true,true,'','col-2');
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	$rta.="</div>";
 	return $rta;
