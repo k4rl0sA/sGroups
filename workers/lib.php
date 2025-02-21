@@ -80,7 +80,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
   }
   function cmp_repDiar(){
 	$rta="";
-	$t=['id_usuario'=>'','fecha_report'=>'','cant_report'=>''];
+	$t=['id_usuario'=>'','nombre'=>'','departamento'=>'','ciudad'=>'','perfil'=>'','n_contacto'=>'','eps'=>'','arl'=>'','correo'=>'','estado'=>''];
 	$w='repDiar';
 	$uPd = $_REQUEST['id']=='0' ? true : false;
 	$d=get_repDiar(); 
