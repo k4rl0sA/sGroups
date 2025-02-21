@@ -107,7 +107,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 			return "";
 		}else{
 			$id=divide($_POST['id']);
-			$sql="SELECT * FROM usuarios WHERE id_usuario='".$id[0]."'";
+			$sql="SELECT id_usuario,nombre,departamento,ciudad,perfil,n_contacto telefono,eps,arl,correo,estado  FROM usuarios WHERE id_usuario='".$id[0]."'";
 			$info=datos_mysql($sql);
 			return $info['responseResult'][0];		
 		} 
