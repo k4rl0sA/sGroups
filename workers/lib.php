@@ -89,7 +89,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 	$o='docder';
 	// var_dump($_POST);
 	$c[]=new cmp('id','h',100,$d['id_usuario'],$w,'',0,'','','',false,'','col-1');
-    $c[]=new cmp('nom','t',100,$d['Nnombre'],$w.' '.$o,'Cantidad Registros','','','',true,true,'','col-2');
+    $c[]=new cmp('nom','t',100,$d['nombre'],$w.' '.$o,'Cantidad Registros','','','',true,true,'','col-2');
     $c[]=new cmp('dep','s',3,$d['departamento'],$w.' '.$o,'Departamento','','','',true,true,'','col-2');
     $c[]=new cmp('ciu','s',3,$d['ciudad'],$w.' '.$o,'Ciudad','','','',true,true,'','col-2');
     $c[]=new cmp('per','s',3,$d['perfil'],$w.' '.$o,'Perfil','','','',true,true,'','col-2');
