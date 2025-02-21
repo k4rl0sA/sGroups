@@ -143,6 +143,9 @@ $where.=" GROUP BY U.Departamento,U.nombre";
     function opc_ciudad($id=''){
     return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=2 and estado="A" ORDER BY 1',$id);
     }
+    function opc_departamento($id=''){
+        return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado="A" ORDER BY 1',$id);
+    }
     function opc_perfil($id=''){
         return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=3 and estado="A" ORDER BY 1',$id);
     }
