@@ -99,12 +99,10 @@ body.dark {
 .sidebar.close {
     width: 50px;
 }
-.sidebar.close .name,
-.sidebar.close .profession {
+.sidebar.close .header-text {
     visibility: hidden;
 }
-.sidebar:not(.close) .name,
-.sidebar:not(.close) .profession {
+.sidebar:not(.close) .header-text {
     visibility: visible;
 }
 #dynmc-img {
