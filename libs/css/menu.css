@@ -100,10 +100,10 @@ body.dark {
     width: 50px;
 }
 .sidebar.close .header-text {
-    visibility: hidden;
+    display: none;
 }
 .sidebar:not(.close) .header-text {
-    visibility: visible;
+    display: inline;
 }
 #dynmc-img {
     display: block;
