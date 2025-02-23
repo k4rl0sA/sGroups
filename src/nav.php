@@ -12,7 +12,7 @@ if (!isset($_SESSION['documento'])) {
     <header>
         <div class="image-text">
             <span class="image">
-            <a href="../Inicio"><img src="../libs/img/Logo.png" alt="logo"></a>
+            <a href="../Inicio"><img id='dynmc-img' src="../libs/img/Logo.png" alt="logo"></a>
             </span>
             <div class="text header-text">
                 <!-- <span class="name">

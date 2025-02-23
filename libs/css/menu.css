@@ -100,6 +100,20 @@ body.dark {
     width: 50px;
 }
 
+#dynmc-img {
+    display: block;
+    width: 250px;
+    /* height: 50px; */
+}
+
+.sidebar.close #dynamic-image {
+    content: url('../libs/img/Logo1.png');
+}
+
+.sidebar:not(.close) #dynamic-image {
+    content: url('../libs/img/Logo.png');
+}
+
 .sidebar .text {
     font-size: var(--font-size-menu);
     font-weight: 500;
@@ -155,10 +169,10 @@ body.dark {
     position: relative;
 }
 
-.sidebar .image-text img {
+/* .sidebar .image-text img {
     width: 250px;
     border-radius: 6px;
-}
+} */
 
 .sidebar header .image-text {
     display: flex;
