@@ -88,7 +88,8 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 	if ($d=="") {$d=$t;}
 	$o='docder';
 	// var_dump($_POST);
-	$c[]=new cmp('id','h',100,$d['id_usuario'],$w,'',0,'','','',false,'','col-1');
+	$c[]=new cmp('id','h',100,$d['id'],$w,'',0,'','','',false,'','col-1');
+    $c[]=new cmp('doc','n',10,$d['id_usuario'],$w.' '.$o,'Numero de Documento','doc','','',true,true,'','col-2');
     $c[]=new cmp('nom','t',100,$d['nombre'],$w.' '.$o,'Nombres','nombre','','',true,true,'','col-2');
     $c[]=new cmp('dep','s',3,$d['departamento'],$w.' '.$o,'Departamento','departamento','','',true,true,'','col-2');
     $c[]=new cmp('ciu','s',3,$d['ciudad'],$w.' '.$o,'Ciudad','ciudad','','',true,true,'','col-2');
