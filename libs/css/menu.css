@@ -102,15 +102,15 @@ body.dark {
 
 #dynmc-img {
     display: block;
-    width: 250px;
+    width: 50px;
     /* height: 50px; */
 }
 
-.sidebar.close #dynamic-image {
+.sidebar.close #dynmc-img {
     content: url('../libs/img/Logo1.png');
 }
 
-.sidebar:not(.close) #dynamic-image {
+.sidebar:not(.close) #dynmc-img {
     content: url('../libs/img/Logo.png');
 }
 
