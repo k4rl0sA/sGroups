@@ -103,7 +103,7 @@ body.dark {
     display: none;
 }
 .sidebar:not(.close) .header-text {
-    display: inline;
+    display: none;
 }
 #dynmc-img {
     display: block;
