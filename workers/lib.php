@@ -162,7 +162,7 @@ function formato_dato($a,$b,$c,$d){
 	$rta=$c[$d];
 	if (($a=='employee') && ($b=='acciones')){
 		   $rta="<nav class='menu right'>";
-		   $rta.="<li class='fa-solid fa-pen-to-square icon' title='Editar Empleados' id='".$c['ACCIONES']."' Onclick=\"mostrar('employee','pro',event,'','lib.php',4);\"></li>";
+		   $rta.="<li class='fa-solid fa-pen-to-square icon' title='Editar Empleados' id='".$c['ACCIONES']."' Onclick=\"mostrar('employee','pro',event,'','lib.php',4,'Funcionarios');\"></li>";
            /* $rta.="<li class='fa-solid fa-triangle-exclamation icon' title='Hallazgos' id='".$c['ACCIONES']."' Onclick=\"mostrar('hallaz','pro',event,'','hallazgos.php',4,'Hallazgos');\"></li>"; */
 		   $rta.="</nav>";
 	   }    
