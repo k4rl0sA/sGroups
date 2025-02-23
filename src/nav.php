@@ -15,11 +15,8 @@ if (!isset($_SESSION['documento'])) {
             <a href="../Inicio"><img id='dynmc-img' src="../libs/img/Logo1.png" alt="logo"></a>
             </span>
             <div class="text header-text">
-                <!-- <span class="name">
-                    <?php 
-                    // echo APP; 
-                    ?></span>
-                <span class="profession">S&S</span> -->
+                <span class="name"><?php echo APP; ?></span>
+                <span class="profession">S&S</span>
             </div>
         </div>
         <i class="fa-solid fa-angle-right toggle"></i>
