@@ -107,11 +107,11 @@ body.dark {
 }
 
 .sidebar.close #dynmc-img {
-    content: url('../libs/img/Logo1.png');
+    content: url('../img/Logo1.png');
 }
 
 .sidebar:not(.close) #dynmc-img {
-    content: url('../libs/img/Logo.png');
+    content: url('../img/Logo.png');
 }
 
 .sidebar .text {
