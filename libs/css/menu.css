@@ -99,19 +99,26 @@ body.dark {
 .sidebar.close {
     width: 50px;
 }
-
+.sidebar.close .name,
+.sidebar.close .profession {
+    visibility: hidden;
+}
+.sidebar:not(.close) .name,
+.sidebar:not(.close) .profession {
+    visibility: visible;
+}
 #dynmc-img {
     display: block;
-    width: 50px;
-    /* height: 50px; */
 }
 
 .sidebar.close #dynmc-img {
     content: url('../img/Logo1.png');
+    width: 50px;
 }
 
 .sidebar:not(.close) #dynmc-img {
     content: url('../img/Logo.png');
+    width: 250px;
 }
 
 .sidebar .text {
