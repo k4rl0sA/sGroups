@@ -97,7 +97,7 @@ body.dark {
 }
 
 .sidebar.close {
-    width: 50px;
+    width: 3rem;
 }
 .sidebar.close .header-text {
     display: none;
@@ -111,12 +111,12 @@ body.dark {
 
 .sidebar.close #dynmc-img {
     content: url('../img/Logo1.png');
-    width: 50px;
+    width: 3rem;
 }
 
 .sidebar:not(.close) #dynmc-img {
     content: url('../img/Logo.png');
-    width: 250px;
+    width: 15rem;
 }
 
 .sidebar .text {
