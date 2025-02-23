@@ -36,7 +36,7 @@ try {
     echo json_encode(['error' => 'Error interno del servidor']);
 }
 
-function whe_repDiar() {
+function whe_employee() {
     $filtros = [];
     if (!empty($_POST['fdep'])) {
         $filtros[] = ['campo' => 'U.departamento', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fdep'])), 'operador' => 'IN'];
@@ -46,10 +46,10 @@ function whe_repDiar() {
     }
     return fil_where($filtros);
 }
-function lis_repDiar() {
+function lis_employee() {
     $regxPag = 15;
-    $pag = si_noexiste('pag-repDiar', 1);
-    $offset = ($pag - 1) * $regxPag;$filter = whe_repDiar();$where = $filter['where'];$params = $filter['params'];$types = $filter['types'];
+    $pag = si_noexiste('pag-employee', 1);
+    $offset = ($pag - 1) * $regxPag;$filter = whe_employee();$where = $filter['where'];$params = $filter['params'];$types = $filter['types'];
     $tabla = "usuarios";
 	$sqltot="SELECT COUNT(*) total  FROM `usuarios` U WHERE " . $where;
     $total = obtener_total_registros($sqltot,$params, $types);
@@ -61,13 +61,13 @@ $where.=" GROUP BY U.Departamento,U.nombre";
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
 	// show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
      if ($datos === []) return no_reg();
-    return create_table($total, $datos, "repDiar", $regxPag, "lib.php");
+    return create_table($total, $datos, "employee", $regxPag, "lib.php");
 }
- function focus_repDiar(){
-	return 'repDiar';
+ function focus_employee(){
+	return 'employee';
    }
-   function men_repDiar(){
-	$rta=cap_menus('repDiar','pro');
+   function men_employee(){
+	$rta=cap_menus('employee','pro');
 	return $rta;
    }
    function cap_menus($a,$b='cap',$con='con') {
@@ -78,12 +78,12 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 	$rta .= "<li class='icono $a actualizar'  title='Actualizar'      Onclick=\"act_lista('".$a."',this);\"></li>"; */
 	return $rta;
   }
-  function cmp_repDiar(){
+  function cmp_employee(){
 	$rta="";
 	$t=['id'=>'','id_usuario'=>'','nombre'=>'','departamento'=>'','ciudad'=>'','perfil'=>'','n_contacto'=>'','eps'=>'','arl'=>'','correo'=>'','estado'=>''];
-	$w='repDiar';
+	$w='employee';
 	$uPd = $_REQUEST['id']=='0' ? true : false;
-	$d=get_repDiar(); 
+	$d=get_employee(); 
 	// print_r($d);
 	if ($d=="") {$d=$t;}
 	$o='docder';
@@ -103,7 +103,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 	$rta.="</div>";
 	return $rta;
 	}
-    function get_repDiar(){
+    function get_employee(){
 		if($_POST['id']=='0'){
 			return "";
 		}else{
@@ -113,7 +113,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 			return $info['responseResult'][0];		
 		} 
 	}
-    function gra_repDiar(){
+    function gra_employee(){
 		$id=divide($_POST['id']);
 			if (empty($id[0])) { //verifica si el id no esta vacio para realizar un update o un insert
                 $sql = "INSERT INTO usuarios VALUES(NULL,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,'A')";
@@ -160,9 +160,9 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 function formato_dato($a,$b,$c,$d){
 	$b=strtolower($b);
 	$rta=$c[$d];
-	if (($a=='repDiar') && ($b=='acciones')){
+	if (($a=='employee') && ($b=='acciones')){
 		   $rta="<nav class='menu right'>";
-		   $rta.="<li class='fa-solid fa-pen-to-square icon' title='Editar Empleados' id='".$c['ACCIONES']."' Onclick=\"mostrar('repDiar','pro',event,'','lib.php',4);\"></li>";
+		   $rta.="<li class='fa-solid fa-pen-to-square icon' title='Editar Empleados' id='".$c['ACCIONES']."' Onclick=\"mostrar('employee','pro',event,'','lib.php',4);\"></li>";
            /* $rta.="<li class='fa-solid fa-triangle-exclamation icon' title='Hallazgos' id='".$c['ACCIONES']."' Onclick=\"mostrar('hallaz','pro',event,'','hallazgos.php',4,'Hallazgos');\"></li>"; */
 		   $rta.="</nav>";
 	   }    
