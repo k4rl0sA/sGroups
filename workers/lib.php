@@ -47,7 +47,7 @@ function whe_employee() {
     return fil_where($filtros);
 }
 function tot_employee() {
-    $sql = "SELECT count(id_usuario) AS Total_Reportados where ";
+    $sql = "SELECT count(*) AS Total_Reportados where ";
     $filter = whe_employee();
     $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types'];
     $result = exec_sql($sql);
