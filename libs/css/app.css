@@ -174,16 +174,6 @@
       background: var(--body-color);
    }
       /********CHECKBOX*******/
-      .header button {
-        background-color: #2E8acb;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-right: 10px;
-    }
-    
         .buttons {
             display: flex;
             justify-content: space-between;
@@ -201,6 +191,31 @@
             cursor: pointer;
             transition: background-color 0.3s ease-in-out;
         }
+
+        .header {
+          display: flex;
+          align-items: center;
+          gap: 15px; /* Espacio entre botones y totals */
+          padding: 10px;
+          background-color: #f8f9fa;
+          border-radius: 8px;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          flex-wrap: wrap; /* Permite que los elementos se envuelvan en móviles */
+      }
+      
+      .header button {
+          background-color: var(--btn-color);
+          color: white;
+          border: none;
+          padding: 10px;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+      }
+      
+      .header button:hover {
+          background-color: #45a049;
+      }
 
         button.choices__button {
             padding: initial;
@@ -325,6 +340,20 @@
             .steps {
                 display: none;
             }
+            .header {
+              flex-direction: column; /* Cambia a disposición vertical */
+              align-items: flex-start; /* Alinea los elementos a la izquierda */
+              gap: 10px; /* Reduce el espacio entre elementos */
+          }
+      
+          .totals {
+              flex-direction: column; /* Cambia a disposición vertical */
+              width: 100%; /* Ocupa todo el ancho disponible */
+          }
+      
+          .metric-box {
+              width: 100%; /* Ocupa todo el ancho disponible */
+          }
         }
 
 
