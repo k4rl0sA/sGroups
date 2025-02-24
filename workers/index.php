@@ -52,6 +52,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 			padding-right: 15px;
 			padding-left: 15px;
 			font-size: 20px;
+			margin: 0 0 10px;
 		}
 		.box-title{
 			margin: 0 0 10px;
