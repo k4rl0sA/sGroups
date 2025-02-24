@@ -25,8 +25,8 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title> Empleados || <?php echo APP; ?></title>
-                    <link href="../libs/css/menu.css?v=13.0" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="../libs/css/app.css?v=8.0">
+                    <link href="../libs/css/menu.css?v=14.0" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="../libs/css/app.css?v=9.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 	<script src="../libs/js/main.js?v=1.0"></script>
 	<link rel="stylesheet" href="../libs/css/choices.min.css?v=2.0">
@@ -42,30 +42,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 	</script>
     <?php include __DIR__.'/../src/nav.php'; ?>
 	<style>
-		.header {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Espacio entre botones y totals */
-    padding: 10px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    flex-wrap: wrap; /* Permite que los elementos se envuelvan en móviles */
-}
-
-.header button {
-    background-color:var(--btn-color);
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.header button:hover {
-    background-color: var(--btn-color-hover);
-}
+	
 
 .totals {
     display: flex;

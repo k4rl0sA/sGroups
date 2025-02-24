@@ -174,15 +174,43 @@
       background: var(--body-color);
    }
       /********CHECKBOX*******/
-      .header button {
+      .header {
+        display: flex;
+        align-items: center;
+        gap: 15px; /* Espacio entre botones y totals */
+        padding: 10px;
+        background-color:var(--body-color);
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        flex-wrap: wrap; /* Permite que los elementos se envuelvan en móviles */
+    }
+    
+    .header button {
+        background-color:var(--btn-color);
+        color: var(--btn-txt-color);
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    .header button:hover {
+        background-color: var(--btn-color-hover);
+    }
+
+    button:hover {
+      background-color: #0056b3;
+  }
+   /*    .header button {
         background-color: #2E8acb;
-        color: white;
+        color: var(--btn-txt-color);
         border: none;
         padding: 10px 20px;
         border-radius: 4px;
         cursor: pointer;
         margin-right: 10px;
-    }
+    } */
     
         .buttons {
             display: flex;
@@ -197,7 +225,7 @@
             border: none;
             border-radius: .5rem;
             background-color: #007bff;
-            color: white;
+            color: var(--btn-txt-color);
             cursor: pointer;
             transition: background-color 0.3s ease-in-out;
         }
@@ -206,9 +234,7 @@
             padding: initial;
         }
         
-        button:hover {
-            background-color: #0056b3;
-        }
+       
 
         .btn {
             display: inline-block;
