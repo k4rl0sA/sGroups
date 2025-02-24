@@ -47,11 +47,11 @@ function whe_employee() {
     return fil_where($filtros);
 }
 function tot_employee() {
-    $sql = "SELECT count(*) AS Total_Reportados where ";
+    $sql = "SELECT count(*) AS Total where ";
     $filter = whe_employee();
     $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types'];
     $result = exec_sql($sql);
-    return $result ? $result[0] : 'Total_Reportados ='. $result[0];
+    return $result ? $result[0] : 'Total_Reportados ='. $result[0]['Total'];
     /* $sql = "SELECT SUM(R.cant_report) AS Total_Reportados 
     FROM `repor_diario` R LEFT JOIN `usuarios` U ON R.usu_create = U.id_usuario where ";
     $filter = whe_employee();
