@@ -82,6 +82,8 @@ body.dark {
     --dt-borde-col: var(--color-icons);
     --dt-bg-act-btn: var(--highlight-color);
     --dt-text-col-btn: var(--body-color);
+    --dt-tr-par-color:#4e4e4e;
+    --dt-tr-imp-color:#272626;
     --backgr-color-head: var(--sidebar-color);
     --dt-hover-cel-col: var(--highlight-color);
     --dt-separa-row-color: var(--body-color);
