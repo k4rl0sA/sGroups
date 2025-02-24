@@ -417,7 +417,7 @@
             width: 90%;
             padding: 15px 20px;
             border-radius: 5px;
-            overflow: hidden;
+            overflow: visible;
             background: var(--primary-color-light);
             box-shadow: 0px 5px 15px rgba(0,0,0,0.1);
           }
