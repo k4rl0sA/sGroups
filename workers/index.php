@@ -49,6 +49,10 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 			margin-bottom: 23px;
 			font-family: 'Roboto', sans-serif;
 		}
+		.box-title{
+			margin: 0 0 10px;
+			font-weight: 700;
+		}
 </style>
 </head>
 <body Onload="actualizar();">
