@@ -326,18 +326,18 @@
                 display: none;
             }
             .header {
-              flex-direction: column; /* Cambia a disposición vertical */
-              align-items: flex-start; /* Alinea los elementos a la izquierda */
-              gap: 10px; /* Reduce el espacio entre elementos */
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 10px;
           }
       
           .totals {
-              flex-direction: column; /* Cambia a disposición vertical */
-              width: 100%; /* Ocupa todo el ancho disponible */
+              flex-direction: column;
+              width: 100%;
           }
       
           .metric-box {
-              width: 100%; /* Ocupa todo el ancho disponible */
+              width: 100%;
           }
         }
 

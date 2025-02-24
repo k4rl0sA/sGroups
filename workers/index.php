@@ -42,7 +42,30 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 	</script>
     <?php include __DIR__.'/../src/nav.php'; ?>
 	<style>
-		
+		.header {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espacio entre botones y totals */
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en móviles */
+}
+
+.header button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.header button:hover {
+    background-color: #45a049;
+}
 
 .totals {
     display: flex;
