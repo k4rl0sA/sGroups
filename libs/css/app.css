@@ -464,6 +464,7 @@
           #filtros:checked ~ nav label.filtros,
           #datos:checked ~ nav label.datos{
             color: var(--color-icons);
+            background-color: var(--secundary-color);
           }
           nav label i{
             padding-right: 7px;
@@ -1065,7 +1066,7 @@ tr:hover {
   font-weight: normal; 
 }
 td.resumen {
-  background-color: var(--primary-color);
+  background-color: var(--secundary-color);
   border-top: solid 0.0825em var(--dt-borde-col);
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;

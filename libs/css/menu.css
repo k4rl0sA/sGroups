@@ -39,9 +39,11 @@
     --dt-borde-col: var(--text-color);
     --dt-bg-act-btn: var(--highlight-color);
     --dt-text-col-btn: var(--body-color);
-    --backgr-color-head: var(--sidebar-color);
     --dt-hover-cel-col: var(--highlight-color);
     --dt-separa-row-color: var(--text-color);
+    --dt-tr-par-color:#f9f9f9;
+    --dt-tr-imp-color:#f2f2f2;
+    --backgr-color-head: var(--sidebar-color);
     --highlight-color: #c4e7ff;
     --dt-status-A-color: greenyellow;
     --dt-status-P-color: lightsalmon;
