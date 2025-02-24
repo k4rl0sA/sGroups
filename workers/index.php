@@ -117,21 +117,25 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     					    <div class="metric-box">
     					        <div class="icon"><i class="fas fa-users"></i></div>
     					        <h3>Total Visit</h3>
+								<i class="fa fa-level-up" aria-hidden="true"></i>
     					        <div class="value">1500</div>
     					    </div>
     					    <div class="metric-box">
     					        <div class="icon"><i class="fas fa-eye"></i></div>
     					        <h3>Page Views</h3>
+								<i class="fa fa-level-up" aria-hidden="true"></i>
     					        <div class="value">4500</div>
     					    </div>
     					    <div class="metric-box">
     					        <div class="icon"><i class="fas fa-user-plus"></i></div>
     					        <h3>Unique Visitor</h3>
+								<i class="fa fa-level-up" aria-hidden="true"></i>
     					        <div class="value">1200</div>
     					    </div>
     					    <div class="metric-box">
     					        <div class="icon"><i class="fas fa-chart-line"></i></div>
     					        <h3>Bounce Rate</h3>
+								<i class="fa fa-level-up" aria-hidden="true"></i>
     					        <div class="value">18%</div>
     					    </div>
     					</div>
