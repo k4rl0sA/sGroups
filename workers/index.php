@@ -81,6 +81,8 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
         			</div>
 					<div class='panel' id='<?php echo $mod; ?>'>
 						<span class='mensaje' id='<?php echo $mod; ?>-msj'></span>
+						<div class='contenido total' style="background: #001f7f; color: white; padding: 10px; margin-top: 10px; border-radius: 5px;">
+        <h3 style="margin: 0;" id='<?php echo $mod; ?>-tot'>Resumen Total</h3></div>
 						<div class='contenido' id='<?php echo $mod; ?>-lis'></div>
 					</div>
 				</div>

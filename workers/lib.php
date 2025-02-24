@@ -46,10 +46,23 @@ function whe_employee() {
     }
     return fil_where($filtros);
 }
+function tot_employee() {
+    $sql = "SELECT 
+                SUM(Registros_Reportados) AS Total_Reportados, 
+                SUM(Registros_Digitados) AS Total_Digitados 
+            FROM tu_tabla";
+    $filter = whe_employee();
+    $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types'];
+    $where.=" GROUP BY U.Departamento,U.nombre";    
+    $result = exec_sql($sql);
+    return $result ? $result[0] : ['Total_Reportados' => 0, 'Total_Digitados' => 0];
+}
+
 function lis_employee() {
     $regxPag = 15;
     $pag = si_noexiste('pag-employee', 1);
-    $offset = ($pag - 1) * $regxPag;$filter = whe_employee();$where = $filter['where'];$params = $filter['params'];$types = $filter['types'];
+    $offset = ($pag - 1) * $regxPag;$filter = whe_employee();
+    $where = $filter['where'];$params = $filter['params'];$types = $filter['types'];
     $tabla = "usuarios";
 	$sqltot="SELECT COUNT(*) total  FROM `usuarios` U WHERE " . $where;
     $total = obtener_total_registros($sqltot,$params, $types);
@@ -95,7 +108,6 @@ $where.=" GROUP BY U.Departamento,U.nombre";
     $c[]=new cmp('ciu','s',3,$d['ciudad'],$w.' '.$o,'Ciudad','ciudad','','',true,true,'','col-2');
     $c[]=new cmp('per','s',3,$d['perfil'],$w.' '.$o,'Perfil','perfil','','',true,true,'','col-2');
     $c[]=new cmp('tel','n',9999999999,$d['telefono'],$w.' '.$o,'Telefono','telefono','','',true,true,'','col-2');
-
 	$c[]=new cmp('eps','s',3,$d['eps'],$w.' '.$o,'EPS','eps','','',true,true,'','col-2',"validDate(this,-3,0);");
 	$c[]=new cmp('arl','s',3,$d['arl'],$w.' '.$o,'ARL','arl','','',true,true,'','col-2');
     $c[]=new cmp('cor','t',50,$d['correo'],$w.' '.$o,'Correo','correo','','',true,true,'','col-2');
@@ -115,16 +127,31 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 	}
     function gra_employee(){
 		$id=divide($_POST['id']);
-			if (empty($id[0])) { //verifica si el id no esta vacio para realizar un update o un insert
+			if (empty($id[0])) {
                 $sql = "INSERT INTO usuarios VALUES(NULL,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,'A')";
                 $params = [
-                    ['type' => 's', 'value' => $_POST['fec']],
-                    ['type' => 'i', 'value' => $_POST['can']],
-                    ['type' => 'i', 'value' => $_SESSION['documento']]
+                    ['type' => 's', 'value' => $_POST['id']],
+                    ['type' => 's', 'value' => $_POST['id_usuario']],
+                    ['type' => 's', 'value' => $_POST['nombre']],
+                    ['type' => 's', 'value' => $_POST['departamento']],
+                    ['type' => 's', 'value' => $_POST['ciudad']],
+                    ['type' => 's', 'value' => $_POST['perfil']],
+                    ['type' => 's', 'value' => $_POST['n_contacto']],
+                    ['type' => 's', 'value' => $_POST['eps']],
+                    ['type' => 's', 'value' => $_POST['arl']],
+                    ['type' => 's', 'value' => $_POST['correo']],
+                    ['type' => 's', 'value' => $_POST['clave']],
+                    ['type' => 's', 'value' => $_POST['token']],
+                    ['type' => 's', 'value' => $_POST['exp_tkn']],
+                    ['type' => 's', 'value' => $_POST['usu_create']],
+                    ['type' => 's', 'value' => $_POST['fecha_create']],
+                    ['type' => 's', 'value' => $_POST['usu_update']],
+                    ['type' => 's', 'value' => $_POST['fecha_update']],
+                    ['type' => 's', 'value' => $_POST['estado']]
                 ];
                 // $types = "sii"; 
 			}else{
-                $sql = "UPDATE usuarios SET cant_report = ? WHERE id_usuario = ?";
+                $sql = "UPDATE usuarios SET id_usuario = ?,id_usuario = ?,nombre = ? WHERE id = ?";
                 $params = [
                     ['type' => 'i', 'value' => $_POST['can']],
                     ['type' => 'i', 'value' => $id[0]]
