@@ -51,6 +51,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 			font-family: 'Roboto', sans-serif;
 			padding-right: 15px;
 			padding-left: 15px;
+			font-size: 20px;
 		}
 		.box-title{
 			margin: 0 0 10px;
