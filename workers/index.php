@@ -62,6 +62,12 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     		margin-left: -5px;
     		list-style: none;
 		}
+		ul.two-part-sp li {
+    		display: inline-block;
+    		width: 49%;
+    		font-size: 20px;
+    		font-weight: 700;
+		}
 </style>
 </head>
 <body Onload="actualizar();">
