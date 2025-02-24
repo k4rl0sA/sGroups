@@ -54,7 +54,7 @@ FROM
 LEFT JOIN 
     `usuarios` U ON R.usu_create = U.id_usuario
 GROUP BY 
-    U.nombre where ;";
+    U.nombre where ";
     $filter = whe_employee();
     $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types'];
     $sql.=" GROUP BY U.nombre";    
