@@ -423,7 +423,7 @@
           }
         
           .top-menu{
-            background:#0c63cb;
+            background:var(--primary-color);
             border-radius: 14px 14px 0 0;
           }
            
