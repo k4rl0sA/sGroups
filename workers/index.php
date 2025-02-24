@@ -42,38 +42,62 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 	</script>
     <?php include __DIR__.'/../src/nav.php'; ?>
 	<style>
-		.totals {
+		
+        .totals {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
         }
+
         .metric-box {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 250px;
             transition: transform 0.3s ease;
         }
+
         .metric-box:hover {
             transform: translateY(-10px);
         }
-        .metric-box h3 {
+
+        .metric-box .left {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .metric-box .left h3 {
             margin: 0 0 10px;
             font-size: 16px;
             color: #333;
         }
-        .metric-box .value {
+
+        .metric-box .left .icon {
+            font-size: 30px;
+            color: #4CAF50;
+        }
+
+        .metric-box .right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .metric-box .right .arrow-icon {
+            font-size: 20px;
+            color: #4CAF50;
+        }
+
+        .metric-box .right .value {
             font-size: 24px;
             font-weight: bold;
             color: #4CAF50;
-        }
-        .metric-box .icon {
-            font-size: 30px;
-            color: #4CAF50;
-            margin-bottom: 10px;
         }
 </style>
 </head>
@@ -116,30 +140,46 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 					
 						
 						<div class="totals">
-    					    <div class="metric-box">
-    					        <div class="icon"><i class="fas fa-users"></i></div>
-    					        <h3>Total Visit</h3>
-								<i class="fa fa-level-up" aria-hidden="true"></i>
-    					        <div class="value">1500</div>
-    					    </div>
-    					    <div class="metric-box">
-    					        <div class="icon"><i class="fas fa-eye"></i></div>
-    					        <h3>Page Views</h3>
-								<i class="fa fa-level-up" aria-hidden="true"></i>
-    					        <div class="value">4500</div>
-    					    </div>
-    					    <div class="metric-box">
-    					        <div class="icon"><i class="fas fa-user-plus"></i></div>
-    					        <h3>Unique Visitor</h3>
-								<i class="fa fa-level-up" aria-hidden="true"></i>
-    					        <div class="value">1200</div>
-    					    </div>
-    					    <div class="metric-box">
-    					        <div class="icon"><i class="fas fa-chart-line"></i></div>
-    					        <h3>Bounce Rate</h3>
-								<i class="fa fa-level-up" aria-hidden="true"></i>
-    					        <div class="value">18%</div>
-    					    </div>
+        					<div class="metric-box">
+        					    <div class="left">
+        					        <h3>Total Visit</h3>
+        					        <div class="icon"><i class="fas fa-users"></i></div>
+        					    </div>
+        					    <div class="right">
+        					        <i class="fa fa-level-up arrow-icon" aria-hidden="true"></i>
+        					        <div class="value">1500</div>
+        					    </div>
+        					</div>
+        					<div class="metric-box">
+        					    <div class="left">
+        					        <h3>Page Views</h3>
+        					        <div class="icon"><i class="fas fa-eye"></i></div>
+        					    </div>
+        					    <div class="right">
+        					        <i class="fa fa-level-up arrow-icon" aria-hidden="true"></i>
+        					        <div class="value">4500</div>
+        					    </div>
+        					</div>
+        					<div class="metric-box">
+        					    <div class="left">
+        					        <h3>Unique Visitor</h3>
+        					        <div class="icon"><i class="fas fa-user-plus"></i></div>
+        					    </div>
+        					    <div class="right">
+        					        <i class="fa fa-level-up arrow-icon" aria-hidden="true"></i>
+        					        <div class="value">1200</div>
+        					    </div>
+        					</div>
+        					<div class="metric-box">
+        					    <div class="left">
+        					        <h3>Bounce Rate</h3>
+        					        <div class="icon"><i class="fas fa-chart-line"></i></div>
+        					    </div>
+        					    <div class="right">
+        					        <i class="fa fa-level-up arrow-icon" aria-hidden="true"></i>
+        					        <div class="value">18%</div>
+        					    </div>
+        					</div>
     					</div>
 
 
