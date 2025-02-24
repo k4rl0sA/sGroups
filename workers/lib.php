@@ -58,8 +58,9 @@ GROUP BY
     $filter = whe_employee();
     $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types'];
     $sql.=" GROUP BY U.nombre";    
-    $result = exec_sql($sql);
-    return $result ? $result[0] : ['Total_Reportados' => 0, 'Total_Digitados' => 0];
+    show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,null),$types ."ii");
+    /* $result = exec_sql($sql);
+    return $result ? $result[0] : ['Total_Reportados' => 0, 'Total_Digitados' => 0]; */
 }
 
 function lis_employee() {
