@@ -44,6 +44,8 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 	<style>
 		.white-box {
     		padding: 20px;
+			background: #fff;
+			overflow: hidden;
 		}
 </style>
 </head>
