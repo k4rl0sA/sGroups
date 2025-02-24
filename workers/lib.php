@@ -50,7 +50,7 @@ function tot_employee() {
     $sql = "SELECT count(*) AS Total from usuarios where ";
     $filter = whe_employee();
     $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types'];
-    show_sql($sql,array_merge($params,[]),$types ."ii");
+    // show_sql($sql,array_merge($params,[]),$types ."ii");
     $result = exec_sql($sql);
     return 'Empleados ='. $result[0]['Total'];
     /* $sql = "SELECT SUM(R.cant_report) AS Total_Reportados 
