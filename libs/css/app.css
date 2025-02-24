@@ -331,14 +331,7 @@
               gap: 10px;
           }
       
-          .totals {
-              flex-direction: column;
-              width: 100%;
-          }
-      
-          .metric-box {
-              width: 100%;
-          }
+        
         }
 
 
@@ -1187,6 +1180,16 @@ td.resumen {
       content: attr(title) ": ";
       font-weight: bold;
   }
+/************TOTALS***********/
+  .totals {
+    flex-direction: column;
+    width: 100%;
+}
+
+.metric-box {
+    width: 100%;
+}
+/************TOTALS***********/
 }
 
 /***********************************/
