@@ -25,8 +25,8 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title> Empleados || <?php echo APP; ?></title>
-                    <link href="../libs/css/menu.css?v=15.0" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="../libs/css/app.css?v=10.0">
+                    <link href="../libs/css/menu.css?v=16.0" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="../libs/css/app.css?v=11.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 	<script src="../libs/js/main.js?v=1.0"></script>
 	<link rel="stylesheet" href="../libs/css/choices.min.css?v=2.0">
@@ -41,65 +41,6 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 		}
 	</script>
     <?php include __DIR__.'/../src/nav.php'; ?>
-	<style>
-	
-
-.totals {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.metric-box {
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 150px;
-    transition: transform 0.3s ease;
-}
-
-.metric-box:hover {
-    transform: translateY(-5px);
-}
-
-.metric-box .left {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-
-.metric-box .left h3 {
-    margin: 0 0 5px;
-    font-size: 12px;
-    color: #333;
-}
-
-.metric-box .left .icon {
-    font-size: 14px;
-    color: var(--btn-color);
-}
-
-.metric-box .right {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.metric-box .right .arrow-icon {
-    font-size: 10px;
-    color: var(--btn-color);
-}
-
-.metric-box .right .value {
-    font-size: 16px;
-    font-weight: bold;
-    color: var(--btn-color);
-}
-</style>
 </head>
 <body Onload="actualizar();">
 	<div class="wrapper main" id='<?php echo $mod; ?>-main'>
