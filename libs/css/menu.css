@@ -18,8 +18,8 @@
     --toggle-color:var(--text-color);
     --text-color: var(--color-black);
     --color-icons: var(--color-light);
-    --color-btn:#2E8acb;
-    --btn-color-hover: #0c63cb;
+    --btn-color:#2E8acb;
+    --btn-color-hover: #0e4bf1;
     --txt-btn-color-hover: var(--color-icons);
     --error-color: red;
     --font-base: 'Play', sans-serif;

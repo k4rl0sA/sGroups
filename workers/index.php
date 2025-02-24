@@ -54,7 +54,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 }
 
 .header button {
-    background-color: #4CAF50;
+    background-color:var(--btn-color);
     color: white;
     border: none;
     padding: 10px;
