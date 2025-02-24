@@ -18,6 +18,7 @@
     --toggle-color:var(--text-color);
     --text-color: var(--color-black);
     --color-icons: var(--color-light);
+    --color-btn:#2E8acb;
     --btn-color-hover: #0c63cb;
     --txt-btn-color-hover: var(--color-icons);
     --error-color: red;

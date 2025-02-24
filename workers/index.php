@@ -52,7 +52,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 .header button {
-    background-color: #4CAF50;
+    background-color: var(--btn-color);
     color: white;
     border: none;
     padding: 10px;
@@ -94,7 +94,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 }
 .metric-box .left .icon {
     font-size: 14px;
-    color: #4CAF50;
+    color: var(--btn-color);
 }
 .metric-box .right {
     display: flex;
@@ -103,12 +103,12 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 }
 .metric-box .right .arrow-icon {
     font-size: 10px;
-    color: #4CAF50;
+    color: var(--btn-color);
 }
 .metric-box .right .value {
     font-size: 16px;
     font-weight: bold;
-    color: #4CAF50;
+    color: var(--btn-color);
 }
 </style>
 </head>
