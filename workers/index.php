@@ -42,60 +42,51 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 	</script>
     <?php include __DIR__.'/../src/nav.php'; ?>
 	<style>
-		
-        .totals {
+		.totals {
             display: flex;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
         }
-
         .metric-box {
             background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
+            padding: 15px;
+            border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 250px;
+            width: 200px; /* Más pequeño */
             transition: transform 0.3s ease;
         }
-
         .metric-box:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
         }
-
         .metric-box .left {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
         }
-
         .metric-box .left h3 {
-            margin: 0 0 10px;
-            font-size: 16px;
+            margin: 0 0 8px; /* Más pequeño */
+            font-size: 14px; /* Más pequeño */
             color: #333;
         }
-
         .metric-box .left .icon {
-            font-size: 30px;
+            font-size: 24px; /* Más pequeño */
             color: #4CAF50;
         }
-
         .metric-box .right {
             display: flex;
-            flex-direction: column;
-            align-items: flex-end;
+            align-items: center; /* Alinear flecha y valor en la misma línea */
+            gap: 5px; /* Espacio entre flecha y valor */
         }
-
         .metric-box .right .arrow-icon {
-            font-size: 20px;
+            font-size: 16px; /* Más pequeño */
             color: #4CAF50;
         }
-
         .metric-box .right .value {
-            font-size: 24px;
+            font-size: 20px; /* Más pequeño */
             font-weight: bold;
             color: #4CAF50;
         }
