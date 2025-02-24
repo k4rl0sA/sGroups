@@ -41,6 +41,11 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 		}
 	</script>
     <?php include __DIR__.'/../src/nav.php'; ?>
+	<style>
+		.white-box {
+    		padding: 20px;
+		}
+</style>
 </head>
 <body Onload="actualizar();">
 	<div class="wrapper main" id='<?php echo $mod; ?>-main'>
