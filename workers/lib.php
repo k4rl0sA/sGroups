@@ -51,7 +51,7 @@ function tot_employee() {
     $filter = whe_employee();
     $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types'];
     $result = exec_sql($sql);
-    return 'Total_Reportados ='. $result[0]['Total'];
+    return 'Total_Empleados ='. $result[0]['Total'];
     /* $sql = "SELECT SUM(R.cant_report) AS Total_Reportados 
     FROM `repor_diario` R LEFT JOIN `usuarios` U ON R.usu_create = U.id_usuario where ";
     $filter = whe_employee();
