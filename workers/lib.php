@@ -57,7 +57,7 @@ GROUP BY
     U.nombre;";
     $filter = whe_employee();
     $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types'];
-    $sql.=" GROUP BY U.Departamento,U.nombre";    
+    $sql.=" GROUP BY U.nombre";    
     $result = exec_sql($sql);
     return $result ? $result[0] : ['Total_Reportados' => 0, 'Total_Digitados' => 0];
 }
