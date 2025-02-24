@@ -47,6 +47,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 			background: #fff;
 			overflow: hidden;
 			margin-bottom: 23px;
+			font-family: 'Roboto', sans-serif;
 		}
 </style>
 </head>
