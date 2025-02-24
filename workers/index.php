@@ -58,7 +58,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 			</nav>
 			<section>
 				<div class="content content-1">
-					<div class="title txt-center"><h2>Filtros</h2></div>
+					<div class="title txt-center"><h2>Funcionarios</h2></div>
 					<div class="frm-filter poppins-font" id='<?php echo $mod; ?>-fil'>
 						<div class="input-box">
 							<label for="choices-multiple-remove-button">Empleado :</label>
