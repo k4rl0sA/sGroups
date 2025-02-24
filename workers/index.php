@@ -46,6 +46,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     		padding: 20px;
 			background: #fff;
 			overflow: hidden;
+			margin-bottom: 23px;
 		}
 </style>
 </head>
@@ -87,7 +88,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 						<?php echo $btns ?>
 					
 						<div class=totals>
-							<div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 res-mg-t-30 table-mg-t-pro-n tb-sm-res-d-n dk-res-t-d-n">
+							<div class="white-box mg-b-10 res-mg-b-30 res-mg-t-30 table-mg-t-pro-n tb-sm-res-d-n dk-res-t-d-n">
 					    		<h3 class="box-title">Total Visit</h3>
 					    		<ul class="list-inline two-part-sp">
 					    	    	<li>
