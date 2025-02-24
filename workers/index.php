@@ -19,6 +19,16 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     $btns .= '<button id="openModal" class="upload-btn" data-mod='.$mod.' title="Importar"><i class="fas fa-upload"></i></button>';
 }
 ?>
+<div class="white-box analytics-info-cs mg-b-10 res-mg-b-30 res-mg-t-30 table-mg-t-pro-n tb-sm-res-d-n dk-res-t-d-n">
+    <h3 class="box-title">Total Visit</h3>
+    <ul class="list-inline two-part-sp">
+        <li>
+            <div id="sparklinedash"><canvas width="67" height="30" style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas></div>
+        </li>
+        <li class="text-right sp-cn-r"><i class="fa fa-level-up" aria-hidden="true"></i> <span class="counter text-success">1500</span></li>
+    </ul>
+</div>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
