@@ -47,10 +47,14 @@ function whe_employee() {
     return fil_where($filtros);
 }
 function tot_employee() {
-    $sql = "SELECT 
-                SUM(Registros_Reportados) AS Total_Reportados, 
-                SUM(Registros_Digitados) AS Total_Digitados 
-            FROM tu_tabla";
+    $sql = "SELECT               
+    SUM(R.cant_report) AS Total_Reportados     
+FROM 
+    `repor_diario` R
+LEFT JOIN 
+    `usuarios` U ON R.usu_create = U.id_usuario
+GROUP BY 
+    U.nombre;";
     $filter = whe_employee();
     $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types'];
     $sql.=" GROUP BY U.Departamento,U.nombre";    
