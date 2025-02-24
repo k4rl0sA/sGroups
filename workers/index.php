@@ -42,37 +42,39 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 	</script>
     <?php include __DIR__.'/../src/nav.php'; ?>
 	<style>
-		.white-box {
-			width: 25%;
-    		padding: 20px;
-			background: #fff;
-			overflow: hidden;
-			margin-bottom: 23px;
-			font-family: 'Roboto', sans-serif;
-			padding-right: 15px;
-			padding-left: 15px;
-			font-size: 12px;
-		}
-		.box-title{
-			margin: 0 0 10px;
-			font-weight: 700;
-		}
-		.list-inline {
-    		padding-left: 0;
-    		margin-left: -5px;
-    		list-style: none;
-		}
-		ul.two-part-sp li {
-    		display: inline-block;
-    		width: 49%;
-    		font-size: 20px;
-    		font-weight: 700;
-		}
-		.list-inline>li {
-    		display: inline-block;
-    		padding-right: 5px;
-    		padding-left: 5px;
-		}
+		.totals {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .metric-box {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 150px;
+            transition: transform 0.3s ease;
+        }
+        .metric-box:hover {
+            transform: translateY(-10px);
+        }
+        .metric-box h3 {
+            margin: 0 0 10px;
+            font-size: 16px;
+            color: #333;
+        }
+        .metric-box .value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .metric-box .icon {
+            font-size: 30px;
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
 </style>
 </head>
 <body Onload="actualizar();">
