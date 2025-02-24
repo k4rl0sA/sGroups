@@ -51,8 +51,8 @@ function tot_employee() {
     $filter = whe_employee();
     $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types']; 
     $sql.=" GROUP BY U.nombre";
-    show_sql($sql,array_merge($params,[]),$types ."ii");
-    /* $result = exec_sql($sql);
+    // show_sql($sql,array_merge($params,[]),$types ."ii");
+    $result = exec_sql($sql);
     return $result ? $result[0] : ['Total_Reportados' => 0, 'Total_Digitados' => 0]; */
 }
 
