@@ -112,17 +112,34 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 					<div id='<?php echo $mod; ?>-btns' class="header">
 						<?php echo $btns ?>
 					
-						<div class=totals>
-							<div class="white-box">
-					    		<h3 class="box-title">Total Visit</h3>
-					    		<ul class="list-inline two-part-sp">
-					    	    	<li>
-					    	        	<div id="sparklinedash"><canvas width="67" height="30" style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas></div>
-					    	    	</li>
-					    	    	<li class="text-right sp-cn-r"><i class="fa fa-level-up" aria-hidden="true"></i> <span class="counter text-success">1500</span></li>
-					    		</ul>
-							</div>
-						</div>
+						
+						<div class="totals">
+    					    <div class="metric-box">
+    					        <div class="icon"><i class="fas fa-users"></i></div>
+    					        <h3>Total Visit</h3>
+    					        <div class="value">1500</div>
+    					    </div>
+    					    <div class="metric-box">
+    					        <div class="icon"><i class="fas fa-eye"></i></div>
+    					        <h3>Page Views</h3>
+    					        <div class="value">4500</div>
+    					    </div>
+    					    <div class="metric-box">
+    					        <div class="icon"><i class="fas fa-user-plus"></i></div>
+    					        <h3>Unique Visitor</h3>
+    					        <div class="value">1200</div>
+    					    </div>
+    					    <div class="metric-box">
+    					        <div class="icon"><i class="fas fa-chart-line"></i></div>
+    					        <h3>Bounce Rate</h3>
+    					        <div class="value">18%</div>
+    					    </div>
+    					</div>
+
+
+
+
+
 
         			</div>
 					<div class='panel' id='<?php echo $mod; ?>'>
