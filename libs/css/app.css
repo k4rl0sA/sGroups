@@ -1037,12 +1037,12 @@ thead {
 
 /*filas pares */
 tr:nth-child(even) {
-  background-color: var(--sidebar-color);
+  background-color: var(--td-imp-color);
 }
 
 /*filas impares */
 tr:nth-child(odd) {
-  background-color: var(--body-color);
+  background-color: var(--td-par-color);
 }
 
 tr:hover {
