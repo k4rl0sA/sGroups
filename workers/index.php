@@ -49,6 +49,8 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 			overflow: hidden;
 			margin-bottom: 23px;
 			font-family: 'Roboto', sans-serif;
+			padding-right: 15px;
+			padding-left: 15px;
 		}
 		.box-title{
 			margin: 0 0 10px;
