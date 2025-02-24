@@ -51,10 +51,16 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 			font-family: 'Roboto', sans-serif;
 			padding-right: 15px;
 			padding-left: 15px;
+			font-size: 12px;
 		}
 		.box-title{
 			margin: 0 0 10px;
 			font-weight: 700;
+		}
+		.list-inline {
+    		padding-left: 0;
+    		margin-left: -5px;
+    		list-style: none;
 		}
 </style>
 </head>
