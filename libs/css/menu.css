@@ -75,7 +75,7 @@ body.dark {
     --primary-color-light: #3A3B3C;
     --text-color: #ffffff;
     --btn-color-hover: #0c63cb;
-    --txt-btn-color-hover: var(--color-icons);
+    --btn-txt-color-hover: var(--color-icons);
     --dt-text-col: var(--text-color);
     --dt-borde-col: var(--color-icons);
     --dt-bg-act-btn: var(--highlight-color);
@@ -271,12 +271,12 @@ body.dark .sidebar header .toggle {
 
 .sidebar li a:hover .icon,
 .sidebar li a:hover .text {
-    color: var(--txt-btn-color-hover);
+    color: var(--btn-txt-color-hover);
 }
 
 body.dark .sidebar li a:hover .icon,
 body.dark .sidebar li a:hover .text {
-    color: var(--txt-btn-color-hover);
+    color: var(--btn-txt-color-hover);
 }
 
 .sidebar .menu-bar {
@@ -404,12 +404,12 @@ body.dark .switch::before {
 
 .nav-link .sub-menu a:hover {
     background: var(--btn-color-hover);
-    color: var(--txt-btn-color-hover);
+    color: var(--btn-txt-color-hover);
 }
 
 .nav-link .active>a {
     background: var(--btn-color-hover);
-    color: var(--txt-btn-color-hover);
+    color: var(--btn-txt-color-hover);
     border: 1px solid transparent;
     transition: border-color 0.3s;
     border-color: black;
