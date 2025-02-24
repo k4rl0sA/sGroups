@@ -56,7 +56,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 200px; /* Más pequeño */
+            width: 150px; /* Más pequeño */
             transition: transform 0.3s ease;
         }
         .metric-box:hover {
@@ -73,7 +73,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
             color: #333;
         }
         .metric-box .left .icon {
-            font-size: 24px; /* Más pequeño */
+            font-size: 15px; /* Más pequeño */
             color: #4CAF50;
         }
         .metric-box .right {
