@@ -47,7 +47,7 @@ function whe_employee() {
     return fil_where($filtros);
 }
 function tot_employee() {
-    $sql = "SELECT count(*) AS Total ";
+    $sql = "SELECT count(*) AS Total from usuarios";
     /* $filter = whe_employee();
     $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types']; */
     show_sql($sql,[],$types ."i");
