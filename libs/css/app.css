@@ -1321,13 +1321,13 @@ button {
   font-size: 20px;
   outline: none;
   border: none;
-  background-color: #4070f4;
+  background-color: var(--btn-color);
   color: #fff;
   border-radius: 6px;
   cursor: pointer;
   transition: 0.3s;
 }
-button:hover {background-color: #0e4bf1;}
+button:hover {background-color:var(--btn-color-hover);}
 .toast.active~button {pointer-events: none;}
 @keyframes efectoBounce{
   0% {transform: translateY(0px);}

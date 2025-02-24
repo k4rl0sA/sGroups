@@ -20,7 +20,8 @@
     --color-icons: var(--color-light);
     --btn-color:#2E8acb;
     --btn-color-hover: #0e4bf1;
-    --txt-btn-color-hover: var(--color-icons);
+    --btn-txt-color:var(--body-color);
+    --btn-txt-color-hover: var(--color-icons);
     --error-color: red;
     --font-base: 'Play', sans-serif;
     --font-size-tit: 1.5rem;
