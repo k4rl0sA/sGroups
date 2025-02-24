@@ -87,6 +87,7 @@ body.dark {
     --backgr-color-head: var(--sidebar-color);
     --dt-hover-cel-col: var(--highlight-color);
     --dt-separa-row-color: var(--body-color);
+    --highlight-color: #c4e7ff;
 }
 
 
