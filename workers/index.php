@@ -82,7 +82,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
             gap: 5px; /* Espacio entre flecha y valor */
         }
         .metric-box .right .arrow-icon {
-            font-size: 16px; /* Más pequeño */
+            font-size: 9px; /* Más pequeño */
             color: #4CAF50;
         }
         .metric-box .right .value {
