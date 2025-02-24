@@ -43,6 +43,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     <?php include __DIR__.'/../src/nav.php'; ?>
 	<style>
 		.white-box {
+			width: 25%;
     		padding: 20px;
 			background: #fff;
 			overflow: hidden;
