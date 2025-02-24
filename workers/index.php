@@ -137,7 +137,8 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 					<div class="title txt-center"><h2>Funcionarios</h2></div>
 					<div id='<?php echo $mod; ?>-btns' class="header">
 						<?php echo $btns ?>
-					
+
+						
 
 						<div class="totals">
         					<div class="metric-box">
@@ -183,15 +184,9 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     					</div>
 
 
-
-        			</div>
+					</div>
 					<div class='panel' id='<?php echo $mod; ?>'>
 						<span class='mensaje' id='<?php echo $mod; ?>-msj'></span>
-
-						<div class='contenido total' style="background: #001f7f; color: white; padding: 10px; margin-top: 10px; border-radius: 5px;">
-        					<h3 style="margin: 0;" id='<?php echo $mod; ?>-tot'>Resumen Total</h3>
-						</div>
-
 						<div class='contenido' id='<?php echo $mod; ?>-lis'></div>
 					</div>
 				</div>
