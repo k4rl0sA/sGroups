@@ -7,9 +7,7 @@ if (!isset($_SESSION['nombre'])) {
 require_once __DIR__.'/../src/gestion.php';
 $mod='employee';
 $ya = new DateTime();
-$usu=$_SESSION['documento'];
-$sql="SELECT idcatadeta,descripcion from catadeta where idcatalogo=1 and estado='A' ORDER BY 2";
-$departamentos=opc_sql($sql,$usu);
+$departamentos=opc_sql("SELECT idcatadeta,descripcion from catadeta where idcatalogo=1 and estado='A' ORDER BY 2",1);
 $acc=acceBtns('employee');
 $btns='<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
 if (isset($acc['crear']) && $acc['crear'] == 'SI') {
