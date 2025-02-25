@@ -243,7 +243,7 @@ function divide($a){
 }
 function show_sql($data_query, $params, $types) {
   if (empty($params)) {
-      echo "<pre>Consulta SQL para copiar y pegar: " . htmlentities($data_query) . "</pre>";
+      echo "<pre>" . htmlentities($data_query) . "</pre>";
       return;
   }
   $consulta_final = $data_query;
