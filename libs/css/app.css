@@ -1075,6 +1075,7 @@ td.resumen {
   text-transform: capitalize;
   text-align: center;
   vertical-align: middle;
+  border-bottom: 0px solid #ddd;
 }
 
 /*********************BUILT TABLE***********************/
