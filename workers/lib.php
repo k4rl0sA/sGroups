@@ -36,7 +36,7 @@ try {
     echo json_encode(['error' => 'Error interno del servidor']);
 }
 
-function whe_employee() {
+/* function whe_employee() {
     $filtros = [];
     if (!empty($_POST['fdep'])) {
         $filtros[] = ['campo' => 'U.departamento', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fdep'])), 'operador' => 'IN'];
@@ -45,7 +45,7 @@ function whe_employee() {
         $filtros[] = ['campo' => 'id_usuario', 'valor' => $_POST['fid'], 'operador' => 'like'];
     }
     return fil_where($filtros);
-}
+} */
 
 function whe_employee() {
     $filtros = [];
