@@ -46,19 +46,6 @@ function whe_employee() {
     }
     return fil_where($filtros);
 }
-
-/* function whe_employee() {
-    $filtros = [];
-    if (!empty($_POST['fdep'])) {
-        $filtros[] = ['campo' => 'U.departamento', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fdep'])), 'operador' => 'IN'];
-    }    
-    if (!empty($_POST['fid'])) {
-        $filtros[] = ['campo' => 'id_usuario', 'valor' => $_POST['fid'], 'operador' => 'like'];
-    }
-    if (empty($filtros)) {return ['where' => '1=1','params' => [],'types' => ''];}
-    return fil_where($filtros);
-} */
-
 function tot_employee() {
     $totals = [
     ['titulo'=>'Total Usuarios','icono'=>'fas fa-users','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
