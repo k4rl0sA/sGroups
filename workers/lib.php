@@ -75,7 +75,7 @@ function tot_employee() {
         ],
         [
             'titulo' => 'Total Inactivos',
-            'icono' => 'fa-brands fa-creative-commons-by',
+            'icono' => 'fa-solid fa-user-xmark',
             'indicador' => 'fa fa-level-down arrow-icon',
             'condicion' => " AND estado='I'"
         ]
