@@ -61,22 +61,41 @@ function whe_employee() {
 
 function tot_employee() {
     $totals = [
-    ['titulo'=>'Total Usuarios','icono'=>'fas fa-users','indicador'=>'fa fa-level-up arrow-icon','condicion'=>''],
-    ['titulo'=>'Total Activos','icono'=>'fa-brands fa-creative-commons-by','indicador'=>'fa fa-level-down arrow-icon','condicion'=>" AND estado='A'"],
-    ['titulo' => 'Total Inactivos','icono'=>'fa-brands fa-creative-commons-by','indicador'=>'fa fa-level-down arrow-icon','condicion'=>" AND estado='I'"]
+        [
+            'titulo' => 'Total Usuarios',
+            'icono' => 'fas fa-users',
+            'indicador' => 'fa fa-level-up arrow-icon',
+            'condicion' => '' // Sin condición adicional
+        ],
+        [
+            'titulo' => 'Total Activos',
+            'icono' => 'fa-brands fa-creative-commons-by',
+            'indicador' => 'fa fa-level-down arrow-icon',
+            'condicion' => " AND estado='A'"
+        ],
+        [
+            'titulo' => 'Total Inactivos',
+            'icono' => 'fa-brands fa-creative-commons-by',
+            'indicador' => 'fa fa-level-down arrow-icon',
+            'condicion' => " AND estado='I'"
+        ]
     ];
-    $rta = '';
+    $rta = ''; // Variable para almacenar el HTML de todas las métricas
     foreach ($totals as $total) {
         $sql = "SELECT count(*) AS Total FROM usuarios U WHERE ";
         $filter = whe_employee();
-        $sql .= $filter['where'] . $total['condicion'];
+        if (!isset($filter['where']) || !isset($filter['params']) || !isset($filter['types'])) {
+            $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
+            continue;
+        }
+        $sql .= $filter['where'] . $total['condicion']; // Concatenar condición adicional
         $params = $filter['params'];
         $types = $filter['types'];
-        $rta=exec_sql($sql, $params, $types);
-        if ($rta=== null) {
-            $rta.= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
+        $resultado_consulta = exec_sql($sql, $params, $types);
+        if ($resultado_consulta === null || !isset($resultado_consulta[0]['Total'])) {
+            $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
         } else {
-            $rta.= generar_metrica($total['titulo'], $total['icono'], $total['indicador'], $rta[0]['Total']);
+            $rta .= generar_metrica($total['titulo'], $total['icono'], $total['indicador'], $resultado_consulta[0]['Total']);
         }
     }
     return $rta;
