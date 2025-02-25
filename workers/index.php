@@ -25,8 +25,8 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title> Empleados || <?php echo APP; ?></title>
-                    <link href="../libs/css/menu.css?v=27.0" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="../libs/css/app.css?v=19.0">
+                    <link href="../libs/css/menu.css?v=28.0" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="../libs/css/app.css?v=20.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 	<script src="../libs/js/main.js?v=1.0"></script>
 	<link rel="stylesheet" href="../libs/css/choices.min.css?v=2.0">
@@ -81,7 +81,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 
 						
 
-						<div class="totals">
+						<div class="totals" id='<?php echo $mod; ?>-lis'>
         					<div class="metric-box">
         					    <div class="left">
         					        <h3>Total Visit</h3>
