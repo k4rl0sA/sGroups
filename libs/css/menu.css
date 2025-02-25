@@ -438,7 +438,7 @@ li.nav-link.open.active {
 /*Icono Usuario y nombre*/
 .clearfix{display:block;clear:both;}
 .profile_pic{float:left;width:44%;margin:-3rem 0 0;color:var(--text-color);}
-.img-circle.profile_img{width:70%;background:#fff;margin-left:15%;z-index:1000;position:inherit;margin-top:20px;border:1px solid rgba(52,73,94,0.44);padding:4px; font-size: 5rem;}
+.img-circle.profile_img{width:70%;background:var(--sidebar-color);margin-left:15%;z-index:1000;position:inherit;margin-top:20px;border:1px solid rgba(52,73,94,0.44);padding:4px; font-size: 5rem;}
 .img-circle{border:1px solid #E6E9ED;padding:2px}
 .img-circle{border-radius:50%}
 .profile_img{height:85px;margin:0;}
