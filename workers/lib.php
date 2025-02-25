@@ -47,13 +47,13 @@ function whe_employee() {
     return fil_where($filtros);
 }
 function tot_employee() {
-    $sql = "SELECT count(*) AS Total from usuarios where ";
+    $sql = "SELECT count(*) AS Total from usuarios U where ";
     $filter = whe_employee();
     $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types'];
-    show_sql($sql,array_merge($params,[]),$types ."ii");
+    // show_sql($sql,array_merge($params,[]),$types ."ii");
 
 
-   /*  $result = exec_sql($sql);
+   $result = exec_sql($sql);
     $titl='Total Usuarios';
     $icon='fas fa-users';
     $indi='fa fa-level-up arrow-icon';
@@ -68,7 +68,7 @@ function tot_employee() {
     </div>
 </div>';
 
-    return $tot; */
+    return $tot;
 
 
 
