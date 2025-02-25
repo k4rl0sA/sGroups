@@ -60,69 +60,26 @@ function whe_employee() {
 }
 
 function tot_employee() {
-    $sql = "SELECT count(*) AS Total from usuarios U where ";
-    $filter = whe_employee();
-    $sql .= $filter['where'];
-    $params = $filter['params'];
-    $types = $filter['types'];
-    $rta = exec_sql($sql, $params, $types);
-    if ($rta === null) {
-        return '<div class="metric-box"><div class="left"><h3>Error</h3></div></div>';
+    $totals = [
+    ['titulo'=>'Total Usuarios','icono'=>'fas fa-users','indicador'=>'fa fa-level-up arrow-icon','condicion'=>''],
+    ['titulo'=>'Total Activos','icono'=>'fa-brands fa-creative-commons-by','indicador'=>'fa fa-level-down arrow-icon','condicion'=>" AND estado='A'"],
+    ['titulo' => 'Total Inactivos','icono'=>'fa-brands fa-creative-commons-by','indicador'=>'fa fa-level-down arrow-icon','condicion'=>" AND estado='I'"]
+    ];
+    $rta = '';
+    foreach ($totals as $total) {
+        $sql = "SELECT count(*) AS Total FROM usuarios U WHERE ";
+        $filter = whe_employee();
+        $sql .= $filter['where'] . $total['condicion'];
+        $params = $filter['params'];
+        $types = $filter['types'];
+        $rta=exec_sql($sql, $params, $types);
+        if ($rta=== null) {
+            $rta.= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
+        } else {
+            $rta.= generar_metrica($total['titulo'], $total['icono'], $total['indicador'], $rta[0]['Total']);
+        }
     }
-    $titl = 'Total Usuarios';
-    $icon = 'fas fa-users';
-    $indi = 'fa fa-level-up arrow-icon';
-    $tot = '<div class="metric-box"><div class="left">
-    <h3>'.$titl.'</h3>
-        <div class="icon"><i class="'.$icon.'"></i></div></div>
-    <div class="right">
-    <i class="'.$indi.'" aria-hidden="true"></i>
-        <div class="value">'.$rta[0]['Total'].'</div>
-    </div>
-</div>';
-
-$sql1 = "SELECT count(*) AS Total from usuarios U where ";
-$filter1 = whe_employee()." AND estado='A'";
-$sql1 .= $filter1['where'];
-$params = $filter1['params'];
-$types = $filter1['types'];
-$rta1 = exec_sql($sql1, $params, $types);
-if ($rta1 === null) {
-    return '<div class="metric-box"><div class="left"><h3>Error</h3></div></div>';
-}
-$titl = 'Total Activos';
-$icon = 'fa-brands fa-creative-commons-by';
-$indi = 'fa fa-level-down arrow-icon';
-$tot1 = '<div class="metric-box"><div class="left">
-<h3>'.$titl.'</h3>
-    <div class="icon"><i class="'.$icon.'"></i></div></div>
-<div class="right">
-<i class="'.$indi.'" aria-hidden="true"></i>
-    <div class="value">'.$rta1[0]['Total'].'</div>
-</div>
-</div>';
-
-$sql2 = "SELECT count(*) AS Total from usuarios U where ";
-$filter2 = whe_employee()." AND estado='I'";
-$sql2 .= $filter2['where'];
-$params = $filter2['params'];
-$types = $filter2['types'];
-$rta2 = exec_sql($sql2, $params, $types);
-if ($rta2 === null) {
-    return '<div class="metric-box"><div class="left"><h3>Error</h3></div></div>';
-}
-$titl = 'Total Activos';
-$icon = 'fa-brands fa-creative-commons-by';
-$indi = 'fa fa-level-down arrow-icon';
-$tot2 = '<div class="metric-box"><div class="left">
-<h3>'.$titl.'</h3>
-    <div class="icon"><i class="'.$icon.'"></i></div></div>
-<div class="right">
-<i class="'.$indi.'" aria-hidden="true"></i>
-    <div class="value">'.$rta2[0]['Total'].'</div>
-</div>
-</div>';
-    return $tot.$tot1.$tot2;
+    return $resultados;
 
    /*  $sql = "SELECT SUM(R.cant_report) AS Total_Reportados 
     FROM `repor_diario` R LEFT JOIN `usuarios` U ON R.usu_create = U.id_usuario where ";

@@ -733,6 +733,18 @@ function attri($a, $type = 'text') {
   if (!$a->u) $att .= " readonly";
   return $att;
 }
+function generar_metrica($titulo, $icono, $indicador, $valor) {
+  return '<div class="metric-box">
+      <div class="left">
+          <h3>'.$titulo.'</h3>
+          <div class="icon"><i class="'.$icono.'"></i></div>
+      </div>
+      <div class="right">
+          <i class="'.$indicador.'" aria-hidden="true"></i>
+          <div class="value">'.$valor.'</div>
+      </div>
+  </div>';
+}
 function input_txt($a) {
   $rta = "";
   $type = ($a->t == 'h') ? 'hidden' : 'text';
