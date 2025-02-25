@@ -81,7 +81,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 
 						
 
-						<div class="totals" id='<?php echo $mod; ?>-lis'>
+						<div class="totals" id='<?php echo $mod; ?>-tot'>
         					<div class="metric-box">
         					    <div class="left">
         					        <h3>Total Visit</h3>
