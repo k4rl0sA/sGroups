@@ -325,7 +325,7 @@ function limpiar_y_escapar_array($array) {
   return $escaped_array;
 }
 //Funcion para ejecutar un consulta sql y mostrar la respuesta
-function exec_sql($sql, $params = [], $types = "", $fetch_all = true) {
+/* function exec_sql($sql, $params = [], $types = "", $fetch_all = true) {
   $con = db_connect();
   if (!$con) {
       log_error('exec_sql: Error de conexión a la base de datos.');
@@ -377,7 +377,61 @@ function exec_sql($sql, $params = [], $types = "", $fetch_all = true) {
       }
   }
   return $data;
-} 
+} */ 
+function exec_sql($sql, $params = [], $types = "", $fetch_all = true) {
+  $con = db_connect();
+  if (!$con) {
+      log_error('exec_sql: Error de conexión a la base de datos.');
+      return null;
+  }
+  $stmt = null;
+  $result = null;
+  $data = null; // Inicializar $data
+  try {
+      $con->set_charset('utf8');
+      $stmt = $con->prepare($sql);
+      if (!$stmt) {
+          log_error("exec_sql: Error al preparar la consulta: " . $con->error . " SQL: " . $sql);
+          return null;
+      }
+      // Solo vincular parámetros si se proporcionan
+      if (!empty($params) && !empty($types)) {
+          $stmt->bind_param($types, ...$params);
+      }
+      $stmt->execute();
+      if ($stmt->errno) {
+          log_error("exec_sql: Error en la consulta: " . $stmt->error . " SQL: " . $sql);
+          return null;
+      }
+      $result = $stmt->get_result();
+      if ($result) {
+          if ($fetch_all) {
+              $data = [];
+              while ($row = $result->fetch_assoc()) {
+                  $data[] = $row;
+              }
+          } else {
+              $row = $result->fetch_row();
+              $data = $row[0] ?? null;
+          }
+      } 
+  } catch (mysqli_sql_exception $e) {
+      log_error("exec_sql: Excepción en la consulta: " . $e->getMessage());
+      echo json_encode(['Error:'.$e->getMessage()]);
+      return null;
+  } finally {
+      if ($result) {
+          $result->free_result(); // Liberar $result primero
+      }
+      if ($stmt) {
+          $stmt->close();
+      }
+      if ($con) {
+          $con->close();
+      }
+  }
+  return $data;
+}
 function obtener_total_registros($sql,$params, $types) {
   $total = exec_sql($sql, $params, $types, false);
   return $total;
