@@ -49,8 +49,8 @@ function whe_employee() {
 function tot_employee() {
     $totals = [
     ['titulo'=>'Total Usuarios','icono'=>'fas fa-users','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
-    ['titulo'=>'Total Activos','icono'=>'fa-brands fa-creative-commons-by','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='A'"],
-    ['titulo'=>'Total Inactivos','icono'=>'fa-solid fa-user-xmark','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado='I'"]
+    ['titulo'=>'Usuarios Activos','icono'=>'fa-brands fa-creative-commons-by','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='A'"],
+    ['titulo'=>'Usuarios Inactivos','icono'=>'fa-solid fa-user-xmark','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado='I'"]
     ];
     $rta = '';
     foreach ($totals as $total) {
