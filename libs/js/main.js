@@ -1345,6 +1345,7 @@ function countFilter(a) {
 function badgeFilter(x) {
     const conta = countFilter(x);
     const spanCont = document.getElementById('fil-badge');
+    const labelFiltros = document.querySelector('label.filtros');
     if (conta === 0) {
         if (spanCont) {
             spanCont.remove();
@@ -1353,8 +1354,11 @@ function badgeFilter(x) {
         if (!spanCont) {
             const nuevoSpan = document.createElement('span');
             nuevoSpan.id = 'fil-badge';
+            nuevoSpan.className = 'badge badge-pill badge-warning';
             nuevoSpan.textContent = `${conta}`;
-            document.body.appendChild(nuevoSpan);
+            if (labelFiltros) {
+                labelFiltros.appendChild(nuevoSpan);
+            }
         } else {
             spanCont.textContent = `${conta}`;
         }
