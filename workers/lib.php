@@ -66,10 +66,10 @@ function tot_employee() {
     $params = $filter['params'];
     $types = $filter['types'];
 
-    $result = exec_sql($sql, $params, $types);
+    $rta = exec_sql($sql, $params, $types);
 
     // Si $result es null, mostramos un mensaje de error
-    if ($result === null) {
+    if ($rta === null) {
         return '<div class="metric-box"><div class="left"><h3>Error</h3></div></div>';
     }
 
@@ -82,11 +82,37 @@ function tot_employee() {
         <div class="icon"><i class="'.$icon.'"></i></div></div>
     <div class="right">
     <i class="'.$indi.'" aria-hidden="true"></i>
-        <div class="value">'.$result[0]['Total'].'</div>
+        <div class="value">'.$rta[0]['Total'].'</div>
     </div>
 </div>';
 
-    return $tot;
+$sql1 = "SELECT count(*) AS Total from usuarios U where ";
+$filter1 = whe_employee()." AND estado='A'";
+$sql1 .= $filter1['where'];
+$params = $filter1['params'];
+$types = $filter1['types'];
+
+$rta1 = exec_sql($sql1, $params, $types);
+
+// Si $result es null, mostramos un mensaje de error
+if ($rta1 === null) {
+    return '<div class="metric-box"><div class="left"><h3>Error</h3></div></div>';
+}
+
+$titl = 'Total Activos';
+$icon = 'fa-brands fa-creative-commons-by';
+$indi = 'fa fa-level-down arrow-icon';
+
+$tot = '<div class="metric-box"><div class="left">
+<h3>'.$titl.'</h3>
+    <div class="icon"><i class="'.$icon.'"></i></div></div>
+<div class="right">
+<i class="'.$indi.'" aria-hidden="true"></i>
+    <div class="value">'.$rta1[0]['Total'].'</div>
+</div>
+</div>';
+
+    return $tot.$tot1;
 
    /*  $sql = "SELECT SUM(R.cant_report) AS Total_Reportados 
     FROM `repor_diario` R LEFT JOIN `usuarios` U ON R.usu_create = U.id_usuario where ";
