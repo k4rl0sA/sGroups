@@ -58,11 +58,11 @@ function tot_employee() {
     
 
     $tot='<div class="metric-box"><div class="left">
-    <h3>'$titl'</h3>
-        <div class="icon"><i class="'$icon'"></i></div></div>
+    <h3>'.$titl.'</h3>
+        <div class="icon"><i class="'.$icon.'"></i></div></div>
     <div class="right">
-    <i class="'$indi'" aria-hidden="true"></i>
-        <div class="value">'$result[0]['Total']'</div>
+    <i class="'.$indi.'" aria-hidden="true"></i>
+        <div class="value">'.$result[0]['Total'].'</div>
     </div>
 </div>';
 
