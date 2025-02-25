@@ -30,7 +30,7 @@ if (!isset($_SESSION['documento'])) {
               </div>
               <div class="profile_info" style="display: none;">
                 <span><?php $user = explode(" ",$_SESSION['nombre']);echo($user[0]);?></span>
-                <h2><?php echo($user[2]); var_dump($user);?></h2>
+                <h2><?php $usu = $user[2] ?? $user[1]; echo($usu);?></h2>
               </div>
             </div>
             <!-- <div class='name'></div> -->
