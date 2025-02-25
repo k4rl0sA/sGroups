@@ -52,7 +52,21 @@ function tot_employee() {
     $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types'];
     // show_sql($sql,array_merge($params,[]),$types ."ii");
     $result = exec_sql($sql);
-    return 'Empleados ='. $result[0]['Total'];
+    $titl='Total Usuarios';
+    $icon='fas fa-users';
+    $indi='fa fa-level-up arrow-icon';
+    
+
+    $tot='<div class="metric-box"><div class="left">
+    <h3>'$titl'</h3>
+        <div class="icon"><i class="'$icon'"></i></div></div>
+    <div class="right">
+    <i class="'$indi'" aria-hidden="true"></i>
+        <div class="value">'$result[0]['Total']'</div>
+    </div>
+</div>';
+
+    return $tot;
     /* $sql = "SELECT SUM(R.cant_report) AS Total_Reportados 
     FROM `repor_diario` R LEFT JOIN `usuarios` U ON R.usu_create = U.id_usuario where ";
     $filter = whe_employee();
