@@ -47,10 +47,10 @@ function whe_employee() {
     return fil_where($filtros);
 }
 function tot_employee() {
-    /* $sql = "SELECT count(*) AS Total from usuarios where ";
+    $sql = "SELECT count(*) AS Total from usuarios where ";
     $filter = whe_employee();
     $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types'];
-    show_sql($sql,array_merge($params,[]),$types ."ii"); */
+    show_sql($sql,array_merge($params,[]),$types ."ii");
 
 
    /*  $result = exec_sql($sql);
@@ -72,12 +72,12 @@ function tot_employee() {
 
 
 
-    $sql = "SELECT SUM(R.cant_report) AS Total_Reportados 
+   /*  $sql = "SELECT SUM(R.cant_report) AS Total_Reportados 
     FROM `repor_diario` R LEFT JOIN `usuarios` U ON R.usu_create = U.id_usuario where ";
     $filter = whe_employee();
     $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types']; 
     $sql.=" GROUP BY U.nombre";
-    show_sql($sql,array_merge($params,[]),$types ."ii");
+    show_sql($sql,array_merge($params,[]),$types ."ii"); */
     /*$result = exec_sql($sql);
     return $result ? $result[0] : ['Total_Reportados' => 0, 'Total_Digitados' => 0]; */
 }
