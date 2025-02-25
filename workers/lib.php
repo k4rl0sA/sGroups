@@ -109,6 +109,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
    }
    function cap_menus($a,$b='cap',$con='con') {
 	$rta = "";
+    $acc=rol($a);
     if ($a=='employee' && isset($acc['crear']) && $acc['crear']=='SI') {  
         $rta .= "<button class='frm-btn $a grabar' onclick=\"grabar('$a', this);\"><span class='frm-txt'>Grabar</span><i class='fa-solid fa-floppy-disk icon'></i></button>";
     }
