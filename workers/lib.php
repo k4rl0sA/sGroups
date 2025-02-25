@@ -79,7 +79,7 @@ function tot_employee() {
             $rta.= generar_metrica($total['titulo'], $total['icono'], $total['indicador'], $rta[0]['Total']);
         }
     }
-    return $resultados;
+    return $rta;
 
    /*  $sql = "SELECT SUM(R.cant_report) AS Total_Reportados 
     FROM `repor_diario` R LEFT JOIN `usuarios` U ON R.usu_create = U.id_usuario where ";
