@@ -25,7 +25,8 @@ if (!isset($_SESSION['documento'])) {
         <div class="menu">
         <div class="profile clearfix">
               <div class="profile_pic" style="display: none;">
-                <img src="https://colorlib.com/polygon/gentelella/images/img.jpg" alt="..." class="img-circle profile_img">
+              <i class="fa-solid fa-user-tie img-circle profile_img"></i>
+                <!-- <img src="https://colorlib.com/polygon/gentelella/images/img.jpg" alt="..." class="img-circle profile_img"> -->
               </div>
               <div class="profile_info" style="display: none;">
                 <span><?php $user = explode(" ",$_SESSION['nombre']);echo($user[0]);?></span>
