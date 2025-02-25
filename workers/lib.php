@@ -61,26 +61,11 @@ function whe_employee() {
 
 function tot_employee() {
     $totals = [
-        [
-            'titulo' => 'Total Usuarios',
-            'icono' => 'fas fa-users',
-            'indicador' => 'fa fa-level-up arrow-icon',
-            'condicion' => '' // Sin condición adicional
-        ],
-        [
-            'titulo' => 'Total Activos',
-            'icono' => 'fa-brands fa-creative-commons-by',
-            'indicador' => 'fa fa-level-down arrow-icon',
-            'condicion' => " AND estado='A'"
-        ],
-        [
-            'titulo' => 'Total Inactivos',
-            'icono' => 'fa-solid fa-user-xmark',
-            'indicador' => 'fa fa-level-down arrow-icon',
-            'condicion' => " AND estado='I'"
-        ]
+    ['titulo'=>'Total Usuarios','icono'=>'fas fa-users','indicador'=>'fa fa-level-up arrow-icon','condicion' => '']
+    ['titulo'=>'Total Activos','icono'=>'fa-brands fa-creative-commons-by','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='A'"]
+    ['titulo'=>'Total Inactivos','icono'=>'fa-solid fa-user-xmark','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado='I'"]
     ];
-    $rta = ''; // Variable para almacenar el HTML de todas las métricas
+    $rta = '';
     foreach ($totals as $total) {
         $sql = "SELECT count(*) AS Total FROM usuarios U WHERE ";
         $filter = whe_employee();
@@ -88,7 +73,7 @@ function tot_employee() {
             $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
             continue;
         }
-        $sql .= $filter['where'] . $total['condicion']; // Concatenar condición adicional
+        $sql .= $filter['where'] . $total['condicion'];
         $params = $filter['params'];
         $types = $filter['types'];
         $resultado_consulta = exec_sql($sql, $params, $types);
