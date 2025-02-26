@@ -151,35 +151,35 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 	}
     function gra_employee(){
 		$id=divide($_POST['id']);
+        $commonParams = [
+            ['type' => 's', 'value' => $_POST['id_usuario']],
+            ['type' => 's', 'value' => $_POST['nombre']],
+            ['type' => 's', 'value' => $_POST['departamento']],
+            ['type' => 's', 'value' => $_POST['ciudad']],
+            ['type' => 's', 'value' => $_POST['perfil']],
+            ['type' => 's', 'value' => $_POST['n_contacto']],
+            ['type' => 's', 'value' => $_POST['eps']],
+            ['type' => 's', 'value' => $_POST['arl']],
+            ['type' => 's', 'value' => $_POST['correo']]
+        ];
+
 			if (empty($id[0])) {
-                $sql = "INSERT INTO usuarios VALUES(NULL,?,?,?,DATE_SUB(NOW(),INTERVAL 5 HOUR),NULL,NULL,'A')";
-                $params = [
-                    ['type' => 's', 'value' => $_POST['id']],
-                    ['type' => 's', 'value' => $_POST['id_usuario']],
-                    ['type' => 's', 'value' => $_POST['nombre']],
-                    ['type' => 's', 'value' => $_POST['departamento']],
-                    ['type' => 's', 'value' => $_POST['ciudad']],
-                    ['type' => 's', 'value' => $_POST['perfil']],
-                    ['type' => 's', 'value' => $_POST['n_contacto']],
-                    ['type' => 's', 'value' => $_POST['eps']],
-                    ['type' => 's', 'value' => $_POST['arl']],
-                    ['type' => 's', 'value' => $_POST['correo']],
-                    ['type' => 's', 'value' => $_POST['clave']],
-                    ['type' => 's', 'value' => $_POST['token']],
-                    ['type' => 's', 'value' => $_POST['exp_tkn']],
-                    ['type' => 's', 'value' => $_POST['usu_create']],
-                    ['type' => 's', 'value' => $_POST['fecha_create']],
-                    ['type' => 's', 'value' => $_POST['usu_update']],
-                    ['type' => 's', 'value' => $_POST['fecha_update']],
-                    ['type' => 's', 'value' => $_POST['estado']]
-                ];
-                // $types = "sii"; 
+                $sql = "INSERT INTO usuarios VALUES (NULL,?,?,?,?,?,?,?,?,?,null,null,null,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
+                $params = array_merge(
+                    $commonParams,
+                    [
+                        ['type' => 's', 'value' => $usu],
+                    ]
+                );
 			}else{
                 $sql = "UPDATE usuarios SET id_usuario = ?,id_usuario = ?,nombre = ? WHERE id = ?";
-                $params = [
-                    ['type' => 'i', 'value' => $_POST['can']],
-                    ['type' => 'i', 'value' => $id[0]]
-                ];
+                $params = array_merge(
+                    $commonParams,
+                    [
+                        ['type' => 's', 'value' => $usu],
+                        ['type' => 'i', 'value' => $id[0]],
+                    ]
+                );
                 // $types = "ii"; 
             }
 /*             $param_values = array_map(fn($p) => $p['value'], $params);
