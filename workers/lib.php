@@ -208,7 +208,9 @@ $where.=" GROUP BY U.Departamento,U.nombre";
     function opc_arl($id=''){
         return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=5 and estado="A" ORDER BY 1',$id);
     }
-
+    function opc_estado($id=''){
+        return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=6 and estado="A" ORDER BY 1',$id);
+    }
 function formato_dato($a,$b,$c,$d){
 	$b=strtolower($b);
 	$rta=$c[$d];
