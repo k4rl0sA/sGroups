@@ -135,6 +135,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 	$c[]=new cmp('eps','s',3,$d['eps'],$w.' '.$o,'EPS','eps','','',true,true,'','col-2',"validDate(this,-3,0);");
 	$c[]=new cmp('arl','s',3,$d['arl'],$w.' '.$o,'ARL','arl','','',true,true,'','col-2');
     $c[]=new cmp('cor','t',50,$d['correo'],$w.' '.$o,'Correo','correo','','',true,true,'','col-2');
+    $c[]=new cmp('cor','t',50,$d['estado'],$w.' '.$o,'Estado','estado','','',true,true,'','col-2');
 	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
 	$rta.="</div>";
 	return $rta;
