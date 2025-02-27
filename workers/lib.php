@@ -164,9 +164,9 @@ $where.=" GROUP BY U.Departamento,U.nombre";
             ['type' => 's', 'value' => $_POST['cor']]
             
         ];
-
+        $usu=$_SESSION['documento'];
 			if (empty($id[0])) {
-                $usu=$_SESSION['documento'];
+                
                 $sql = "INSERT INTO usuarios VALUES (NULL,?,?,?,?,?,?,?,?,?,null,null,null,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
                 $params = array_merge(
                     $commonParams,
