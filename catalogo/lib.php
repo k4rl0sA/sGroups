@@ -1,175 +1,234 @@
 <?php
-require_once "../libs/gestion.php";
-ini_set('display_errors','1');
-
-if (!isset($_SESSION['us_riesgo'])) die("<script>window.top.location.href='/';</script>");
-else {
-  $rta="";
-  switch ($_POST['a']){
-  case 'csv': 
-    header_csv ($_REQUEST['tb'].'.csv');
-    $rs=array('','');    
-    echo csv($rs);
-    die;
-    break;
-  default:
-    eval('$rta='.$_POST['a'].'_'.$_POST['tb'].'();');
-    if (is_array($rta)) json_encode($rta);
-	else echo $rta;
-  }   
+require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../src/gestion.php';
+$perf = perfil($_POST['tb']);
+if (!isset($_SESSION['documento'])) {
+    log_error("Error 20: Usuario No Autorizado.".$_SESSION['documento']);
+    http_response_code(401);
+    echo json_encode(['redirect' => '/']);
+    exit();
+}
+if (!isset($_POST['csrf_tkn']) || $_POST['csrf_tkn'] !== $_SESSION['csrf_tkn']) {
+    log_error("Error 24: Intento de CSRF detectado. " . $_POST['csrf_tkn'] . ' frente a ' . $_SESSION['csrf_tkn']);
+    http_response_code(403); // Prohibido
+    exit();
+}
+// Regenerar el token después de validarlo
+$a = filter_var($_POST['a'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$tb = filter_var($_POST['tb'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+$func = $a . '_' . $tb;
+if (!function_exists($func)) {
+    log_error("Error 21: Función no encontrada. Intento de llamar a: " . $func);
+    http_response_code(400);
+    echo json_encode(['error' => 'Función no encontrada', 'funcion' => $func]);
+    exit();
+}
+try {
+    $rta = $func();
+    if (is_array($rta)) {
+        echo json_encode($rta);
+    } else {
+        echo $rta;
+    }
+} catch (Exception $e) {
+    log_error("Error 23: Excepción al ejecutar la función. Función: " . $func . ", Error: " . $e->getMessage());
+    http_response_code(500);
+    echo json_encode(['error' => 'Error interno del servidor']);
 }
 
- //~ $id=($_POST['id']==''?[0,0]:explode('-',$_POST['id']));	
+function whe_employee() {
+    $filtros = [];
+    if (!empty($_POST['fdep'])) {
+        $filtros[] = ['campo' => 'U.departamento', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fdep'])), 'operador' => 'IN'];
+    }    
+    if (!empty($_POST['fid'])) {
+        $filtros[] = ['campo' => 'id_usuario', 'valor' => $_POST['fid'], 'operador' => 'like'];
+    }
+    return fil_where($filtros);
+}
+function tot_employee() {
+    $totals = [
+    ['titulo'=>'Total','icono'=>'fas fa-users','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
+    ['titulo'=>'Activos','icono'=>'fa-brands fa-creative-commons-by','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='1'"],
+    ['titulo'=>'Inactivos','icono'=>'fa-solid fa-user-xmark','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado='2'"]
+    ];
+    $rta = '';
+    foreach ($totals as $total) {
+        $sql = "SELECT count(*) AS Total FROM usuarios U WHERE ";
+        $filter = whe_employee();
+        if (!isset($filter['where']) || !isset($filter['params']) || !isset($filter['types'])) {
+            $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
+            continue;
+        }
+        $sql .= $filter['where'] . $total['condicion'];
+        $params = $filter['params'];
+        $types = $filter['types'];
+        $resultado_consulta = exec_sql($sql, $params, $types);
+        if ($resultado_consulta === null || !isset($resultado_consulta[0]['Total'])) {
+            $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
+        } else {
+            $rta .= generar_metrica($total['titulo'], $total['icono'], $total['indicador'], $resultado_consulta[0]['Total']);
+        }
+    }
+    return $rta;
 
-function divide($a){
-	$id=explode("_", $a);
-	return ($id);
+   /*  $sql = "SELECT SUM(R.cant_report) AS Total_Reportados 
+    FROM `repor_diario` R LEFT JOIN `usuarios` U ON R.usu_create = U.id_usuario where ";
+    $filter = whe_employee();
+    $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types']; 
+    $sql.=" GROUP BY U.nombre";
+    show_sql($sql,array_merge($params,[]),$types ."ii"); */
+    /*$result = exec_sql($sql);
+    return $result ? $result[0] : ['Total_Reportados' => 0, 'Total_Digitados' => 0]; */
 }
 
-
-function whe_catalogo() {
-	$sql = "";
-	if ($_POST['fidcata'])
-		$sql .= " AND idcatalogo='".$_POST['fidcata']."' ";
-	if ($_POST['fcatalogo'])
-		$sql .= " AND descripcion like '%".$_POST['fcatalogo']."%' ";
-	if ($_POST['festado'])
-		$sql .= " AND estado = '".$_POST['festado']."' ";
-	return $sql;
+function lis_employee() {
+    $regxPag = 15;
+    $pag = si_noexiste('pag-employee', 1);
+    $offset = ($pag - 1) * $regxPag;$filter = whe_employee();
+    $where = $filter['where'];$params = $filter['params'];$types = $filter['types'];
+    $tabla = "usuarios";
+	$sqltot="SELECT COUNT(*) total  FROM `usuarios` U WHERE " . $where;
+    $total = obtener_total_registros($sqltot,$params, $types);
+    $sql = "SELECT U.`id_usuario` AS ACCIONES, U.id_usuario AS Documento,nombre,CTLG(1,departamento) AS Departamento, 
+    CTLG(2,ciudad) Ciudad,CTLG(3,perfil) Perfil,U.`n_contacto` AS Telefono, CTLG(4,eps) AS EPS, CTLG(5,U.arl) AS ARL, 
+    U.correo AS Correo,CTLG(6,estado) Estado
+ FROM `usuarios` U ";
+$where.=" GROUP BY U.Departamento,U.nombre";
+    $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
+	// show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
+     if ($datos === []) return no_reg();
+    return create_table($total, $datos, "employee", $regxPag, "lib.php");
 }
-
-
-function lis_catalogo(){
-	$sql="SELECT ROW_NUMBER() OVER (ORDER BY 1) R,idcatalogo ACCIONES,idcatadeta ID,descripcion,estado,valor from catadeta
-	WHERE '1'='1'";
-$sql.=whe_catalogo();
-$sql.="ORDER BY 1,2,CAST(idcatadeta AS UNSIGNED), idcatadeta";
-// echo $sql;
-	$_SESSION['sql_catalogo']=$sql;
-	$datos=datos_mysql($sql);
-return panel_content($datos["responseResult"],"catalogo",15);
-}
-
-function focus_catalogo(){
- return 'catalogo';
-}
-
-function men_catalogo(){
- $rta=cap_menus('catalogo','pro');
- //~ $rta.=menu('tab','catalogo');
- return $rta;
-}
-
-
-function cap_menus($a,$b='cap',$con='con') {
-  $rta = "";
-  //~ $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
-  //~ $rta .= "<li class='icono $a cancelar'    title='Cerrar'          Onclick=\"ocultar('".$a."','".$b."');\" >";
-  //~ $rta.="<li class='icono $a pdf' title='Pdf' id='' OnClick=\"pdf(this,event);\"></li>";
-  //~ $rta.="<li class='icono crear' id='btn-crear-".$a."' OnClick=\"act_actual('".$a."','0',event);\" >";
-  //~ $rta.="<li class='icono importar' id='btn-importar-".$a."' OnClick=\"upload('csv','".$a.".csv','".$a."-file');\" >";
-  //~ $rta.="<li id='btn-exportar_".$a."' class='icono $a exportar' OnClick=\"exportar('".$a."');\" >";
-  //~ $rta.="<li class='icono imprimir' id='btn-imprimir-".$a."' OnClick=\"imprimir('".$a."','".$a.'-'.$a.'_id'."');\" >";
-  
-  //~ $rta .= "<li class='icono $a crear'       title='Adicionar'       Onclick=\"captura.lim('$a',cmp['$a']);\"><li>";
-    //~ $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
-    
-  $rta .= "<li class='icono $a grabar'      title='Grabar'          OnClick=\"grabar('$a',this);\"></li>";
-  //~ $rta .= "<li class='icono $a importar'    title='Importar'        OnClick=\"upload('csv','$a','$a','$con');\"></li>";
-  //~ $rta .= "<li class='icono $a documento'   title='Ver Captura'     Onclick=\"desplegar('$a-captura');\"></li>";	  
-  //~ $rta .= "<li class='icono $a exportar'       title='Exportar'             ></li>"; 
-  //~ $rta .= "<li class='icono $a pdf'    title='Imprimir registros '   ></li>";   
-  //~ $rta .= "<li class='icono $a basura'      title='Eliminar registros '   ></li>";     
-  $rta .= "<li class='icono $a actualizar'  title='Actualizar'      Onclick=\"act_lista('$a',this);\"></li>";
-  //~ $rta .= "<li class='icono $a listado'     title='Ver Tabla'       Onclick=\"desplegar('$a-lis');\"></li>";
-  //~ $rta .= "<li class='icono $a total'       title='Ver Total'       Onclick=\"desplegar('$a-tot');\"></li>";
-  $rta .= "<li class='icono $a cancelar'    title='Cerrar'          Onclick=\"ocultar('".$a."','".$b."');\" >";
-  return $rta;
-}
-
-function cmp_catalogo(){
- $rta="";
- $t=['idcatalogo'=>'','idcatadeta'=>'','descripcion'=>'','valor'=>'','estado'=>'A'];
- $w='catalogo';
- //~ $id=explode('-',$_REQUEST['id']);
- $d=get_catalogo(); 
- //~ var_dump($d);
- if ($d=="") {$d=$t;}
- $d['estado']=($d['estado']=='A')?'SI':'NO';
- //~ $v=($data['valor']==0)?'':$data['valor'];
- if($d['idcatalogo']){$ids=$d['idcatalogo'].'_'.$d['idcatadeta'];}else{$ids='';}
- $c[]=new cmp('id','h',100,$ids,$w,'',0,'','','',false,'','col-1');
- $c[]=new cmp('cat','s',60,$d['idcatalogo'],$w,'Nombre Catalogo','catalogo');
- $c[]=new cmp('cod','t',12,$d['idcatadeta'],$w,'Codigo Item');
- $c[]=new cmp('des','t',40,$d['descripcion'],$w,'Texto Descriptivo Item',null,null,'Describa el Item del catalogo');
- $c[]=new cmp('est','o',1,$d['estado'],$w,'Item Activo');
- $c[]=new cmp('val','n',10,$d['valor'],$w,'Valor',0,'rgxdfnum','NNNN',false,true,'Número de 4 a 10 Digitos');
- for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
- $rta.="</div>";
- return $rta;
- }
-
-function opc_catalogo(){
-	//~ echo $id = ($_POST['id'] == '') ? '' : divide($_POST['id'])[0];
- return opc_sql("SELECT `idcatalogo`,concat(idcatalogo,' - ',nombre) FROM `catalogo` ORDER BY 1",$id = ($_POST['id'] == '') ? '' : divide($_POST['id'])[0]);
-}
-
-function get_catalogo(){
-	//~ $id = ($_POST['id']=='0') ? '[0,0]' : explode('-',$_POST['id']);;
-	if($_POST['id']=='0'){
-		return "";
-	}else{
+ function focus_employee(){
+	return 'employee';
+   }
+   function men_employee(){
+	$rta=cap_menus('employee','pro');
+	return $rta;
+   }
+   function cap_menus($a,$b='cap',$con='con') {
+	$rta = "";
+    $acc=rol($a);
+    if ($a=='employee' && isset($acc['crear']) && $acc['crear']=='SI') {  
+        $rta .= "<button class='frm-btn $a grabar' onclick=\"grabar('$a', this);\"><span class='frm-txt'>Grabar</span><i class='fa-solid fa-floppy-disk icon'></i></button>";
+    }
+	return $rta;
+  }
+  function cmp_employee(){
+	$rta="";
+	$t=['id'=>'','id_usuario'=>'','nombre'=>'','departamento'=>'','ciudad'=>'','perfil'=>'','telefono'=>'','eps'=>'','arl'=>'','correo'=>'','estado'=>''];
+	$w='employee';
+	$uPd = $_REQUEST['id']=='0' ? true : false;
+	$d=get_employee(); 
+	// print_r($d);
+	if ($d=="") {$d=$t;}
+	$o='docder';
+	// var_dump($_POST);
+	$c[]=new cmp('id','h',100,$d['id'],$w,'',0,'','','',false,'','col-1');
+    $c[]=new cmp('doc','n',9999999999,$d['id_usuario'],$w.' '.$o,'Numero de Documento','doc','','',true,true,'','col-2');
+    $c[]=new cmp('nom','t',100,$d['nombre'],$w.' '.$o,'Nombres','nombre','','',true,true,'','col-2');
+    $c[]=new cmp('dep','s',3,$d['departamento'],$w.' '.$o,'Departamento','departamento','','',true,true,'','col-2');
+    $c[]=new cmp('ciu','s',3,$d['ciudad'],$w.' '.$o,'Ciudad','ciudad','','',true,true,'','col-2');
+    $c[]=new cmp('per','s',3,$d['perfil'],$w.' '.$o,'Perfil','perfil','','',true,true,'','col-2');
+    $c[]=new cmp('tel','n',9999999999,$d['telefono'],$w.' '.$o,'Telefono','telefono','','',true,true,'','col-2');
+	$c[]=new cmp('eps','s',3,$d['eps'],$w.' '.$o,'EPS','eps','','',true,true,'','col-2',"validDate(this,-3,0);");
+	$c[]=new cmp('arl','s',3,$d['arl'],$w.' '.$o,'ARL','arl','','',true,true,'','col-2');
+    $c[]=new cmp('cor','t',50,$d['correo'],$w.' '.$o,'Correo','correo','','',true,true,'','col-2');
+    $c[]=new cmp('est','s',3,$d['estado'],$w.' '.$o,'Estado','estado','','',true,true,'','col-2');
+	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
+	$rta.="</div>";
+	return $rta;
+	}
+    function get_employee(){
+		if($_POST['id']=='0'){
+			return "";
+		}else{
+			$id=divide($_POST['id']);
+			$sql="SELECT id,id_usuario,nombre,departamento,ciudad,perfil,n_contacto telefono,eps,arl,correo,estado  FROM usuarios WHERE id_usuario='".$id[0]."'";
+			$info=datos_mysql($sql);
+			return $info['responseResult'][0];		
+		} 
+	}
+    function gra_employee(){
 		$id=divide($_POST['id']);
-		$sql="SELECT * FROM catadeta WHERE idcatalogo='".$id[0]."' AND idcatadeta='".$id[1]."'";
-		//~ echo $sql;
-		$info=datos_mysql($sql);
-		return $info['responseResult'][0];		
-	} 
-}
+        $commonParams = [
+            ['type' => 'i', 'value' => $_POST['doc']],
+            ['type' => 's', 'value' => $_POST['nom']],
+            ['type' => 'i', 'value' => $_POST['dep']],
+            ['type' => 'i', 'value' => $_POST['ciu']],
+            ['type' => 'i', 'value' => $_POST['per']],
+            ['type' => 'i', 'value' => $_POST['tel']],
+            ['type' => 'i', 'value' => $_POST['eps']],
+            ['type' => 'i', 'value' => $_POST['arl']],
+            ['type' => 's', 'value' => $_POST['cor']]
+            
+        ];
+        $usu=$_SESSION['documento'];
+			if (empty($id[0])) {
+                
+                $sql = "INSERT INTO usuarios VALUES (NULL,?,?,?,?,?,?,?,?,?,null,null,null,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
+                $params = array_merge(
+                    $commonParams,
+                    [
+                        ['type' => 'i', 'value' => $usu],
+                        ['type' => 'i', 'value' => $_POST['est']]
+                    ]
+                );
+			}else{
+                $sql = "UPDATE usuarios SET id_usuario=?,nombre=?,departamento=?,ciudad=?,perfil=?,n_contacto=?,eps=?,arl=?,correo=?,usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado =? WHERE id = ?";
+                $params = array_merge(
+                    $commonParams,
+                    [
+                        ['type' => 'i', 'value' => $usu],
+                        ['type' => 'i', 'value' => $_POST['est']],
+                        ['type' => 'i', 'value' => $id[0]],
+                    ]
+                );
+                // $types = "ii"; 
+            }
+/*             $param_values = array_map(fn($p) => $p['value'], $params);
+            $debug_sql = show_sql($sql, $param_values, $types);
+            $rta = ['status' => 'success', 'message' => $debug_sql]; */
+		$rta = mysql_prepd($sql, $params);
+		header('Content-Type: application/json; charset=utf-8'); 
+		echo json_encode($rta);
+        // $_SESSION['csrf_tkn'] = bin2hex(random_bytes(32));
+		exit;
+	}
 
-function gra_catalogo(){
-if($_POST['id']){
- $id=divide($_POST['id']);
- $est=($_POST['est']=='SI'?'A':'I');
- //~ $val=(isset($_POST['val'])?$_POST['val']:'0'); , valor=".$val."
- $sql="UPDATE `catadeta` SET idcatalogo={$_POST['cat']},idcatadeta=UPPER('{$_POST['cod']}'),descripcion=UPPER('{$_POST['des']}'),
-	estado=upper('".$est."'),valor=".$val=($_POST['val']?$_POST['val']:0)."
-	WHERE idcatalogo=UPPER('{$id[0]}') AND idcatadeta=UPPER('{$id[1]}');";
-	//~ echo $sql;
-}else{
-	 $est=($_POST['est']=='SI'?'A':'I');
-	//~ UPDATE `catadeta` SET `idcatadeta` = 'CC' WHERE `catadeta`.`idcatalogo` = 1 AND `catadeta`.`idcatadeta` = 'CCi';
-	$sql="INSERT INTO `catadeta` VALUES (upper('{$_POST['cat']}'),UPPER('{$_POST['cod']}'),UPPER('{$_POST['des']}'),'".$est."',".$val=($_POST['val']?$_POST['val']:0).");";
-//~ $sql="CALL CREA_CATALOGODETALLE($id[0],$id[1],'{$_POST['cod']}','$est','{$_POST['cod']}','{$_POST['cod']}');
- //~ CALL SP_ACT_CATALOGO('".intval($cat[0])."','{$_POST['cat']}','{$_POST['des']}','{$_POST['val']}','$est',:rta)";
- //~ return (dato_oci($sql,true,0));	
-	//~ echo $sql;
-}
-
-return dato_mysql($sql);
-}
-	
+    function opc_ciudad($id=''){
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=2 and estado="1" ORDER BY 1',$id);
+    }
+    function opc_departamento($id=''){
+        return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado="1" ORDER BY 1',$id);
+    }
+    function opc_perfil($id=''){
+        return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=3 and estado="1" ORDER BY 1',$id);
+    }
+    function opc_eps($id=''){
+        return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=4 and estado="1" ORDER BY 1',$id);
+    }
+    function opc_arl($id=''){
+        return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=5 and estado="1" ORDER BY 1',$id);
+    }
+    function opc_estado($id=''){
+        return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=6 and estado="1" ORDER BY 1',$id);
+    }
 function formato_dato($a,$b,$c,$d){
- $b=strtolower($b);
- $rta=$c[$d];
- //~ $rta=iconv('ISO-8859-1', 'UTF-8',$rta);
-  if ($a=='catalogo'&& $b=='id'){$rta= "<div class='txt-center'>".$c['ID']."</div>";}
-  //~ var_dump($c);
- if (($a=='catalogo') && ($b=='acciones'))    {
-		$rta="<nav class='menu right'>";
-		//~ $rta.="<li class='icono pdf' title='Pdf' id='".$c['ID']."' OnClick=\"pdf(this,event);\"></li>";
-		$rta.="<li class='icono editar' title='Editar' id='".$c['ACCIONES']."_".$c['ID']."' Onclick=\"mostrar('catalogo','pro',event,'','lib.php',4);\"></li>";
-		if ($c['estado']=='A'){
-			//~ $rta.="<li class='icono inactiva' title='Inactivar' id='".$c['ID']."' OnClick=\"inactivareg(this,event,'agenda');act_lista(f,this);\" ></li>";
-		}
-		$rta.="</nav>";
-	}    
- return $rta;
-}
-
+	$b=strtolower($b);
+	$rta=$c[$d];
+	if (($a=='employee') && ($b=='acciones')){
+		   $rta="<nav class='menu right'>";
+		   $rta.="<li class='fa-solid fa-pen-to-square icon' title='Editar Empleados' id='".$c['ACCIONES']."' Onclick=\"mostrar('employee','pro',event,'','lib.php',4,'Funcionarios');\"></li>";
+           /* $rta.="<li class='fa-solid fa-triangle-exclamation icon' title='Hallazgos' id='".$c['ACCIONES']."' Onclick=\"mostrar('hallaz','pro',event,'','hallazgos.php',4,'Hallazgos');\"></li>"; */
+		   $rta.="</nav>";
+	   }    
+	return $rta;
+   }
 function bgcolor($a,$c,$f='c'){
- $rta="";
- //~ if ($a=='transacciones'&&$c['ESTADO']=='A') $rta='green';
- return $rta;
-}
-?>
+	$rta="";
+	//~ if ($a=='transacciones'&&$c['ESTADO']=='A') $rta='green';
+	return $rta;
+   }
+   ?>
