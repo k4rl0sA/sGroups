@@ -5,10 +5,10 @@ if (!isset($_SESSION['nombre'])) {
     exit();
 }
 require_once __DIR__.'/../src/gestion.php';
-$mod='employee';
+$mod='catalogo';
 $ya = new DateTime();
 $departamentos=opc_sql("SELECT idcatadeta,descripcion from catadeta where idcatalogo=1 and estado='A' ORDER BY 2",'');
-$acc=acceBtns('employee');
+$acc=acceBtns('catalogo');
 $btns='<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
 if (isset($acc['crear']) && $acc['crear'] == 'SI') {
     $btns .= '<button class="add-btn" data-mod='.$mod.' title="Nuevo"><i class="fas fa-plus"></i></button>';
@@ -31,7 +31,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     <script src="../libs/js/choices.min.js"></script>
     <script src="../../libs/js/menu.js?v=1.0"></script>
 	<script>
-		let mod = 'employee';
+		let mod = 'catalogo';
 		let ruta_app = 'lib.php';
 		function actualizar() {
 			act_lista(mod);

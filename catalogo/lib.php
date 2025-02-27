@@ -36,7 +36,7 @@ try {
     echo json_encode(['error' => 'Error interno del servidor']);
 }
 
-function whe_employee() {
+function whe_catalogo() {
     $filtros = [];
     if (!empty($_POST['fdep'])) {
         $filtros[] = ['campo' => 'U.departamento', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fdep'])), 'operador' => 'IN'];
@@ -46,7 +46,7 @@ function whe_employee() {
     }
     return fil_where($filtros);
 }
-function tot_employee() {
+function tot_catalogo() {
     $totals = [
     ['titulo'=>'Total','icono'=>'fas fa-users','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
     ['titulo'=>'Activos','icono'=>'fa-brands fa-creative-commons-by','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='1'"],
@@ -55,7 +55,7 @@ function tot_employee() {
     $rta = '';
     foreach ($totals as $total) {
         $sql = "SELECT count(*) AS Total FROM usuarios U WHERE ";
-        $filter = whe_employee();
+        $filter = whe_catalogo();
         if (!isset($filter['where']) || !isset($filter['params']) || !isset($filter['types'])) {
             $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
             continue;
@@ -82,10 +82,10 @@ function tot_employee() {
     return $result ? $result[0] : ['Total_Reportados' => 0, 'Total_Digitados' => 0]; */
 }
 
-function lis_employee() {
+function lis_catalogo() {
     $regxPag = 15;
-    $pag = si_noexiste('pag-employee', 1);
-    $offset = ($pag - 1) * $regxPag;$filter = whe_employee();
+    $pag = si_noexiste('pag-catalogo', 1);
+    $offset = ($pag - 1) * $regxPag;$filter = whe_catalogo();
     $where = $filter['where'];$params = $filter['params'];$types = $filter['types'];
     $tabla = "usuarios";
 	$sqltot="SELECT COUNT(*) total  FROM `usuarios` U WHERE " . $where;
@@ -98,29 +98,29 @@ $where.=" GROUP BY U.Departamento,U.nombre";
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
 	// show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
      if ($datos === []) return no_reg();
-    return create_table($total, $datos, "employee", $regxPag, "lib.php");
+    return create_table($total, $datos, "catalogo", $regxPag, "lib.php");
 }
- function focus_employee(){
-	return 'employee';
+ function focus_catalogo(){
+	return 'catalogo';
    }
-   function men_employee(){
-	$rta=cap_menus('employee','pro');
+   function men_catalogo(){
+	$rta=cap_menus('catalogo','pro');
 	return $rta;
    }
    function cap_menus($a,$b='cap',$con='con') {
 	$rta = "";
     $acc=rol($a);
-    if ($a=='employee' && isset($acc['crear']) && $acc['crear']=='SI') {  
+    if ($a=='catalogo' && isset($acc['crear']) && $acc['crear']=='SI') {  
         $rta .= "<button class='frm-btn $a grabar' onclick=\"grabar('$a', this);\"><span class='frm-txt'>Grabar</span><i class='fa-solid fa-floppy-disk icon'></i></button>";
     }
 	return $rta;
   }
-  function cmp_employee(){
+  function cmp_catalogo(){
 	$rta="";
 	$t=['id'=>'','id_usuario'=>'','nombre'=>'','departamento'=>'','ciudad'=>'','perfil'=>'','telefono'=>'','eps'=>'','arl'=>'','correo'=>'','estado'=>''];
-	$w='employee';
+	$w='catalogo';
 	$uPd = $_REQUEST['id']=='0' ? true : false;
-	$d=get_employee(); 
+	$d=get_catalogo(); 
 	// print_r($d);
 	if ($d=="") {$d=$t;}
 	$o='docder';
@@ -140,7 +140,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 	$rta.="</div>";
 	return $rta;
 	}
-    function get_employee(){
+    function get_catalogo(){
 		if($_POST['id']=='0'){
 			return "";
 		}else{
@@ -150,7 +150,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 			return $info['responseResult'][0];		
 		} 
 	}
-    function gra_employee(){
+    function gra_catalogo(){
 		$id=divide($_POST['id']);
         $commonParams = [
             ['type' => 'i', 'value' => $_POST['doc']],
@@ -218,9 +218,9 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 function formato_dato($a,$b,$c,$d){
 	$b=strtolower($b);
 	$rta=$c[$d];
-	if (($a=='employee') && ($b=='acciones')){
+	if (($a=='catalogo') && ($b=='acciones')){
 		   $rta="<nav class='menu right'>";
-		   $rta.="<li class='fa-solid fa-pen-to-square icon' title='Editar Empleados' id='".$c['ACCIONES']."' Onclick=\"mostrar('employee','pro',event,'','lib.php',4,'Funcionarios');\"></li>";
+		   $rta.="<li class='fa-solid fa-pen-to-square icon' title='Editar Empleados' id='".$c['ACCIONES']."' Onclick=\"mostrar('catalogo','pro',event,'','lib.php',4,'Funcionarios');\"></li>";
            /* $rta.="<li class='fa-solid fa-triangle-exclamation icon' title='Hallazgos' id='".$c['ACCIONES']."' Onclick=\"mostrar('hallaz','pro',event,'','hallazgos.php',4,'Hallazgos');\"></li>"; */
 		   $rta.="</nav>";
 	   }    
