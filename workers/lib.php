@@ -92,7 +92,7 @@ function lis_employee() {
     $total = obtener_total_registros($sqltot,$params, $types);
     $sql = "SELECT U.`id_usuario` AS ACCIONES, U.id_usuario AS Documento,nombre,CTLG(1,departamento) AS Departamento, 
     CTLG(2,ciudad) Ciudad,CTLG(3,perfil) Perfil,U.`n_contacto` AS Telefono, CTLG(4,eps) AS EPS, CTLG(5,U.arl) AS ARL, 
-    U.correo AS Correo,CTLG(3,estado) Estado
+    U.correo AS Correo,CTLG(6,estado) Estado
  FROM `usuarios` U ";
 $where.=" GROUP BY U.Departamento,U.nombre";
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
