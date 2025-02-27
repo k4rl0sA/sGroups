@@ -27,4 +27,5 @@ function displayError($message) {
             <span class='closebtn' onclick=\"this.parentElement.style.display='none';\">&times;</span> 
             <strong>Error!</strong> $message
           </div>";
+          exit;
 }
