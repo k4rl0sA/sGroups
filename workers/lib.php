@@ -181,6 +181,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
                     $commonParams,
                     [
                         ['type' => 'i', 'value' => $usu],
+                        ['type' => 'i', 'value' => $_POST['est']],
                         ['type' => 'i', 'value' => $id[0]],
                     ]
                 );
