@@ -161,17 +161,18 @@ $where.=" GROUP BY U.Departamento,U.nombre";
             ['type' => 'i', 'value' => $_POST['tel']],
             ['type' => 'i', 'value' => $_POST['eps']],
             ['type' => 'i', 'value' => $_POST['arl']],
-            ['type' => 's', 'value' => $_POST['cor']],
-            ['type' => 'i', 'value' => $_POST['est']],
+            ['type' => 's', 'value' => $_POST['cor']]
+            
         ];
 
 			if (empty($id[0])) {
                 $usu=$_SESSION['documento'];
-                $sql = "INSERT INTO usuarios VALUES (NULL,?,?,?,?,?,?,?,?,?,null,null,null,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'1')";
+                $sql = "INSERT INTO usuarios VALUES (NULL,?,?,?,?,?,?,?,?,?,null,null,null,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
                 $params = array_merge(
                     $commonParams,
                     [
                         ['type' => 'i', 'value' => $usu],
+                        ['type' => 'i', 'value' => $_POST['est']]
                     ]
                 );
 			}else{
