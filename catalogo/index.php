@@ -64,14 +64,13 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 								    <?php echo $catalogos; ?>
                 			    </select>
     					</div>
-
 						<div class="input-box">
 							<label for="choices-multiple-remove-button">catalogo :</label>
                 			<input type="number" class="captura"  size=50 id="fcatalogo" name="fcatalogo" OnChange="actualizar();">
     					</div>
 						<div class="input-box">
 							<label for="choices-multiple-remove-button">Estados :</label>
-                			<select class='choices-multiple-remove-button' id="fdep" name="fdep" multiple OnChange="actualizar();">
+                			<select class='choices-multiple-remove-button' id="festado" name="festado" multiple OnChange="actualizar();">
 								 <?php echo $departamentos; ?>
                 			</select>
     					</div>
