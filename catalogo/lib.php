@@ -74,15 +74,6 @@ function tot_catalogo() {
         }
     }
     return $rta;
-
-   /*  $sql = "SELECT SUM(R.cant_report) AS Total_Reportados 
-    FROM `repor_diario` R LEFT JOIN `usuarios` U ON R.usu_create = U.id_usuario where ";
-    $filter = whe_employee();
-    $sql.= $filter['where'];$params = $filter['params'];$types = $filter['types']; 
-    $sql.=" GROUP BY U.nombre";
-    show_sql($sql,array_merge($params,[]),$types ."ii"); */
-    /*$result = exec_sql($sql);
-    return $result ? $result[0] : ['Total_Reportados' => 0, 'Total_Digitados' => 0]; */
 }
 
 function lis_catalogo() {
@@ -90,14 +81,12 @@ function lis_catalogo() {
     $pag = si_noexiste('pag-catalogo', 1);
     $offset = ($pag - 1) * $regxPag;$filter = whe_catalogo();
     $where = $filter['where'];$params = $filter['params'];$types = $filter['types'];
-    $tabla = "usuarios";
-	$sqltot="SELECT COUNT(*) total  FROM `usuarios` U WHERE " . $where;
+	$sqltot="SELECT COUNT(*) total  FROM `catadeta` C WHERE " . $where;
     $total = obtener_total_registros($sqltot,$params, $types);
-    $sql = "SELECT U.`id_usuario` AS ACCIONES, U.id_usuario AS Documento,nombre,CTLG(1,departamento) AS Departamento, 
-    CTLG(2,ciudad) Ciudad,CTLG(3,perfil) Perfil,U.`n_contacto` AS Telefono, CTLG(4,eps) AS EPS, CTLG(5,U.arl) AS ARL, 
-    U.correo AS Correo,CTLG(6,estado) Estado
- FROM `usuarios` U ";
-$where.=" GROUP BY U.Departamento,U.nombre";
+    $sql = "SELECT C.idcatalogo ACCIONES,C.idcatadeta ID,C.descripcion,C.estado,C.valor,
+    CTLG(6,estado) Estado
+ FROM `catadeta` C ";
+$where.=" ORDER BY 1,2";
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
 	// show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
      if ($datos === []) return no_reg();
