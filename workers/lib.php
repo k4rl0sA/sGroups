@@ -166,11 +166,12 @@ $where.=" GROUP BY U.Departamento,U.nombre";
         ];
 
 			if (empty($id[0])) {
+                $usu=$_SESSION['documento'];
                 $sql = "INSERT INTO usuarios VALUES (NULL,?,?,?,?,?,?,?,?,?,null,null,null,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'1')";
                 $params = array_merge(
                     $commonParams,
                     [
-                        ['type' => 's', 'value' => $usu],
+                        ['type' => 'i', 'value' => $usu],
                     ]
                 );
 			}else{
@@ -178,6 +179,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
                 $params = array_merge(
                     $commonParams,
                     [
+                        ['type' => 'i', 'value' => $usu],
                         ['type' => 'i', 'value' => $id[0]],
                     ]
                 );
