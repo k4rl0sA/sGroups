@@ -8,7 +8,7 @@ require_once __DIR__.'/../src/gestion.php';
 $mod='catalogo';
 $ya = new DateTime();
 $catalogos=opc_sql("SELECT `idcatalogo`,concat(idcatalogo,' - ',nombre) FROM `catalogo` ORDER BY 1",'');
-$estados=opc_sql("SELECT idcatadeta,descripcion from catadeta where idcatalogo=6 and estado='1' order by 1");
+$estados=opc_sql("SELECT idcatadeta,descripcion from catadeta where idcatalogo=6 and estado='A' order by 1");
 $acc=acceBtns('catalogo');
 $btns='<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
 if (isset($acc['crear']) && $acc['crear'] == 'SI') {
