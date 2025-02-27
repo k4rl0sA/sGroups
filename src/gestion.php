@@ -22,7 +22,7 @@ function db_connect() {
 //Función verifica usuario logueado
 function verificarUsuario($usuario, $password) {
   $conn = db_connect();
-    $stmt = $conn->prepare("SELECT id_usuario,nombre,clave  FROM usuarios WHERE id_usuario = ? AND estado ='A'");
+    $stmt = $conn->prepare("SELECT id_usuario,nombre,clave  FROM usuarios WHERE id_usuario = ? AND estado ='1'");
     if (!$stmt) {
       log_error(' = Error 4: al preparar la Consulta');
       throw new Exception('Error al preparar la consulta: ' . $conn->error);
@@ -137,19 +137,6 @@ function obtenerComponente($documento) {
   $types = "i";
   return exec_sql($sql, $params, $types, false);
 }
-//Función para crear el menu 
-/* function obtenerMenu($usuario) {
-  $conn = db_connect();
-  $stmt = $conn->prepare("SELECT m.id, m.link, m.icono, m.enlace, m.menu,m.contenedor FROM adm_menu m JOIN adm_menuusuarios mu ON m.id=mu.idmenu JOIN usuarios u ON mu.perfil=u.perfil WHERE u.id_usuario = ? AND m.estado='A' AND u.estado='A' ORDER BY m.id ASC");
-  $stmt->bind_param("s", $usuario);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  $menu = [];
-  while ($row = $result->fetch_assoc()) {
-      $menu[] = $row;
-  }
-  return $menu;
-} */
 function obtenerMenu($usuario) {
   $conn = db_connect();
   $stmt = $conn->prepare("SELECT m.id, m.link, m.icono, m.enlace, m.menu, m.contenedor FROM adm_menu m 
