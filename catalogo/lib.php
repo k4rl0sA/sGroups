@@ -38,23 +38,26 @@ try {
 
 function whe_catalogo() {
     $filtros = [];
-    if (!empty($_POST['fdep'])) {
-        $filtros[] = ['campo' => 'U.departamento', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fdep'])), 'operador' => 'IN'];
+    if (!empty($_POST['fidcata'])) {
+        $filtros[] = ['campo' => 'C.departamento', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
     }    
-    if (!empty($_POST['fid'])) {
-        $filtros[] = ['campo' => 'id_usuario', 'valor' => $_POST['fid'], 'operador' => 'like'];
+    if (!empty($_POST['fcatalogo'])) {
+        $filtros[] = ['campo' => 'C.descripcion', 'valor' => $_POST['fcatalogo'], 'operador' => 'like'];
+    }
+    if (!empty($_POST['festado'])) {
+        $filtros[] = ['campo' => 'C.estado','valor' => limpiar_y_escapar_array(explode(",", $_POST['festado'])), 'operador' => 'IN'];
     }
     return fil_where($filtros);
 }
 function tot_catalogo() {
     $totals = [
     ['titulo'=>'Total','icono'=>'fas fa-users','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
-    ['titulo'=>'Activos','icono'=>'fa-brands fa-creative-commons-by','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='1'"],
-    ['titulo'=>'Inactivos','icono'=>'fa-solid fa-user-xmark','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado='2'"]
+    ['titulo'=>'Activos','icono'=>'fa-brands fa-creative-commons-by','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='A'"],
+    ['titulo'=>'Inactivos','icono'=>'fa-solid fa-user-xmark','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado='I'"]
     ];
     $rta = '';
     foreach ($totals as $total) {
-        $sql = "SELECT count(*) AS Total FROM usuarios U WHERE ";
+        $sql = "SELECT count(*) AS Total FROM catadeta C WHERE ";
         $filter = whe_catalogo();
         if (!isset($filter['where']) || !isset($filter['params']) || !isset($filter['types'])) {
             $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
