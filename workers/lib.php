@@ -165,7 +165,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
         ];
 
 			if (empty($id[0])) {
-                $sql = "INSERT INTO usuarios VALUES (NULL,?,?,?,?,?,?,?,?,?,null,null,null,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'A')";
+                $sql = "INSERT INTO usuarios VALUES (NULL,?,?,?,?,?,?,?,?,?,null,null,null,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,'1')";
                 $params = array_merge(
                     $commonParams,
                     [
@@ -173,11 +173,10 @@ $where.=" GROUP BY U.Departamento,U.nombre";
                     ]
                 );
 			}else{
-                $sql = "UPDATE usuarios SET id_usuario = ?,id_usuario = ?,nombre = ? WHERE id = ?";
+                $sql = "UPDATE usuarios SET id_usuario=?,nombre=?,departamento=?,ciudad=?,perfil=?,n_contacto=?,eps=?,arl=?,correo=?,usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado =? WHERE id = ?";
                 $params = array_merge(
                     $commonParams,
                     [
-                        ['type' => 's', 'value' => $usu],
                         ['type' => 'i', 'value' => $id[0]],
                     ]
                 );
