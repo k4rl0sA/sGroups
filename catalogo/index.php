@@ -94,8 +94,8 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 		</div>
 		<div id='<?php echo $mod; ?>-frmcap'>
 		</div>
-		<div id='hallaz-frmcap'>
-		</div>
+		<!-- <div id='hallaz-frmcap'>
+		</div> -->
 		</form>
     </div>
 	</div>
