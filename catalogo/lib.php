@@ -39,7 +39,7 @@ try {
 function whe_catalogo() {
     $filtros = [];
     if (!empty($_POST['fidcata'])) {
-        $filtros[] = ['campo' => 'C.departamento', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
+        $filtros[] = ['campo' => 'C.idcatalogo', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
     }    
     if (!empty($_POST['fcatalogo'])) {
         $filtros[] = ['campo' => 'C.descripcion', 'valor' => $_POST['fcatalogo'], 'operador' => 'like'];
