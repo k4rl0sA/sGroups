@@ -1,5 +1,4 @@
-<?php
-session_start();
+<?php 
 include __DIR__ . '/config/claves.php'; 
 ?>
 <!DOCTYPE HTML>
@@ -22,6 +21,16 @@ include __DIR__ . '/config/claves.php';
         <img src="../libs/img/p.png" alt="Logo">
     </div>
     <h1>Inicio</h1>
+    <?php
+    // Mostrar el mensaje de error si existe en la URL
+    if (isset($_GET['error'])) {
+        $error_message = urldecode($_GET['error']);
+        echo "<div class='error'>
+                <span class='closebtn' onclick=\"this.parentElement.style.display='none';\">&times;</span> 
+                <strong>Error!</strong> " . htmlspecialchars($error_message, ENT_QUOTES, 'UTF-8') . "
+              </div>";
+    }
+    ?>
     <form action="login.php" method="post" class="frm" ><!-- autocomplete="off" -->
         <div class="input">
             <input type="text" name="usuario" required minlength="8" maxlength="18" pattern="[0-9]+" title="Solo números">
@@ -38,7 +47,6 @@ include __DIR__ . '/config/claves.php';
         </button>
     </form>
     <p>¿Olvidó su contraseña? <a href="pwd/recuperar.php">Click Aquí</a></p>
-
 </div>
 <script>
     grecaptcha.ready(function(){
