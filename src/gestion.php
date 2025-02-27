@@ -132,7 +132,7 @@ function obtenerPerfil($documento) {
 function obtenerComponente($documento) {
   $sql = "SELECT departamento
         FROM usuarios
-        WHERE id_usuario = ? AND estado = 'A'";
+        WHERE id_usuario = ? AND estado = '1'";
   $params = [$documento];
   $types = "i";
   return exec_sql($sql, $params, $types, false);
@@ -142,7 +142,7 @@ function obtenerMenu($usuario) {
   $stmt = $conn->prepare("SELECT m.id, m.link, m.icono, m.enlace, m.menu, m.contenedor FROM adm_menu m 
                           JOIN adm_menuusuarios mu ON m.id = mu.idmenu 
                           JOIN usuarios u ON mu.perfil = u.perfil 
-                          WHERE u.id_usuario = ? AND m.estado = 'A' AND u.estado = 'A' ORDER BY m.id ASC");
+                          WHERE u.id_usuario = ? AND m.estado = 'A' AND u.estado = '1' ORDER BY m.id ASC");
   $stmt->bind_param("s", $usuario);
   $stmt->execute();
   $result = $stmt->get_result();
