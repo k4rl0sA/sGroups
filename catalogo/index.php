@@ -7,7 +7,7 @@ if (!isset($_SESSION['nombre'])) {
 require_once __DIR__.'/../src/gestion.php';
 $mod='catalogo';
 $ya = new DateTime();
-$departamentos=opc_sql("SELECT idcatadeta,descripcion from catadeta where idcatalogo=1 and estado='A' ORDER BY 2",'');
+$catalogos=opc_sql("SELECT `idcatalogo`,concat(idcatalogo,' - ',nombre) FROM `catalogo` ORDER BY 1",'');
 $acc=acceBtns('catalogo');
 $btns='<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
 if (isset($acc['crear']) && $acc['crear'] == 'SI') {
@@ -56,8 +56,15 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 			</nav>
 			<section>
 				<div class="content content-1">
-					<div class="title txt-center"><h2>Funcionarios</h2></div>
+					<div class="title txt-center"><h2>Catalogos</h2></div>
 					<div class="frm-filter poppins-font" id='<?php echo $mod; ?>-fil'>
+                        <div class="input-box">
+                            <label for="choices-multiple-remove-button">Cod Catalogo :</label>
+                			    <select class='choices-multiple-remove-button' id="fidcata" name="fidcata" multiple OnChange="actualizar();">
+								    <?php echo $catalogos; ?>
+                			    </select>
+    					</div>
+
 						<div class="input-box">
 							<label for="choices-multiple-remove-button">catalogo :</label>
                 			<input type="number" class="captura"  size=10 id="fid" name="fid" OnChange="actualizar();">
@@ -73,7 +80,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 					<div class='load'id='loader' z-index='0'></div>
 				</div>
 				<div class="content content-2">
-					<div class="title txt-center"><h2>Funcionarios</h2></div>
+					<div class="title txt-center"><h2>Catalogos</h2></div>
 					<div id='<?php echo $mod; ?>-btns' class="header">
 						<?php echo $btns ?>
 						<div class="totals" id='<?php echo $mod; ?>-tot'></div>
