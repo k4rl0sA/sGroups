@@ -311,60 +311,6 @@ function limpiar_y_escapar_array($array) {
   }
   return $escaped_array;
 }
-//Funcion para ejecutar un consulta sql y mostrar la respuesta
-/* function exec_sql($sql, $params = [], $types = "", $fetch_all = true) {
-  $con = db_connect();
-  if (!$con) {
-      log_error('exec_sql: Error de conexión a la base de datos.');
-      return null;
-  }
-  $stmt = null;
-  $result = null;
-  $data = null; // Inicializar $data
-  try {
-      $con->set_charset('utf8');
-      $stmt = $con->prepare($sql);
-      if (!$stmt) {
-          log_error("exec_sql: Error al preparar la consulta: " . $con->error . " SQL: " . $sql);
-          return null;
-      }
-      if ($params && $types) {
-          $stmt->bind_param($types, ...$params);
-      }
-      $stmt->execute();
-      if ($stmt->errno) {
-          log_error("exec_sql: Error en la consulta: " . $stmt->error . " SQL: " . $sql);
-          return null;
-      }
-      $result = $stmt->get_result();
-      if ($result) {
-          if ($fetch_all) {
-              $data = [];
-              while ($row = $result->fetch_assoc()) {
-                  $data[] = $row;
-              }
-          } else {
-              $row = $result->fetch_row();
-              $data = $row[0] ?? null;
-          }
-      } 
-  } catch (mysqli_sql_exception $e) {
-      log_error("exec_sql: Excepción en la consulta: " . $e->getMessage());
-      echo json_encode(['Error:'.$e->getMessage()]);
-      return null;
-  } finally {
-      if ($result) {
-          $result->free_result(); // Liberar $result primero
-      }
-      if ($stmt) {
-          $stmt->close();
-      }
-      if ($con) {
-          $con->close();
-      }
-  }
-  return $data;
-} */ 
 function exec_sql($sql, $params = [], $types = "", $fetch_all = true) {
   $con = db_connect();
   if (!$con) {
@@ -654,6 +600,18 @@ function sendMail($mails, $subject, $body, $placeholders = [],$plantilla='planti
       return $response;
   }
 }
+function generar_metrica($titulo, $icono, $indicador, $valor) {
+  return '<div class="metric-box">
+      <div class="left">
+          <h3>'.$titulo.'</h3>
+          <div class="icon"><i class="'.$icono.'"></i></div>
+      </div>
+      <div class="right">
+          <i class="'.$indicador.'" aria-hidden="true"></i>
+          <div class="value">'.$valor.'</div>
+      </div>
+  </div>';
+}
 class cmp {
   public $n; //name 1
   public $t; //type 2
@@ -719,18 +677,6 @@ function attri($a, $type = 'text') {
   $att .= " title='" . saniti($a->tt) . "'";
   if (!$a->u) $att .= " readonly";
   return $att;
-}
-function generar_metrica($titulo, $icono, $indicador, $valor) {
-  return '<div class="metric-box">
-      <div class="left">
-          <h3>'.$titulo.'</h3>
-          <div class="icon"><i class="'.$icono.'"></i></div>
-      </div>
-      <div class="right">
-          <i class="'.$indicador.'" aria-hidden="true"></i>
-          <div class="value">'.$valor.'</div>
-      </div>
-  </div>';
 }
 function input_txt($a) {
   $rta = "";
