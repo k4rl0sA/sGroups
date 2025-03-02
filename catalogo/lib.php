@@ -146,7 +146,7 @@ $where.=" ORDER BY 1,2";
             ['type' => 'i', 'value' => $_POST['val']]
         ];
         if($_POST['id']){
-            $sql = "UPDATE catadeta SET idcatalogo=?,idcatadeta=?,descripcion=?,estado =?,valor=? WHERE idcatalogo = ? and idcatadeta=";
+            $sql = "UPDATE catadeta SET idcatalogo=?,idcatadeta=?,descripcion=?,estado =?,valor=? WHERE idcatalogo = ? and idcatadeta=?";
                 $params = array_merge(
                     $commonParams,
                     [['type' => 'i', 'value' => $id[0]],
