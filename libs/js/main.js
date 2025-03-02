@@ -818,8 +818,8 @@ function hideLoadingBar(interval) {
 					credentials: 'same-origin'
 				});
 				if (response.status === 401) {
-					const responseData = await response.json();
 					window.location.href = '/';
+					const responseData = await response.json();
 					// window.location.href = responseData.redirect;
 					return;
 				}
