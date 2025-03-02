@@ -83,7 +83,7 @@ function lis_catalogo() {
     $where = $filter['where'];$params = $filter['params'];$types = $filter['types'];
 	$sqltot="SELECT COUNT(*) total  FROM `catadeta` C WHERE " . $where;
     $total = obtener_total_registros($sqltot,$params, $types);
-    $sql = "SELECT C.idcatalogo ACCIONES,C.idcatadeta ID,C.descripcion,CTLG(6,C.estado) Estado,C.valor
+    $sql = "SELECT C.idcatalogo ACCIONES,C.idcatadeta ID,C.descripcion,C.estado Estado,C.valor
  FROM `catadeta` C ";
 $where.=" ORDER BY 1,2";
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
