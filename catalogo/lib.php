@@ -136,64 +136,30 @@ $where.=" ORDER BY 1,2";
 	    } 
 	}
     function gra_catalogo(){
-		$id=divide($_POST['id']);
-var_dump($id);
-        if($_POST['id']){
-            $id=divide($_POST['id']);
-            $est=($_POST['est']=='SI'?'A':'I');
-            //~ $val=(isset($_POST['val'])?$_POST['val']:'0'); , valor=".$val."
-            $sql="UPDATE `catadeta` SET idcatalogo={$_POST['cat']},idcatadeta=UPPER('{$_POST['cod']}'),descripcion=UPPER('{$_POST['des']}'),
-               estado=upper('".$est."'),valor=".$val=($_POST['val']?$_POST['val']:0)."
-               WHERE idcatalogo=UPPER('{$id[0]}') AND idcatadeta=UPPER('{$id[1]}');";
-           }else{
-                $est=($_POST['est']=='SI'?'A':'I');
-               $sql="INSERT INTO `catadeta` VALUES (upper('{$_POST['cat']}'),UPPER('{$_POST['cod']}'),UPPER('{$_POST['des']}'),'".$est."',".$val=($_POST['val']?$_POST['val']:0).");";
-           }
-           return dato_mysql($sql);
-
-
+        $id=divide($_POST['id']);
+        $est=($_POST['est']=='SI'?'A':'I');
         $commonParams = [
-            ['type' => 'i', 'value' => $_POST['doc']],
-            ['type' => 's', 'value' => $_POST['nom']],
-            ['type' => 'i', 'value' => $_POST['dep']],
-            ['type' => 'i', 'value' => $_POST['ciu']],
-            ['type' => 'i', 'value' => $_POST['per']],
-            ['type' => 'i', 'value' => $_POST['tel']],
-            ['type' => 'i', 'value' => $_POST['eps']],
-            ['type' => 'i', 'value' => $_POST['arl']],
-            ['type' => 's', 'value' => $_POST['cor']]
-            
+            ['type' => 'i', 'value' => $_POST['cat']],
+            ['type' => 'i', 'value' => $_POST['cod']],
+            ['type' => 's', 'value' => $_POST['des']],
+            ['type' => 's', 'value' => $est],
+            ['type' => 'i', 'value' => $_POST['val']]
         ];
-        $usu=$_SESSION['documento'];
-			if (empty($id[0])) {
-                
-                $sql = "INSERT INTO usuarios VALUES (NULL,?,?,?,?,?,?,?,?,?,null,null,null,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
+        if($_POST['id']){
+            $sql = "UPDATE catadeta SET idcatalogo=?,idcatadeta=?,descripcion=?,estado =?,valor=? WHERE idcatalogo = ? and idcatadeta=";
                 $params = array_merge(
                     $commonParams,
-                    [
-                        ['type' => 'i', 'value' => $usu],
-                        ['type' => 'i', 'value' => $_POST['est']]
-                    ]
+                    [['type' => 'i', 'value' => $id[0]],
+                    ['type' => 'i', 'value' => $id[1]]]
                 );
-			}else{
-                $sql = "UPDATE usuarios SET id_usuario=?,nombre=?,departamento=?,ciudad=?,perfil=?,n_contacto=?,eps=?,arl=?,correo=?,usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado =? WHERE id = ?";
-                $params = array_merge(
-                    $commonParams,
-                    [
-                        ['type' => 'i', 'value' => $usu],
-                        ['type' => 'i', 'value' => $_POST['est']],
-                        ['type' => 'i', 'value' => $id[0]],
-                    ]
-                );
-                // $types = "ii"; 
-            }
-/*             $param_values = array_map(fn($p) => $p['value'], $params);
-            $debug_sql = show_sql($sql, $param_values, $types);
-            $rta = ['status' => 'success', 'message' => $debug_sql]; */
+        }else{
+            $sql = "INSERT INTO catadeta VALUES (?,?,?,?,?)";
+            $params = $commonParams;
+
+        }
 		$rta = mysql_prepd($sql, $params);
 		header('Content-Type: application/json; charset=utf-8'); 
 		echo json_encode($rta);
-        // $_SESSION['csrf_tkn'] = bin2hex(random_bytes(32));
 		exit;
 	}
 
