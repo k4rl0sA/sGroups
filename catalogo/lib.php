@@ -107,43 +107,51 @@ $where.=" ORDER BY 1,2";
 	return $rta;
   }
   function cmp_catalogo(){
-	$rta="";
-	$t=['id'=>'','id_usuario'=>'','nombre'=>'','departamento'=>'','ciudad'=>'','perfil'=>'','telefono'=>'','eps'=>'','arl'=>'','correo'=>'','estado'=>''];
-	$w='catalogo';
-	$uPd = $_REQUEST['id']=='0' ? true : false;
-	$d=get_catalogo(); 
-	// print_r($d);
-	if ($d=="") {$d=$t;}
-	$o='docder';
-	// var_dump($_POST);
-	$c[]=new cmp('id','h',100,$d['id'],$w,'',0,'','','',false,'','col-1');
-    $c[]=new cmp('doc','n',9999999999,$d['id_usuario'],$w.' '.$o,'Numero de Documento','doc','','',true,true,'','col-2');
-    $c[]=new cmp('nom','t',100,$d['nombre'],$w.' '.$o,'Nombres','nombre','','',true,true,'','col-2');
-    $c[]=new cmp('dep','s',3,$d['departamento'],$w.' '.$o,'Departamento','departamento','','',true,true,'','col-2');
-    $c[]=new cmp('ciu','s',3,$d['ciudad'],$w.' '.$o,'Ciudad','ciudad','','',true,true,'','col-2');
-    $c[]=new cmp('per','s',3,$d['perfil'],$w.' '.$o,'Perfil','perfil','','',true,true,'','col-2');
-    $c[]=new cmp('tel','n',9999999999,$d['telefono'],$w.' '.$o,'Telefono','telefono','','',true,true,'','col-2');
-	$c[]=new cmp('eps','s',3,$d['eps'],$w.' '.$o,'EPS','eps','','',true,true,'','col-2',"validDate(this,-3,0);");
-	$c[]=new cmp('arl','s',3,$d['arl'],$w.' '.$o,'ARL','arl','','',true,true,'','col-2');
-    $c[]=new cmp('cor','t',50,$d['correo'],$w.' '.$o,'Correo','correo','','',true,true,'','col-2');
-    $c[]=new cmp('est','s',3,$d['estado'],$w.' '.$o,'Estado','estado','','',true,true,'','col-2');
-	for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
-	$rta.="</div>";
-	return $rta;
+    $rta="";
+    $t=['idcatalogo'=>'','idcatadeta'=>'','descripcion'=>'','valor'=>'','estado'=>'A'];
+    $w='catalogo';
+    $d=get_catalogo(); 
+    if ($d=="") {$d=$t;}
+    $d['estado']=($d['estado']=='A')?'SI':'NO';
+    $ids = ($d['idcatalogo']) ? $d['idcatalogo'].'_'.$d['idcatadeta'] :'' ;
+    $c[]=new cmp('id','h',99999,$ids,$w,'',0,'','','',false,'','col-1');
+    $c[]=new cmp('cat','s',60,$d['idcatalogo'],$w,'Nombre Catalogo','catalogo');
+    $c[]=new cmp('cod','t',12,$d['idcatadeta'],$w,'Codigo Item');
+    $c[]=new cmp('des','t',40,$d['descripcion'],$w,'Texto Descriptivo Item',null,null,'Describa el Item del catalogo');
+    $c[]=new cmp('est','o',2,$d['estado'],$w,'Item Activo');
+    $c[]=new cmp('val','n',99999,$d['valor'],$w,'Valor',0,'rgxdfnum','NNNN',false,true,'Número de 4 a 10 Digitos');
+    for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
+    $rta.="</div>";
+    return $rta;
 	}
     function get_catalogo(){
-		if($_POST['id']=='0'){
-			return "";
-		}else{
-			$id=divide($_POST['id']);
-            var_dump($id);
-			$sql="SELECT id,id_usuario,nombre,departamento,ciudad,perfil,n_contacto telefono,eps,arl,correo,estado  FROM usuarios WHERE id_usuario='".$id[0]."'";
-			$info=datos_mysql($sql);
-			return $info['responseResult'][0];		
-		} 
+	    if($_POST['id']=='0'){
+	    	return "";
+	    }else{
+	    	$id=divide($_POST['id']);
+	    	$sql="SELECT * FROM catadeta WHERE idcatalogo='".$id[0]."' AND idcatadeta='".$id[1]."'";
+	    	//~ echo $sql;
+	    	$info=datos_mysql($sql);
+	    	return $info['responseResult'][0];		
+	    } 
 	}
     function gra_catalogo(){
 		$id=divide($_POST['id']);
+
+        if($_POST['id']){
+            $id=divide($_POST['id']);
+            $est=($_POST['est']=='SI'?'A':'I');
+            //~ $val=(isset($_POST['val'])?$_POST['val']:'0'); , valor=".$val."
+            $sql="UPDATE `catadeta` SET idcatalogo={$_POST['cat']},idcatadeta=UPPER('{$_POST['cod']}'),descripcion=UPPER('{$_POST['des']}'),
+               estado=upper('".$est."'),valor=".$val=($_POST['val']?$_POST['val']:0)."
+               WHERE idcatalogo=UPPER('{$id[0]}') AND idcatadeta=UPPER('{$id[1]}');";
+           }else{
+                $est=($_POST['est']=='SI'?'A':'I');
+               $sql="INSERT INTO `catadeta` VALUES (upper('{$_POST['cat']}'),UPPER('{$_POST['cod']}'),UPPER('{$_POST['des']}'),'".$est."',".$val=($_POST['val']?$_POST['val']:0).");";
+           }
+           return dato_mysql($sql);
+
+
         $commonParams = [
             ['type' => 'i', 'value' => $_POST['doc']],
             ['type' => 's', 'value' => $_POST['nom']],
@@ -189,30 +197,16 @@ $where.=" ORDER BY 1,2";
 		exit;
 	}
 
-    function opc_ciudad($id=''){
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=2 and estado="A" ORDER BY 1',$id);
+    function opc_catalogo(){
+     return opc_sql("SELECT `idcatalogo`,concat(idcatalogo,' - ',nombre) FROM `catalogo` ORDER BY 1",$id = ($_POST['id'] == '') ? '' : divide($_POST['id'])[0]);
     }
-    function opc_departamento($id=''){
-        return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado="A" ORDER BY 1',$id);
-    }
-    function opc_perfil($id=''){
-        return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=3 and estado="A" ORDER BY 1',$id);
-    }
-    function opc_eps($id=''){
-        return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=4 and estado="A" ORDER BY 1',$id);
-    }
-    function opc_arl($id=''){
-        return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=5 and estado="A" ORDER BY 1',$id);
-    }
-    function opc_estado($id=''){
-        return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=6 and estado="A" ORDER BY 1',$id);
-    }
+
 function formato_dato($a,$b,$c,$d){
 	$b=strtolower($b);
 	$rta=$c[$d];
 	if (($a=='catalogo') && ($b=='acciones')){
 		   $rta="<nav class='menu right'>";
-		   $rta.="<li class='fa-solid fa-pen-to-square icon' title='Editar Empleados' id='".$c['ACCIONES']."' Onclick=\"mostrar('catalogo','pro',event,'','lib.php',4,'Funcionarios');\"></li>";
+		   $rta.="<li class='fa-solid fa-pen-to-square icon' title='Editar Catalogo' id='".$c['ACCIONES']."_".$c['ID']."' Onclick=\"mostrar('catalogo','pro',event,'','lib.php',4,'Catalogos');\"></li>";
            /* $rta.="<li class='fa-solid fa-triangle-exclamation icon' title='Hallazgos' id='".$c['ACCIONES']."' Onclick=\"mostrar('hallaz','pro',event,'','hallazgos.php',4,'Hallazgos');\"></li>"; */
 		   $rta.="</nav>";
 	   }    
