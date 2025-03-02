@@ -267,7 +267,7 @@ function act_html(a, b, c, d = false) {
         }, "POST", { "Content-type": "application/x-www-form-urlencoded" });
     }
 }
- function form_input(a) {
+/*  function form_input(a) {
 	var d = "";
 	var frm = document.getElementById(a);
 	for (i = 0; i < frm.elements.length; i++) {
@@ -285,7 +285,7 @@ function act_html(a, b, c, d = false) {
 	}
 	return d;
 } 
-	 function form_input(a) {
+ */	 function form_input(a) {
     var d = "";
     var frm = document.getElementById(a);
     for (var i = 0; i < frm.elements.length; i++) {
@@ -298,8 +298,8 @@ function act_html(a, b, c, d = false) {
                 }
             }
             d += "&" + element.id + "=" + vl.join(",");  // O usar un formato de array si tu servidor lo soporta
-        } else if (element.name) { // Solo añadir parámetros para elementos con un nombre
-            d += "&" + element.name + "=" + element.value; // Usar element.name, no element.id si quieres usar el atributo name
+        } else if (element.id) { // Solo añadir parámetros para elementos con un nombre
+            d += "&" + element.id + "=" + element.value; // Usar element.name, no element.id si quieres usar el atributo name
         }
     }
     return d;
