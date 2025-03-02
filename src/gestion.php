@@ -425,8 +425,8 @@ function pags_table($tb, $pg, $np, $nr,$mod) {
   $rta .= "<span> de ".$np." Paginas ";
   $rta .= "<input type='text' class='pagina txt-center' id='rec-".$tb."' value='".$nr."' disabled>"; 
   $rta .= " Registros</span>";
-  $rta .= "<li class='fa-solid fa-angle-right' OnClick=\"ir_pag('".$tb."', $pg+1, ".$np.");\"></li>";
-  $rta .= "<li class='fa-solid fa-angles-right' OnClick=\"ir_pag('".$tb."', $np, ".$np.");\"></li>";
+  $rta .= "<li class='fa-solid fa-angle-right' OnClick=\"ir_pag('".$tb."', $pg+1, ".$np.",'".$mod."');\"></li>";
+  $rta .= "<li class='fa-solid fa-angles-right' OnClick=\"ir_pag('".$tb."', $np, ".$np.",'".$mod."');\"></li>";
   $rta .= "</div>";
   return $rta;
 }
