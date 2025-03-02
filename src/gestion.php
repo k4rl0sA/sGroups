@@ -707,7 +707,7 @@ function input_txt($a) {
   if ($value) $rta .= " value='{$value}'";
   if ($a->t != 'h') {
       $rta .= " required onblur=\"";
-      if ($a->v) $rta .= "if(valido(this))";
+      if ($a->v) $rta .= "if(valido(this));";
       if ($pattern) $rta .= "solo_reg(this,{$pattern});";
       if ($vc) $rta .= "{$vc}(this);";
       $rta .= "\"";
