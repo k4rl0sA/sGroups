@@ -451,7 +451,7 @@ function saveTxt($val) {
   $val = preg_replace('/\s+/', ' ', $val);
   $val = preg_replace($pattern,'', $val);
   $val = str_replace(array("\n", "\r", "\t"),'', $val);
-  return $val;
+  return strtoupper($val);
 }
 function no_reg(){
 return "<div class='no-registros'><h2>No se encontraron registros</h2><p>Intenta ajustar tus filtros o agregar nuevos datos.</p></div>";
