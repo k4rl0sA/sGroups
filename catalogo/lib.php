@@ -137,7 +137,7 @@ $where.=" ORDER BY 1,2";
 	}
     function gra_catalogo(){
 		$id=divide($_POST['id']);
-
+var_dump($id);
         if($_POST['id']){
             $id=divide($_POST['id']);
             $est=($_POST['est']=='SI'?'A':'I');
