@@ -18,7 +18,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     $btns .= '<button id="openModal" class="upload-btn" data-mod='.$mod.' title="Importar"><i class="fas fa-upload"></i></button>';
 }
 if (isset($acc['exportar']) && $acc['exportar'] == 'SI') {
-    $btns .= '<button id="openModal" class="upload-btn" data-mod='.$mod.' title="Exportar"><i class="fas fa-upload"></i></button>';
+    $btns .= '<button id="openModal" class="export-btn" data-mod='.$mod.' title="Exportar"><i class="fas fa-file-export"></i></button>';
 }
 ?>
 <!DOCTYPE html>
