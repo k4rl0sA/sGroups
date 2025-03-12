@@ -31,7 +31,7 @@ if (isset($acc['exportar']) && $acc['exportar'] == 'SI') {
                     <link href="../libs/css/menu.css?v=30.0" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="../libs/css/app.css?v=22.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-	<script src="../libs/js/main.js?v=15.0"></script>
+	<script src="../libs/js/main.js?v=16.0"></script>
 	<link rel="stylesheet" href="../libs/css/choices.min.css?v=2.0">
     <script src="../libs/js/choices.min.js"></script>
     <script src="../../libs/js/menu.js?v=1.0"></script>
@@ -118,6 +118,7 @@ if (isset($acc['exportar']) && $acc['exportar'] == 'SI') {
 		</div>
 		
 		<div id="<?php echo $mod; ?>-import"></div>
+		<div id="<?php echo $mod; ?>-export"></div>
 
 		<div id="modal" class="modal">
         	<div class="modal-content">

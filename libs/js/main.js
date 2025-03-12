@@ -1435,8 +1435,8 @@ const btnExp = document.querySelectorAll('.export-btn');
 			})
 			.then(response => response.text())
 			.then(html => {
-				document.getElementById(modul+'modalContainer').innerHTML = html;
-				document.getElementById(modul+'modal').style.display = 'block';
+				document.getElementById(modul+'-export').innerHTML = html;
+				document.getElementById(modul+'-modal').style.display = 'block';
 			})
 			.catch(error => {
 				console.error("Error en la petición:", error);
