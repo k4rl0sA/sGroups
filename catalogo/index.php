@@ -19,6 +19,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 }
 if (isset($acc['exportar']) && $acc['exportar'] == 'SI') {
     $btns .= '<button id="openModal" class="export-btn" data-mod='.$mod.' title="Exportar"><i class="fas fa-file-export"></i></button>';
+	$btns .= '<div id="<?php echo $mod; ?>-export"></div>';
 }
 ?>
 <!DOCTYPE html>
@@ -115,6 +116,9 @@ if (isset($acc['exportar']) && $acc['exportar'] == 'SI') {
 				<div class="progress"></div>
 			</div>
 		</div>
+		
+		<div id="<?php echo $mod; ?>-import"></div>
+
 		<div id="modal" class="modal">
         	<div class="modal-content">
         	    <span class="modal-close" id="closeModal">&times;</span>

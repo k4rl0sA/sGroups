@@ -1397,7 +1397,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 /******************END SELECTS MULT ONLY***********************/
 /******************START BOTONS***********************/
-// Seleccionamos todos los botones que tienen la clase "miBoton"
+// Seleccionamos todos los botones que tienen la clase "add-btn"
 const btnNew = document.querySelectorAll('.add-btn');
 // Iteramos sobre los botones y les agregamos el evento 'click'
 btnNew.forEach(boton => {
@@ -1409,15 +1409,19 @@ btnNew.forEach(boton => {
     });
 });
 
-// Seleccionamos todos los botones que tienen la clase "miBoton"
 const btnUpd = document.querySelectorAll('.act-btn');
-// Iteramos sobre los botones y les agregamos el evento 'click'
 btnUpd.forEach(boton => {
     boton.addEventListener('click', function() {
-        // Obtenemos los valores de los atributos data-param1 y data-param2
         const lisTable = this.getAttribute('data-mod');
-        // Llamamos a la función con los parámetros obtenidos
 		act_lista(act_lista(mod))
+    });
+});
+
+const btnUpd = document.querySelectorAll('.export-btn');
+btnUpd.forEach(boton => {
+    boton.addEventListener('click', function() {
+        const lisTable = this.getAttribute('data-mod');
+		//genera el arxcivo csv
     });
 });
 
