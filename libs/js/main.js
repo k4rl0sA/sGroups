@@ -1567,7 +1567,7 @@ function startImport(file,ncol,tab,imp) {
 }
 
 window.onclick = function(event) {
-    if (event.target == modal) {
+    if (event.target.id == 'closeModal') {
         closeModalBtn.click();
     }
 };
