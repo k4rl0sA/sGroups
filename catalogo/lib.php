@@ -8,6 +8,7 @@ if (!isset($_SESSION['documento'])) {
     echo json_encode(['redirect' => '/']);
     exit();
 }
+var_dump($_SESSION['csrf_tkn']);
 if (!isset($_POST['csrf_tkn']) || $_POST['csrf_tkn'] !== $_SESSION['csrf_tkn']) {
     log_error("Error 24: Intento de CSRF detectado. " . $_POST['csrf_tkn'] . ' frente a ' . $_SESSION['csrf_tkn']);
     http_response_code(403); // Prohibido
