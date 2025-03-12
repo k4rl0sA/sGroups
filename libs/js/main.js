@@ -1418,7 +1418,7 @@ btnUpd.forEach(boton => {
 });
 
 const btnExp = document.querySelectorAll('.export-btn');
-	btnUpd.forEach(boton => {
+	btnExp.forEach(boton => {
 		boton.addEventListener('click', function() {
 	        const modul = this.getAttribute('data-mod');
 			const formData = new FormData();
