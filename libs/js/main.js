@@ -1424,7 +1424,7 @@ const btnExp = document.querySelectorAll('.export-btn');
 			const formData = new FormData();
 			formData.append('a', 'exp');
 			formData.append('tb', modul);
-			formData.append('csrf_tkn', updCsrfTkn());
+			formData.append('csrf_tkn', getTknCSRF());
 			fetch('lib.php', {
 				method: 'POST',
 				body: formData
@@ -1656,5 +1656,7 @@ function updCsrfTkn(newToken) {
         csrfInput.value = newToken;
     }
 }
-
+ function getTknCSRF(){
+	return document.querySelector('input[name="csrf_tkn"]').value;
+ }
 /******************CREATE TKNS CSRF************************/
