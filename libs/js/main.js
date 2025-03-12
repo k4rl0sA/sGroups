@@ -1418,12 +1418,27 @@ btnUpd.forEach(boton => {
 });
 
 const btnExp = document.querySelectorAll('.export-btn');
-btnUpd.forEach(boton => {
-    boton.addEventListener('click', function() {
-        const lisTable = this.getAttribute('data-mod');
-		//genera el arxcivo csv
-    });
-});
+	btnUpd.forEach(boton => {
+		boton.addEventListener('click', function() {
+	        const modul = this.getAttribute('data-mod');
+			const formData = new FormData();
+			formData.append('a', 'exp');
+			formData.append('tb', modul); 
+			formData.append('csrf_tkn', obtenerTokenCSRF());
+			fetch('lib.php', {
+				method: 'POST',
+				body: formData
+			})
+			.then(response => response.text())
+			.then(html => {
+				document.getElementById(modul+'modalContainer').innerHTML = html;
+				document.getElementById(modul+'modal').style.display = 'block';
+			})
+			.catch(error => {
+				console.error('Error:', error);
+			});
+	    });
+	});
 
 /******************START BOTONS***********************/
 /******************START IMPORT***********************/

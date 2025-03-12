@@ -167,6 +167,31 @@ $where.=" ORDER BY 1,2";
      return opc_sql("SELECT `idcatalogo`,concat(idcatalogo,' - ',nombre) FROM `catalogo` ORDER BY 1",$id = ($_POST['id'] == '') ? '' : divide($_POST['id'])[0]);
     }
 
+    function exp_catalogo() {
+        $contenido_modal = "<h1>Contenido del Catálogo Exportado</h1><p>Aquí va el contenido generado por exp_catalogo.</p>";
+
+        $titulo = "Generar Archivo Excel";
+$mensaje = "Por favor, seleccione un rango de fechas para generar el archivo.";
+echo <<<HTML
+<div id="catalogo-modal" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="cerrarModal()">&times;</span>
+        <h2>{$titulo}</h2>
+        <p>{$mensaje}</p>
+        <div>
+            <label for="fechaInicial">Fecha Inicial:</label>
+            <input type="date" id="fechaInicial">
+        </div>
+        <div>
+            <label for="fechaFinal">Fecha Final:</label>
+            <input type="date" id="fechaFinal">
+        </div>
+        <button type="button" onclick="generarArchivo()">Generar Archivo</button>
+    </div>
+</div>
+HTML;
+    }
+
 function formato_dato($a,$b,$c,$d){
 	$b=strtolower($b);
 	$rta=$c[$d];
