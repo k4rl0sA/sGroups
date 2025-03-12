@@ -1439,7 +1439,8 @@ const btnExp = document.querySelectorAll('.export-btn');
 				document.getElementById(modul+'modal').style.display = 'block';
 			})
 			.catch(error => {
-				console.error('Error:', error);
+				error.error('Error al obtener los datos: ', error);
+        		statusMessage.textContent = 'Error al procesar la solicitud.';
 			});
 	    });
 	});
