@@ -175,7 +175,7 @@ $mensaje = "Por favor, seleccione un rango de fechas para generar el archivo.";
 echo <<<HTML
 <div id="catalogo-modal" class="modal">
     <div class="modal-content">
-        <span class="modal-close" onclick="cerrarModal()">&times;</span>
+        <span class="modal-close" id="closeModal" style="display: block;">×</span>
         <h2>{$titulo}</h2>
         <p>{$mensaje}</p>
         <div>
