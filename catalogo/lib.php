@@ -187,7 +187,9 @@ echo <<<HTML
             <label for="fechaFinal">Fecha Final:</label>
             <input type="date" id="fechaFinal">
         </div>
-        <button type="button" onclick="generarArchivo()">Generar Archivo</button>
+        <div class="button-container">
+           <button type="button" onclick="generarArchivo()">Generar Archivo</button>
+        </div>
     </div>
 </div>
 HTML;
