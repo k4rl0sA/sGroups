@@ -1425,6 +1425,7 @@ const btnExp = document.querySelectorAll('.export-btn');
 			formData.append('a', 'exp');
 			formData.append('tb', modul);
 			formData.append('csrf_tkn', getTknCSRF());
+			console.log(formData.entries());
 			fetch('lib.php', {
 				method: 'POST',
 				body: formData
