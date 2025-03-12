@@ -1421,10 +1421,11 @@ const btnExp = document.querySelectorAll('.export-btn');
 	btnExp.forEach(boton => {
 		boton.addEventListener('click', function() {
 	        const modul = this.getAttribute('data-mod');
+			const csrfToken = document.querySelector('input[name="csrf_tkn"]').value; 
 			const formData = new FormData();
 			formData.append('a', 'exp');
 			formData.append('tb', modul);
-			formData.append('csrf_tkn', getTknCSRF());
+			formData.append('csrf_tkn', csrfToken);
 			console.log(formData.entries());
 			fetch('lib.php', {
 				method: 'POST',
@@ -1657,7 +1658,4 @@ function updCsrfTkn(newToken) {
         csrfInput.value = newToken;
     }
 }
- function getTknCSRF(){
-	return document.querySelector('input[name="csrf_tkn"]').value;
- }
 /******************CREATE TKNS CSRF************************/
