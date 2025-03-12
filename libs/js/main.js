@@ -1417,7 +1417,7 @@ btnUpd.forEach(boton => {
     });
 });
 
-const btnUpd = document.querySelectorAll('.export-btn');
+const btnExp = document.querySelectorAll('.export-btn');
 btnUpd.forEach(boton => {
     boton.addEventListener('click', function() {
         const lisTable = this.getAttribute('data-mod');
