@@ -1423,8 +1423,7 @@ const btnExp = document.querySelectorAll('.export-btn');
 	        const modul = this.getAttribute('data-mod');
 			const formData = new FormData();
 			formData.append('a', 'exp');
-			formData.append('tb', modul); 
-			formData.append('csrf_tkn', obtenerTokenCSRF());
+			formData.append('tb', modul);
 			fetch('lib.php', {
 				method: 'POST',
 				body: formData
