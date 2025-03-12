@@ -29,7 +29,7 @@ if (isset($acc['exportar']) && $acc['exportar'] == 'SI') {
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title> Catalogo || <?php echo APP; ?></title>
                     <link href="../libs/css/menu.css?v=30.0" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="../libs/css/app.css?v=22.0">
+	<link rel="stylesheet" href="../libs/css/app.css?v=23.0">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 	<script src="../libs/js/main.js?v=16.0"></script>
 	<link rel="stylesheet" href="../libs/css/choices.min.css?v=2.0">

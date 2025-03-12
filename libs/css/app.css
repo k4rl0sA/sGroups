@@ -722,6 +722,7 @@ h2 {
 .button-container {
   display: flex;
   justify-content: flex-end;
+  padding-top: 0.5rem;
 }
 
 .modal-close {
