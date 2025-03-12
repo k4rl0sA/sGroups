@@ -1566,6 +1566,12 @@ function startImport(file,ncol,tab,imp) {
 	});
 }
 
+window.onclick = function(event) {
+    if (event.target == modal) {
+        closeModalBtn.click();
+    }
+};
+
 function handleServerResponse(json, errorsAll, index, endInd) {
 	if (json.status === 'progress') {
 		updateProgress(json.progress);
