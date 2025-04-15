@@ -143,7 +143,7 @@ function cmp_client() {
     $c[] = new cmp('dep', 's', 3, $d['departamento'], $w.' '.$o, 'Departamento', 'departamento', '', '', true, true, '', 'col-2');
     $c[] = new cmp('ciu', 's', 3, $d['ciudad'], $w.' '.$o, 'Ciudad', 'ciudad', '', '', true, true, '', 'col-2');
     $c[] = new cmp('per', 's', 3, $d['perfil'], $w.' '.$o, 'Perfil', 'perfil', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('tel', 'n', 9999999999, $d['telefono'], $w.' '.$o, 'Teléfono', 'telefono', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('tel', 'n', 9999999999, $d['telefono'], $w.' '.$o, 'Teléfono', 'telefono','rgxphone', '', true, true, '', 'col-2');
     $c[] = new cmp('eps', 's', 3, $d['eps'], $w.' '.$o, 'EPS', 'eps', '', '', true, true, '', 'col-2');
     $c[] = new cmp('arl', 's', 3, $d['arl'], $w.' '.$o, 'ARL', 'arl', '', '', true, true, '', 'col-2');
     $c[] = new cmp('cor', 't', 50, $d['correo'], $w.' '.$o, 'Correo Electrónico', 'correo', '', '', true, true, '', 'col-2');
