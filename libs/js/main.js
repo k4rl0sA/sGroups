@@ -96,7 +96,7 @@ function is_option(a) {
     }
     return false;
 }
-function solo_reg(a,b='[A..Z]',inver = false) {
+/* function solo_reg(a,b='[A..Z]',inver = false) {
 	eliminarError(a);
 	var r = new RegExp(b);
 	a.classList.remove('alert');
@@ -106,7 +106,7 @@ function solo_reg(a,b='[A..Z]',inver = false) {
 	if(a.classList.contains('alert','invalid')){
 		return mostrarError(a,"El formato no es valido");
 	}
-}
+} */
 /* function valido(a) {
 	eliminarError(a);
     a.classList.remove('alert', 'invalid');
@@ -128,7 +128,20 @@ function solo_reg(a,b='[A..Z]',inver = false) {
     }
     return !a.classList.contains('alert', 'invalid');
 } */
+	function solo_reg(a, b='[A..Z]', inver = false) {
+		eliminarError(a);
+		var r = new RegExp(b);
+		const isValid = inver ? r.test(a.value) : !r.test(a.value);
+		if (isValid) {
+			a.classList.add('alert', 'invalid');
+			mostrarError(a, "El formato no es válido");
+		} else {
+			a.classList.remove('alert', 'invalid');
+		}
+		return !isValid;
+	}
 	function valido(a) {
+		eliminarError(a);
 		let isValid = true;
 		if (a.value === '') {
 			a.classList.add('alert', 'invalid');
@@ -137,37 +150,23 @@ function solo_reg(a,b='[A..Z]',inver = false) {
 			}
 			mostrarError(a, 'Este campo es obligatorio.');
 			isValid = false;
-		} else {
-			if (a.list !== undefined && a.list !== null) {
-				if (!is_option(a)) {
-					a.classList.add('alert', 'invalid');
-					mostrarError(a, 'El valor ingresado no es una opción válida.');
-					isValid = false;
-				}
+		}
+		if (a.list !== undefined && a.list !== null) {
+			if (!is_option(a)) {
+				a.classList.add('alert', 'invalid');
+				mostrarError(a, 'El valor ingresado no es una opción válida.');
+				isValid = false;
 			}
-			if (['date', 'time', 'datetime-local', 'datetime'].includes(a.type)) {
-				if ((a.min !== '' && a.value < a.min) || (a.max !== '' && a.value > a.max)) {
-					const minMaxMessage = `El valor debe estar entre ${a.min} y ${a.max}.`;
-					mostrarError(a, minMaxMessage);
-					isValid = false;
-				}
-			}
-			// Validación de patrón (regex)
-			if (a.pattern && a.value !== '') {
-				const regex = new RegExp(a.pattern);
-				if (!regex.test(a.value)) {
-					a.classList.add('alert', 'invalid');
-					mostrarError(a, 'El formato no es válido.');
-					isValid = false;
-				}
+		}
+		if (['date', 'time', 'datetime-local', 'datetime'].includes(a.type)) {
+			if ((a.min !== '' && a.value < a.min) || (a.max !== '' && a.value > a.max)) {
+				const minMaxMessage = `El valor debe estar entre ${a.min} y ${a.max}.`;
+				mostrarError(a, minMaxMessage);
+				isValid = false;
 			}
 		}
 		if (isValid) {
-			eliminarError(a);
 			a.classList.remove('alert', 'invalid');
-			if (a.multiple) {
-				document.querySelector('select[name="' + a.id + '[]"]').previousElementSibling.classList.remove('alerta');
-			}
 		}
 		return isValid;
 	}
