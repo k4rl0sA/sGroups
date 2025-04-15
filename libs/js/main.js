@@ -107,7 +107,7 @@ function solo_reg(a,b='[A..Z]',inver = false) {
 		return mostrarError(a,"El formato no es valido");
 	}
 }
-function valido(a) {
+/* function valido(a) {
 	eliminarError(a);
     a.classList.remove('alert', 'invalid');
     // Maneja campos vacíos (tanto selects simples como múltiples)
@@ -127,7 +127,50 @@ function valido(a) {
         }
     }
     return !a.classList.contains('alert', 'invalid');
-}
+} */
+	function valido(a) {
+		let isValid = true;
+		if (a.value === '') {
+			a.classList.add('alert', 'invalid');
+			if (a.multiple) {
+				document.querySelector('select[name="' + a.id + '[]"]').previousElementSibling.classList.add('alerta');
+			}
+			mostrarError(a, 'Este campo es obligatorio.');
+			isValid = false;
+		} else {
+			if (a.list !== undefined && a.list !== null) {
+				if (!is_option(a)) {
+					a.classList.add('alert', 'invalid');
+					mostrarError(a, 'El valor ingresado no es una opción válida.');
+					isValid = false;
+				}
+			}
+			if (['date', 'time', 'datetime-local', 'datetime'].includes(a.type)) {
+				if ((a.min !== '' && a.value < a.min) || (a.max !== '' && a.value > a.max)) {
+					const minMaxMessage = `El valor debe estar entre ${a.min} y ${a.max}.`;
+					mostrarError(a, minMaxMessage);
+					isValid = false;
+				}
+			}
+			// Validación de patrón (regex)
+			if (a.pattern && a.value !== '') {
+				const regex = new RegExp(a.pattern);
+				if (!regex.test(a.value)) {
+					a.classList.add('alert', 'invalid');
+					mostrarError(a, 'El formato no es válido.');
+					isValid = false;
+				}
+			}
+		}
+		if (isValid) {
+			eliminarError(a);
+			a.classList.remove('alert', 'invalid');
+			if (a.multiple) {
+				document.querySelector('select[name="' + a.id + '[]"]').previousElementSibling.classList.remove('alerta');
+			}
+		}
+		return isValid;
+	}
 
 function mostrarError(element, message) {
     let errorElement = element.nextElementSibling;
