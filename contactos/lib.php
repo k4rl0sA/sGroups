@@ -176,7 +176,7 @@ function gra_contact() {
     $usu = $_SESSION['documento'];
     
     if (empty($id[0])) {
-        $sql = "INSERT INTO contactos VALUES (NULL,?,?,?,?,?,?,?,?,?,null,null,null,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
+        $sql = "INSERT INTO contactos VALUES (NULL,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
         $params = array_merge(
             $commonParams,
             [
