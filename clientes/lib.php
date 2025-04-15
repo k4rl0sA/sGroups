@@ -105,6 +105,7 @@ function lis_client() {
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
     
     if ($datos === []) return no_reg();
+    show_sql($sql);
     return create_table($total, $datos, "client", $regxPag, "lib.php");
 }
 
