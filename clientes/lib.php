@@ -100,7 +100,7 @@ function lis_client() {
             C.`n_contacto` AS Telefono, CTLG(4,eps) AS EPS, 
             CTLG(5,C.arl) AS ARL, C.correo AS Correo, 
             CTLG(6,estado) Estado
-            FROM clientes C WHERE ";
+            FROM clientes C ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
     show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
