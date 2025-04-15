@@ -231,4 +231,3 @@ function bgcolor($a,$c,$f='c'){
 	//~ if ($a=='transacciones'&&$c['ESTADO']=='A') $rta='green';
 	return $rta;
    }
-   ?>

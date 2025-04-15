@@ -13,6 +13,7 @@ if (!isset($_POST['csrf_tkn']) || $_POST['csrf_tkn'] !== $_SESSION['csrf_tkn']) 
     http_response_code(403); // Prohibido
     exit();
 }
+
 // Regenerar el token después de validarlo
 $a = filter_var($_POST['a'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $tb = filter_var($_POST['tb'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
@@ -36,29 +37,27 @@ try {
     echo json_encode(['error' => 'Error interno del servidor']);
 }
 
-function whe_catalogo() {
+function whe_contact() {
     $filtros = [];
-    if (!empty($_POST['fidcata'])) {
-        $filtros[] = ['campo' => 'C.idcatalogo', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
+    if (!empty($_POST['fdep'])) {
+        $filtros[] = ['campo' => 'C.departamento', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fdep'])), 'operador' => 'IN'];
     }    
-    if (!empty($_POST['fcatalogo'])) {
-        $filtros[] = ['campo' => 'C.descripcion', 'valor' => $_POST['fcatalogo'], 'operador' => 'like'];
-    }
-    if (!empty($_POST['festado'])) {
-        $filtros[] = ['campo' => 'C.estado','valor' => limpiar_y_escapar_array(explode(",", $_POST['festado'])), 'operador' => 'IN'];
+    if (!empty($_POST['fid'])) {
+        $filtros[] = ['campo' => 'id_usuario', 'valor' => $_POST['fid'], 'operador' => 'like'];
     }
     return fil_where($filtros);
 }
-function tot_catalogo() {
+
+function tot_contact() {
     $totals = [
     ['titulo'=>'Total','icono'=>'fas fa-users','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
-    ['titulo'=>'Activos','icono'=>'fa-brands fa-creative-commons-by','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='A'"],
-    ['titulo'=>'Inactivos','icono'=>'fa-solid fa-user-xmark','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado='I'"]
+    ['titulo'=>'Activos','icono'=>'fa-brands fa-creative-commons-by','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='1'"],
+    ['titulo'=>'Inactivos','icono'=>'fa-solid fa-user-xmark','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado='2'"]
     ];
     $rta = '';
     foreach ($totals as $total) {
-        $sql = "SELECT count(*) AS Total FROM catadeta C WHERE ";
-        $filter = whe_catalogo();
+        $sql = "SELECT count(*) AS Total FROM contactos C WHERE ";
+        $filter = whe_contact();
         if (!isset($filter['where']) || !isset($filter['params']) || !isset($filter['types'])) {
             $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
             continue;
@@ -76,138 +75,170 @@ function tot_catalogo() {
     return $rta;
 }
 
-function lis_catalogo() {
+function lis_contact() {
     $regxPag = 15;
-    $pag = si_noexiste('pag-catalogo', 1);
-    $offset = ($pag - 1) * $regxPag;$filter = whe_catalogo();
-    $where = $filter['where'];$params = $filter['params'];$types = $filter['types'];
-	$sqltot="SELECT COUNT(*) total  FROM `catadeta` C WHERE " . $where;
-    $total = obtener_total_registros($sqltot,$params, $types);
-    $sql = "SELECT C.idcatalogo ACCIONES,C.idcatadeta ID,C.descripcion,CTLG(6,IF(C.estado='A',1,2)) Estado,C.valor
- FROM `catadeta` C ";
-$where.=" ORDER BY 1,2";
+    $pag = si_noexiste('pag-contact', 1);
+    $offset = ($pag - 1) * $regxPag;
+    $filter = whe_contact();
+    $where = $filter['where'];
+    $params = $filter['params'];
+    $types = $filter['types'];
+    $tabla = "contactos";
+    
+    $sqltot = "SELECT COUNT(*) total FROM `contactos` C WHERE " . $where;
+    $total = obtener_total_registros($sqltot, $params, $types);
+    
+    $sql = "SELECT C.`id_usuario` AS ACCIONES, C.id_usuario AS Documento, nombre, 
+            CTLG(1,departamento) AS Departamento, 
+            CTLG(2,ciudad) Ciudad, CTLG(3,perfil) Perfil, 
+            C.`n_contacto` AS Telefono, CTLG(4,eps) AS EPS, 
+            CTLG(5,C.arl) AS ARL, C.correo AS Correo, 
+            CTLG(6,estado) Estado
+            FROM `contactos` C ";
+    
+    $where .= " GROUP BY C.Departamento, C.nombre";
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
-	// show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
-     if ($datos === []) return no_reg();
-    return create_table($total, $datos, "catalogo", $regxPag, "lib.php");
+    
+    if ($datos === []) return no_reg();
+    return create_table($total, $datos, "contact", $regxPag, "lib.php");
 }
- function focus_catalogo(){
-	return 'catalogo';
-   }
-   function men_catalogo(){
-	$rta=cap_menus('catalogo','pro');
-	return $rta;
-   }
-   function cap_menus($a,$b='cap',$con='con') {
-	$rta = "";
-    $acc=rol($a);
-    if ($a=='catalogo' && isset($acc['crear']) && $acc['crear']=='SI') {  
+
+function focus_contact() {
+    return 'contact';
+}
+
+function men_contact() {
+    $rta = cap_menus('contact','pro');
+    return $rta;
+}
+
+function cap_menus($a, $b='cap', $con='con') {
+    $rta = "";
+    $acc = rol($a);
+    if ($a == 'contact' && isset($acc['crear']) && $acc['crear'] == 'SI') {  
         $rta .= "<button class='frm-btn $a grabar' onclick=\"grabar('$a', this);\"><span class='frm-txt'>Grabar</span><i class='fa-solid fa-floppy-disk icon'></i></button>";
     }
-	return $rta;
-  }
-  function cmp_catalogo(){
-    $rta="";
-    $t=['idcatalogo'=>'','idcatadeta'=>'','descripcion'=>'','valor'=>'','estado'=>'A'];
-    $w='catalogo';
-    $d=get_catalogo(); 
-    if ($d=="") {$d=$t;}
-    $d['estado']=($d['estado']=='A')?'SI':'NO';
-    $ids = ($d['idcatalogo']) ? $d['idcatalogo'].'_'.$d['idcatadeta'] :'' ;
-    $c[]=new cmp('id','h',99999,$ids,$w,'',0,'','','',false,'','col-1');
-    $c[]=new cmp('cat','s',60,$d['idcatalogo'],$w,'Nombre Catalogo','catalogo');
-    $c[]=new cmp('cod','n',99999,$d['idcatadeta'],$w,'Codigo Item');
-    $c[]=new cmp('des','t',80,$d['descripcion'],$w,'Texto Descriptivo Item',null,null,'Describa el Item del catalogo');
-    $c[]=new cmp('est','o',2,$d['estado'],$w,'Item Activo');
-    $c[]=new cmp('val','n',99999,$d['valor'],$w,'Valor',0,'rgxdfnum','NNNN',false,true,'Número de 4 a 10 Digitos');
-    for ($i=0;$i<count($c);$i++) $rta.=$c[$i]->put();
-    $rta.="</div>";
     return $rta;
-	}
-    function get_catalogo(){
-	    if($_POST['id']=='0'){
-	    	return "";
-	    }else{
-	    	$id=divide($_POST['id']);
-	    	$sql="SELECT * FROM catadeta WHERE idcatalogo='".$id[0]."' AND idcatadeta='".$id[1]."'";
-	    	//~ echo $sql;
-	    	$info=datos_mysql($sql);
-	    	return $info['responseResult'][0];		
-	    } 
-	}
-    function gra_catalogo(){
-        $id=divide($_POST['id']);
-        $est=($_POST['est']=='SI'?'A':'I');
-        $commonParams = [
-            ['type' => 'i', 'value' => $_POST['cat']],
-            ['type' => 'i', 'value' => $_POST['cod']],
-            ['type' => 's', 'value' => $_POST['des']],
-            ['type' => 's', 'value' => $est],
-            ['type' => 'i', 'value' => $_POST['val']]
-        ];
-        if($_POST['id']){
-            $sql = "UPDATE catadeta SET idcatalogo=?,idcatadeta=?,descripcion=?,estado =?,valor=? WHERE idcatalogo = ? and idcatadeta=?";
-                $params = array_merge(
-                    $commonParams,
-                    [['type' => 'i', 'value' => $id[0]],
-                    ['type' => 'i', 'value' => $id[1]]]
-                );
-        }else{
-            $sql = "INSERT INTO catadeta VALUES (?,?,?,?,?)";
-            $params = $commonParams;
+}
 
-        }
-		$rta = mysql_prepd($sql, $params);
-		header('Content-Type: application/json; charset=utf-8'); 
-		echo json_encode($rta);
-		exit;
-	}
+function cmp_contact() {
+    $rta = "";
+    $t = ['id'=>'', 'id_usuario'=>'', 'nombre'=>'', 'departamento'=>'', 'ciudad'=>'', 'perfil'=>'', 'telefono'=>'', 'eps'=>'', 'arl'=>'', 'correo'=>'', 'estado'=>''];
+    $w = 'contact';
+    $uPd = $_REQUEST['id'] == '0' ? true : false;
+    $d = get_contact(); 
+    
+    if ($d == "") {$d = $t;}
+    $o = 'docder';
+    
+    $c[] = new cmp('id', 'h', 100, $d['id'], $w, '', 0, '', '', '', false, '', 'col-1');
+    $c[] = new cmp('doc', 'n', 9999999999, $d['id_usuario'], $w.' '.$o, 'Numero de Documento', 'doc', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('nom', 't', 100, $d['nombre'], $w.' '.$o, 'Nombres', 'nombre', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('dep', 's', 3, $d['departamento'], $w.' '.$o, 'Departamento', 'departamento', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('ciu', 's', 3, $d['ciudad'], $w.' '.$o, 'Ciudad', 'ciudad', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('per', 's', 3, $d['perfil'], $w.' '.$o, 'Perfil', 'perfil', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('tel', 'n', 9999999999, $d['telefono'], $w.' '.$o, 'Telefono', 'telefono', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('eps', 's', 3, $d['eps'], $w.' '.$o, 'EPS', 'eps', '', '', true, true, '', 'col-2', "validDate(this,-3,0);");
+    $c[] = new cmp('arl', 's', 3, $d['arl'], $w.' '.$o, 'ARL', 'arl', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('cor', 't', 50, $d['correo'], $w.' '.$o, 'Correo', 'correo', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('est', 's', 3, $d['estado'], $w.' '.$o, 'Estado', 'estado', '', '', true, true, '', 'col-2');
+    
+    for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
+    $rta .= "</div>";
+    return $rta;
+}
 
-    function opc_catalogo(){
-     return opc_sql("SELECT `idcatalogo`,concat(idcatalogo,' - ',nombre) FROM `catalogo` ORDER BY 1",$id = ($_POST['id'] == '') ? '' : divide($_POST['id'])[0]);
+function get_contact() {
+    if ($_POST['id'] == '0') {
+        return "";
+    } else {
+        $id = divide($_POST['id']);
+        $sql = "SELECT id, id_usuario, nombre, departamento, ciudad, perfil, n_contacto telefono, eps, arl, correo, estado FROM contactos WHERE id_usuario='".$id[0]."'";
+        $info = datos_mysql($sql);
+        return $info['responseResult'][0];        
+    } 
+}
+
+function gra_contact() {
+    $id = divide($_POST['id']);
+    $commonParams = [
+        ['type' => 'i', 'value' => $_POST['doc']],
+        ['type' => 's', 'value' => $_POST['nom']],
+        ['type' => 'i', 'value' => $_POST['dep']],
+        ['type' => 'i', 'value' => $_POST['ciu']],
+        ['type' => 'i', 'value' => $_POST['per']],
+        ['type' => 'i', 'value' => $_POST['tel']],
+        ['type' => 'i', 'value' => $_POST['eps']],
+        ['type' => 'i', 'value' => $_POST['arl']],
+        ['type' => 's', 'value' => $_POST['cor']]
+    ];
+    
+    $usu = $_SESSION['documento'];
+    
+    if (empty($id[0])) {
+        $sql = "INSERT INTO contactos VALUES (NULL,?,?,?,?,?,?,?,?,?,null,null,null,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
+        $params = array_merge(
+            $commonParams,
+            [
+                ['type' => 'i', 'value' => $usu],
+                ['type' => 'i', 'value' => $_POST['est']]
+            ]
+        );
+    } else {
+        $sql = "UPDATE contactos SET id_usuario=?,nombre=?,departamento=?,ciudad=?,perfil=?,n_contacto=?,eps=?,arl=?,correo=?,usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado=? WHERE id = ?";
+        $params = array_merge(
+            $commonParams,
+            [
+                ['type' => 'i', 'value' => $usu],
+                ['type' => 'i', 'value' => $_POST['est']],
+                ['type' => 'i', 'value' => $id[0]],
+            ]
+        );
     }
+    
+    $rta = mysql_prepd($sql, $params);
+    header('Content-Type: application/json; charset=utf-8'); 
+    echo json_encode($rta);
+    exit;
+}
 
-    function exp_catalogo() {
-        $contenido_modal = "<h1>Contenido del Catálogo Exportado</h1><p>Aquí va el contenido generado por exp_catalogo.</p>";
+// Funciones de opciones (se mantienen igual que en el original)
+function opc_ciudad($id='') {
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=2 and estado="A" ORDER BY 1', $id);
+}
 
-        $titulo = "Generar Archivo Excel";
-$mensaje = "Por favor, seleccione un rango de fechas para generar el archivo.";
-echo <<<HTML
-<div id="catalogo-modal" class="modal">
-    <div class="modal-content">
-        <span class="modal-close" id="closeModal" style="display: block;">×</span>
-        <h2>{$titulo}</h2>
-        <p>{$mensaje}</p>
-        <div>
-            <label for="fechaInicial">Fecha Inicial:</label>
-            <input type="date" id="fechaInicial">
-        </div>
-        <div>
-            <label for="fechaFinal">Fecha Final:</label>
-            <input type="date" id="fechaFinal">
-        </div>
-        <div class="button-container">
-           <button type="button" onclick="generarArchivo()">Generar Archivo</button>
-        </div>
-    </div>
-</div>
-HTML;
-    }
+function opc_departamento($id='') {
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado="A" ORDER BY 1', $id);
+}
 
-function formato_dato($a,$b,$c,$d){
-	$b=strtolower($b);
-	$rta=$c[$d];
-	if (($a=='catalogo') && ($b=='acciones')){
-		   $rta="<nav class='menu right'>";
-		   $rta.="<li class='fa-solid fa-pen-to-square icon' title='Editar Catalogo' id='".$c['ACCIONES']."_".$c['ID']."' Onclick=\"mostrar('catalogo','pro',event,'','lib.php',4,'Catalogos');\"></li>";
-           /* $rta.="<li class='fa-solid fa-triangle-exclamation icon' title='Hallazgos' id='".$c['ACCIONES']."' Onclick=\"mostrar('hallaz','pro',event,'','hallazgos.php',4,'Hallazgos');\"></li>"; */
-		   $rta.="</nav>";
-	   }    
-	return $rta;
-   }
-function bgcolor($a,$c,$f='c'){
-	$rta="";
-	//~ if ($a=='transacciones'&&$c['ESTADO']=='A') $rta='green';
-	return $rta;
-   }
-   ?>
+function opc_perfil($id='') {
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=3 and estado="A" ORDER BY 1', $id);
+}
+
+function opc_eps($id='') {
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=4 and estado="A" ORDER BY 1', $id);
+}
+
+function opc_arl($id='') {
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=5 and estado="A" ORDER BY 1', $id);
+}
+
+function opc_estado($id='') {
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=6 and estado="A" ORDER BY 1', $id);
+}
+
+function formato_dato($a, $b, $c, $d) {
+    $b = strtolower($b);
+    $rta = $c[$d];
+    if (($a == 'contact') && ($b == 'acciones')) {
+        $rta = "<nav class='menu right'>";
+        $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Contacto' id='".$c['ACCIONES']."' Onclick=\"mostrar('contact','pro',event,'','lib.php',4,'Contactos');\"></li>";
+        $rta .= "</nav>";
+    }    
+    return $rta;
+}
+
+function bgcolor($a, $c, $f='c') {
+    $rta = "";
+    return $rta;
+}
