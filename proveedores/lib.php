@@ -75,7 +75,7 @@ function tot_provider() {
         $params = $filter['params'];
         $types = $filter['types'];
         $resultado_consulta = exec_sql($sql, $params, $types);
-        var_dump($resultado_consulta);
+        var_dump($sql);
         if ($resultado_consulta === null || !isset($resultado_consulta[0]['Total'])) {
             $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
         } else {
