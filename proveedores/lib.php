@@ -129,45 +129,26 @@ function cap_menus($a, $b='cap', $con='con') {
 
 function cmp_provider() {
     $rta = "";
-    $t = [
-        'id_provedor' => '', 
-        'provedor' => '', 
-        'credito' => '0',
-        'direccion' => '', 
-        'ciudad' => '', 
-        'nit' => '', 
-        'comercial' => '', 
-        'n_contacto' => '', 
-        'correo' => '', 
-        'descripcion' => '', 
-        'pagina_web' => '', 
-        'telefono' => '', 
-        'movil_2' => '', 
-        'estado' => 'A'
-    ];
-    
+    $t = ['id_provedor' => '','provedor' => '','credito' => '0','direccion' => '','ciudad' => '','nit' => '','comercial' => '','n_contacto' => '','correo' => '','descripcion' => '','pagina_web' => '','telefono' => '','movil_2' => '','estado' => 'A'];
     $w = 'provider';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
     $d = get_provider(); 
-    
     if ($d == "") {$d = $t;}
     $o = 'prov';
-    
     $c[] = new cmp('id', 'h', 100, $d['id_provedor'], $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('prov', 't', 100, $d['provedor'], $w.' '.$o, 'Nombre Proveedor', 'provedor', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('cred', 'n', 10, $d['credito'], $w.' '.$o, 'Crédito', 'credito', '', '', true, false, '', 'col-2');
+    $c[] = new cmp('cred', 'n', 10, $d['credito'], $w.' '.$o, 'Crédito', 'credito', '', '', true, true, '', 'col-2');
     $c[] = new cmp('dir', 't', 50, $d['direccion'], $w.' '.$o, 'Dirección', 'direccion', '', '', true, true, '', 'col-3');
     $c[] = new cmp('ciu', 's', 3, $d['ciudad'], $w.' '.$o, 'Ciudad', 'ciudad', '', '', true, true, '', 'col-2');
     $c[] = new cmp('nit', 't', 12, $d['nit'], $w.' '.$o, 'NIT', 'nit', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('com', 't', 10, $d['comercial'], $w.' '.$o, 'Teléfono Comercial', 'comercial', '', '', true, false, '', 'col-2');
+    $c[] = new cmp('com', 't', 10, $d['comercial'], $w.' '.$o, 'Teléfono Comercial', 'comercial', '', '', true, true, '', 'col-2');
     $c[] = new cmp('cont', 't', 10, $d['n_contacto'], $w.' '.$o, 'Contacto Principal', 'n_contacto', '', '', true, true, '', 'col-2');
     $c[] = new cmp('email', 't', 50, $d['correo'], $w.' '.$o, 'Correo Electrónico', 'correo', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('desc', 'a', 3000, $d['descripcion'], $w.' '.$o, 'Descripción', 'descripcion', '', '', false, false, '', 'col-12');
-    $c[] = new cmp('web', 't', 50, $d['pagina_web'], $w.' '.$o, 'Página Web', 'pagina_web', '', '', false, false, '', 'col-3');
-    $c[] = new cmp('tel', 't', 10, $d['telefono'], $w.' '.$o, 'Teléfono Fijo', 'telefono', '', '', false, false, '', 'col-2');
-    $c[] = new cmp('movil', 't', 10, $d['movil_2'], $w.' '.$o, 'Móvil Secundario', 'movil_2', '', '', false, false, '', 'col-2');
+    $c[] = new cmp('desc', 'a', 3000, $d['descripcion'], $w.' '.$o, 'Descripción', 'descripcion', '', '', false, true, '', 'col-12');
+    $c[] = new cmp('web', 't', 50, $d['pagina_web'], $w.' '.$o, 'Página Web', 'pagina_web', '', '', false, true, '', 'col-3');
+    $c[] = new cmp('tel', 't', 10, $d['telefono'], $w.' '.$o, 'Teléfono Fijo', 'telefono', '', '', false, true, '', 'col-2');
+    $c[] = new cmp('movil', 't', 10, $d['movil_2'], $w.' '.$o, 'Móvil Secundario', 'movil_2', '', '', false, true, '', 'col-2');
     $c[] = new cmp('est', 's', 2, $d['estado'], $w.' '.$o, 'Estado', 'estado', '', '', true, true, '', 'col-2');
-    
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     $rta .= "</div>";
     return $rta;
@@ -215,11 +196,7 @@ function gra_provider() {
             ]
         );
     } else {
-        $sql = "UPDATE provedores SET 
-            provedor=?,credito=?,direccion=?,ciudad=?,nit=?,
-            comercial=?,n_contacto=?,correo=?,descripcion=?,
-            pagina_web=?,telefono=?,movil_2=?,
-            usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado=? 
+        $sql = "UPDATE provedores SET    provedor=?,credito=?,direccion=?,ciudad=?,nit=?,comercial=?,n_contacto=?,correo=?,descripcion=?,pagina_web=?,telefono=?,movil_2=?,usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado=? 
             WHERE id_provedor = ?";
         $params = array_merge(
             $commonParams,
