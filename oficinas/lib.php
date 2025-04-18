@@ -97,7 +97,7 @@ function lis_office() {
     $params = $filter['params'];
     $types = $filter['types'];
     
-    $sqltot = "SELECT COUNT(*) total FROM oficinas O WHERE " . $where;
+    $sqltot = "SELECT COUNT(*) total FROM oficinas O " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
     
     $sql = "SELECT O.`id_oficina` AS ACCIONES, 
@@ -108,7 +108,7 @@ function lis_office() {
             CTLG(1,O.departamento) AS Departamento,
             CTLG(2,O.ciudad) AS Ciudad,
             CTLG(6,O.estado) AS Estado
-            FROM oficinas O WHERE ";
+            FROM oficinas O ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
     
