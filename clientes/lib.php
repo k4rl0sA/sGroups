@@ -40,18 +40,24 @@ try {
     echo json_encode(['error' => 'Error interno del servidor']);
 }
 
-function whe_client() {
+function whe_customer() {
     $filtros = [];
+    if (!empty($_POST['fcliente'])) {
+        $filtros[] = ['campo' => 'C.cliente', 'valor' => '%'.$_POST['fcliente'].'%', 'operador' => 'LIKE'];
+    }
+    if (!empty($_POST['fnit'])) {
+        $filtros[] = ['campo' => 'C.nit', 'valor' => '%'.$_POST['fnit'].'%', 'operador' => 'LIKE'];
+    }
     if (!empty($_POST['fdep'])) {
-        $filtros[] = ['campo' => 'C.departamento', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fdep'])), 'operador' => 'IN'];
-    }    
-    if (!empty($_POST['fid'])) {
-        $filtros[] = ['campo' => 'id_usuario', 'valor' => $_POST['fid'], 'operador' => 'like'];
+        $filtros[] = ['campo' => 'C.departamento', 'valor' => $_POST['fdep'], 'operador' => '='];
+    }
+    if (!empty($_POST['fciu'])) {
+        $filtros[] = ['campo' => 'C.ciudad', 'valor' => $_POST['fciu'], 'operador' => '='];
     }
     return fil_where($filtros);
 }
 
-function tot_client() {
+function tot_customer() {
     $totals = [
         ['titulo'=>'Total','icono'=>'fas fa-users','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
         ['titulo'=>'Activos','icono'=>'fa-solid fa-user-check','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='1'"],
@@ -61,7 +67,7 @@ function tot_client() {
     $rta = '';
     foreach ($totals as $total) {
         $sql = "SELECT count(*) AS Total FROM clientes C WHERE ";
-        $filter = whe_client();
+        $filter = whe_customer();
         
         if (!isset($filter['where']) || !isset($filter['params']) || !isset($filter['types'])) {
             $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
@@ -82,11 +88,11 @@ function tot_client() {
     return $rta;
 }
 
-function lis_client() {
+function lis_customer() {
     $regxPag = 15;
-    $pag = si_noexiste('pag-client', 1);
+    $pag = si_noexiste('pag-customer', 1);
     $offset = ($pag - 1) * $regxPag;
-    $filter = whe_client();
+    $filter = whe_customer();
     $where = $filter['where'];
     $params = $filter['params'];
     $types = $filter['types'];
@@ -94,115 +100,125 @@ function lis_client() {
     $sqltot = "SELECT COUNT(*) total FROM clientes C WHERE " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
     
-    $sql = "SELECT C.`id_usuario` AS ACCIONES, C.id_usuario AS Documento, nombre, 
-            CTLG(1,departamento) AS Departamento, 
-            CTLG(2,ciudad) Ciudad, CTLG(3,perfil) Perfil, 
-            C.`n_contacto` AS Telefono, CTLG(4,eps) AS EPS, 
-            CTLG(5,C.arl) AS ARL, C.correo AS Correo, 
-            CTLG(6,estado) Estado
-            FROM clientes C ";
+    $sql = "SELECT C.`id_cliente` AS ACCIONES, 
+            C.nit AS NIT, 
+            C.cliente AS Cliente,
+            C.direccion AS Dirección,
+            C.pagina_web AS 'Página Web',
+            C.n_contacto AS Contacto,
+            CTLG(1,C.departamento) AS Departamento,
+            CTLG(2,C.ciudad) AS Ciudad,
+            CTLG(6,C.estado) AS Estado
+            FROM clientes C WHERE ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
-    // show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
+    
     if ($datos === []) return no_reg();
-    return create_table($total, $datos, "client", $regxPag, "lib.php");
+    return create_table($total, $datos, "customer", $regxPag, "lib.php");
 }
 
-function focus_client() {
-    return 'client';
+function focus_customer() {
+    return 'customer';
 }
 
-function men_client() {
-    $rta = cap_menus('client','pro');
+function men_customer() {
+    $rta = cap_menus('customer','pro');
     return $rta;
 }
 
 function cap_menus($a, $b='cap', $con='con') {
     $rta = "";
     $acc = rol($a);
-    if ($a == 'client' && isset($acc['crear']) && $acc['crear'] == 'SI') {  
+    if ($a == 'customer' && isset($acc['crear']) && $acc['crear'] == 'SI') {  
         $rta .= "<button class='frm-btn $a grabar' onclick=\"grabar('$a', this);\"><span class='frm-txt'>Grabar</span><i class='fa-solid fa-floppy-disk icon'></i></button>";
     }
     return $rta;
 }
 
-function cmp_client() {
+function cmp_customer() {
     $rta = "";
-    $t = ['id'=>'', 'id_usuario'=>'', 'nombre'=>'', 'departamento'=>'', 'ciudad'=>'', 
-          'perfil'=>'', 'telefono'=>'', 'eps'=>'', 'arl'=>'', 'correo'=>'', 'estado'=>''];
-    $w = 'client';
+    $t = [
+        'id_cliente' => '', 
+        'nit' => '', 
+        'cliente' => '',
+        'direccion' => '', 
+        'pagina_web' => '', 
+        'n_contacto' => '', 
+        'departamento' => '', 
+        'ciudad' => '', 
+        'estado' => 'A'
+    ];
+    
+    $w = 'customer';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
-    $d = get_client(); 
+    $d = get_customer(); 
     
     if ($d == "") {$d = $t;}
-    $o = 'docder';
+    $o = 'cli';
     
-    $c[] = new cmp('id', 'h', 100, $d['id'], $w, '', 0, '', '', '', false, '', 'col-1');
-    $c[] = new cmp('doc', 'n', 9999999999, $d['id_usuario'], $w.' '.$o, 'Número de Documento', 'doc', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('nom', 't', 100, $d['nombre'], $w.' '.$o, 'Nombres Completos', 'nombre', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('dep', 's', 3, $d['departamento'], $w.' '.$o, 'Departamento', 'departamento', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('ciu', 's', 3, $d['ciudad'], $w.' '.$o, 'Ciudad', 'ciudad', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('per', 's', 3, $d['perfil'], $w.' '.$o, 'Perfil', 'perfil', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('tel', 'n', 9999999999, $d['telefono'], $w.' '.$o, 'Teléfono', 'telefono','rgxphone', '', true, true, '', 'col-2');
-    $c[] = new cmp('eps', 's', 3, $d['eps'], $w.' '.$o, 'EPS', 'eps', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('arl', 's', 3, $d['arl'], $w.' '.$o, 'ARL', 'arl', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('cor', 't', 50, $d['correo'], $w.' '.$o, 'Correo Electrónico', 'correo', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('est', 's', 3, $d['estado'], $w.' '.$o, 'Estado', 'estado', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('id', 'h', 100, $d['id_cliente'], $w, '', 0, '', '', '', false, '', 'col-1');
+    $c[] = new cmp('nit', 'n', 9999999999, $d['nit'], $w.' '.$o, 'NIT', 'nit', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('cli', 't', 80, $d['cliente'], $w.' '.$o, 'Nombre Cliente', 'cliente', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('dir', 't', 50, $d['direccion'], $w.' '.$o, 'Dirección', 'direccion', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('web', 't', 50, $d['pagina_web'], $w.' '.$o, 'Página Web', 'pagina_web', '', '', false, false, '', 'col-2');
+    $c[] = new cmp('cont', 't', 10, $d['n_contacto'], $w.' '.$o, 'Teléfono Contacto', 'n_contacto', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('dep', 's', 1, $d['departamento'], $w.' '.$o, 'Departamento', 'departamento', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('ciu', 's', 1, $d['ciudad'], $w.' '.$o, 'Ciudad', 'ciudad', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('est', 's', 2, $d['estado'], $w.' '.$o, 'Estado', 'estado', '', '', true, true, '', 'col-2');
     
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     $rta .= "</div>";
     return $rta;
 }
 
-function get_client() {
+function get_customer() {
     if ($_POST['id'] == '0') {
         return "";
     } else {
         $id = divide($_POST['id']);
-        $sql = "SELECT id, id_usuario, nombre, departamento, ciudad, perfil, 
-                n_contacto telefono, eps, arl, correo, estado 
-                FROM clientes WHERE id_usuario='".$id[0]."'";
+        $sql = "SELECT * FROM clientes WHERE id_cliente='".$id[0]."'";
         $info = datos_mysql($sql);
         return $info['responseResult'][0];        
     } 
 }
 
-function gra_client() {
+function gra_customer() {
     $id = divide($_POST['id']);
-    $commonParams = [
-        ['type' => 'i', 'value' => $_POST['doc']],
-        ['type' => 's', 'value' => $_POST['nom']],
-        ['type' => 'i', 'value' => $_POST['dep']],
-        ['type' => 'i', 'value' => $_POST['ciu']],
-        ['type' => 'i', 'value' => $_POST['per']],
-        ['type' => 'i', 'value' => $_POST['tel']],
-        ['type' => 'i', 'value' => $_POST['eps']],
-        ['type' => 'i', 'value' => $_POST['arl']],
-        ['type' => 's', 'value' => $_POST['cor']]
-    ];
-    
     $usu = $_SESSION['documento'];
     
+    $commonParams = [
+        ['type' => 'i', 'value' => $_POST['nit']],
+        ['type' => 's', 'value' => $_POST['cli']],
+        ['type' => 's', 'value' => $_POST['dir']],
+        ['type' => 's', 'value' => $_POST['web']],
+        ['type' => 's', 'value' => $_POST['cont']],
+        ['type' => 'i', 'value' => $_POST['dep']],
+        ['type' => 'i', 'value' => $_POST['ciu']]
+    ];
+    
     if (empty($id[0])) {
-        $sql = "INSERT INTO clientes VALUES (NULL,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
+        $sql = "INSERT INTO clientes VALUES (
+            NULL,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?
+        )";
         $params = array_merge(
             $commonParams,
             [
                 ['type' => 'i', 'value' => $usu],
-                ['type' => 'i', 'value' => $_POST['est']]
+                ['type' => 's', 'value' => $_POST['est']]
             ]
         );
     } else {
-        $sql = "UPDATE clientes SET id_usuario=?,nombre=?,departamento=?,
-                ciudad=?,perfil=?,n_contacto=?,eps=?,arl=?,correo=?,
-                usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado=? 
-                WHERE id = ?";
+        $sql = "UPDATE clientes SET 
+            nit=?,cliente=?,direccion=?,
+            pagina_web=?,n_contacto=?,departamento=?,
+            ciudad=?,usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado=? 
+            WHERE id_cliente = ?";
         $params = array_merge(
             $commonParams,
             [
                 ['type' => 'i', 'value' => $usu],
-                ['type' => 'i', 'value' => $_POST['est']],
-                ['type' => 'i', 'value' => $id[0]],
+                ['type' => 's', 'value' => $_POST['est']],
+                ['type' => 'i', 'value' => $id[0]]
             ]
         );
     }
@@ -213,25 +229,13 @@ function gra_client() {
     exit;
 }
 
-// Funciones de opciones (se mantienen igual que en el original)
+// Funciones de opciones
+function opc_departamento($id='') {
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado="A" ORDER BY 1', $id);
+}
+
 function opc_ciudad($id='') {
     return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=2 and estado="A" ORDER BY 1', $id);
-}
-
-function opc_departamento($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=7 and estado="A" ORDER BY 1', $id);
-}
-
-function opc_perfil($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=3 and estado="A" ORDER BY 1', $id);
-}
-
-function opc_eps($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=4 and estado="A" ORDER BY 1', $id);
-}
-
-function opc_arl($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=5 and estado="A" ORDER BY 1', $id);
 }
 
 function opc_estado($id='') {
@@ -241,9 +245,9 @@ function opc_estado($id='') {
 function formato_dato($a, $b, $c, $d) {
     $b = strtolower($b);
     $rta = $c[$d];
-    if (($a == 'client') && ($b == 'acciones')) {
+    if (($a == 'customer') && ($b == 'acciones')) {
         $rta = "<nav class='menu right'>";
-        $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Cliente' id='".$c['ACCIONES']."' Onclick=\"mostrar('client','pro',event,'','lib.php',4,'Clientes');\"></li>";
+        $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Cliente' id='".$c['ACCIONES']."' Onclick=\"mostrar('customer','pro',event,'','lib.php',4,'Clientes');\"></li>";
         $rta .= "</nav>";
     }    
     return $rta;
@@ -251,5 +255,8 @@ function formato_dato($a, $b, $c, $d) {
 
 function bgcolor($a, $c, $f='c') {
     $rta = "";
+    if ($a == 'customer' && $c['Estado'] == 'Inactivo') {
+        $rta = 'bg-light-red';
+    }
     return $rta;
 }
