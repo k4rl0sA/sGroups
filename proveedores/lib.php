@@ -94,14 +94,14 @@ function lis_provider() {
     $params = $filter['params'];
     $types = $filter['types'];
     
-    $sqltot = "SELECT COUNT(*) total FROM provedores P WHERE " . $where;
+    $sqltot = "SELECT COUNT(*) total FROM provedores P " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
     
     $sql = "SELECT P.`id_provedor` AS ACCIONES, P.provedor AS Proveedor, 
             P.nit AS NIT, CTLG(2,P.ciudad) AS Ciudad,
             P.n_contacto AS Contacto, P.correo AS Email,
             P.telefono AS Teléfono, CTLG(6,P.estado) AS Estado
-            FROM provedores P WHERE ";
+            FROM provedores P  ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
     
