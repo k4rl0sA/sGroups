@@ -5,10 +5,11 @@ if (!isset($_SESSION['nombre'])) {
     exit();
 }
 require_once __DIR__.'/../src/gestion.php';
-$mod='client';
+$mod='customer';
 $ya = new DateTime();
-$departamentos=opc_sql("SELECT idcatadeta,descripcion from catadeta where idcatalogo=7 and estado='A' ORDER BY 2",'');
-$acc=acceBtns('client');
+$departamentos=opc_sql("SELECT idcatadeta,descripcion from catadeta where idcatalogo=1 and estado='A' ORDER BY 2",'');
+$ciudades=opc_sql("SELECT idcatadeta,descripcion from catadeta where idcatalogo=2 and estado='A' ORDER BY 2",'');
+$acc=acceBtns('customer');
 $btns='<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
 if (isset($acc['crear']) && $acc['crear'] == 'SI') {
     $btns .= '<button class="add-btn" data-mod='.$mod.' title="Nuevo"><i class="fas fa-plus"></i></button>';
@@ -26,12 +27,12 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     <link href="../libs/css/menu.css?v=30.0" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../libs/css/app.css?v=22.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="../libs/js/main.js?v=4.0"></script>
+    <script src="../libs/js/main.js?v=2.0"></script>
     <link rel="stylesheet" href="../libs/css/choices.min.css?v=2.0">
     <script src="../libs/js/choices.min.js"></script>
     <script src="../../libs/js/menu.js?v=1.0"></script>
     <script>
-        let mod = 'client';
+        let mod = 'customer';
         let ruta_app = 'lib.php';
         function actualizar() {
             act_lista(mod);
@@ -58,13 +59,25 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                     <div class="title txt-center"><h2>Clientes</h2></div>
                     <div class="frm-filter poppins-font" id='<?php echo $mod; ?>-fil'>
                         <div class="input-box">
-                            <label for="choices-multiple-remove-button">Cliente :</label>
-                            <input type="number" class="captura" size=10 id="fid" name="fid" OnChange="actualizar();">
+                            <label for="fcliente">Nombre Cliente:</label>
+                            <input type="text" class="captura" id="fcliente" name="fcliente" OnChange="actualizar();">
                         </div>
                         <div class="input-box">
-                            <label for="choices-multiple-remove-button">Departamentos :</label>
-                            <select class='choices-multiple-remove-button' id="fdep" name="fdep" multiple OnChange="actualizar();">
+                            <label for="fnit">NIT:</label>
+                            <input type="text" class="captura" id="fnit" name="fnit" OnChange="actualizar();">
+                        </div>
+                        <div class="input-box">
+                            <label for="fdep">Departamento:</label>
+                            <select class='choices-single' id="fdep" name="fdep" OnChange="actualizar();">
+                                <option value="">Todos</option>
                                 <?php echo $departamentos; ?>
+                            </select>
+                        </div>
+                        <div class="input-box">
+                            <label for="fciu">Ciudad:</label>
+                            <select class='choices-single' id="fciu" name="fciu" OnChange="actualizar();">
+                                <option value="">Todas</option>
+                                <?php echo $ciudades; ?>
                             </select>
                         </div>
                     </div>
@@ -137,10 +150,8 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                 const file = fileInput.files[0];
                 if (file) {
                     try {
-                        // const userData = await getJSON('imp', 'deriva', 0, 'lib.php');
+                        // Lógica para importar clientes
                         error.log(userData);
-                        // Luego llamas a startImport con los parámetros adecuados
-                        //startImport(file, b, c, d);
                     } catch (error) {
                         error.error('Error al obtener los datos: ', error);
                         statusMessage.textContent = 'Error al procesar la solicitud.';
@@ -170,7 +181,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                     return;
                 }
             }
-            const res = confirm("¿Desea guardar la información? Recuerda que no se podrá editar posteriormente.");
+            const res = confirm("¿Desea guardar la información del cliente?");
             if (res) {
                 myFetch(ruta_app, `a=gra&tb=${tb}`)
                     .then(rta => {
@@ -181,7 +192,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                     })
                     .catch(error => {
                         console.error("Error en la petición:", error);
-                        enqueueMessage('error', "Error en la petición.", 7000);
+                        enqueueMessage('error', "Error al guardar el cliente.", 7000);
                     });
             }
         }
