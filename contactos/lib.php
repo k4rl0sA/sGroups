@@ -88,15 +88,11 @@ function lis_contact() {
     $sqltot = "SELECT COUNT(*) total FROM `contactos` C WHERE " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
     
-    $sql = "SELECT C.`id_usuario` AS ACCIONES, C.id_usuario AS Documento, nombre, 
-            CTLG(1,departamento) AS Departamento, 
-            CTLG(2,ciudad) Ciudad, CTLG(3,perfil) Perfil, 
-            C.`n_contacto` AS Telefono, CTLG(4,eps) AS EPS, 
-            CTLG(5,C.arl) AS ARL, C.correo AS Correo, 
+    $sql = "SELECT C.`id_contacto` AS ACCIONES, C.nombre AS 'Nombre Contacto', C.`n_contacto` AS 'N° Contacto', C.correo AS Correo, 
             CTLG(6,estado) Estado
-            FROM `contactos` C ";
+            FROM `contactos` C  ";
     
-    $where .= " GROUP BY C.Departamento, C.nombre";
+    $where .= " GROUP BY  C.nombre";
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
     
     if ($datos === []) return no_reg();
@@ -123,7 +119,7 @@ function cap_menus($a, $b='cap', $con='con') {
 
 function cmp_contact() {
     $rta = "";
-    $t = ['id'=>'', 'id_usuario'=>'', 'nombre'=>'', 'departamento'=>'', 'ciudad'=>'', 'perfil'=>'', 'telefono'=>'', 'eps'=>'', 'arl'=>'', 'correo'=>'', 'estado'=>''];
+    $t = ['id_contacto'=>'', 'nombre'=>'', 'telefono'=>'', 'correo'=>'', 'estado'=>''];
     $w = 'contact';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
     $d = get_contact(); 
@@ -131,15 +127,9 @@ function cmp_contact() {
     if ($d == "") {$d = $t;}
     $o = 'docder';
     
-    $c[] = new cmp('id', 'h', 100, $d['id'], $w, '', 0, '', '', '', false, '', 'col-1');
-    $c[] = new cmp('doc', 'n', 9999999999, $d['id_usuario'], $w.' '.$o, 'Numero de Documento', 'doc', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('id', 'h', 100, $d['id_contacto'], $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('nom', 't', 100, $d['nombre'], $w.' '.$o, 'Nombres', 'nombre', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('dep', 's', 3, $d['departamento'], $w.' '.$o, 'Departamento', 'departamento', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('ciu', 's', 3, $d['ciudad'], $w.' '.$o, 'Ciudad', 'ciudad', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('per', 's', 3, $d['perfil'], $w.' '.$o, 'Perfil', 'perfil', '', '', true, true, '', 'col-2');
     $c[] = new cmp('tel', 'n', 9999999999, $d['telefono'], $w.' '.$o, 'Telefono', 'telefono', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('eps', 's', 3, $d['eps'], $w.' '.$o, 'EPS', 'eps', '', '', true, true, '', 'col-2', "validDate(this,-3,0);");
-    $c[] = new cmp('arl', 's', 3, $d['arl'], $w.' '.$o, 'ARL', 'arl', '', '', true, true, '', 'col-2');
     $c[] = new cmp('cor', 't', 50, $d['correo'], $w.' '.$o, 'Correo', 'correo', '', '', true, true, '', 'col-2');
     $c[] = new cmp('est', 's', 3, $d['estado'], $w.' '.$o, 'Estado', 'estado', '', '', true, true, '', 'col-2');
     
@@ -153,7 +143,7 @@ function get_contact() {
         return "";
     } else {
         $id = divide($_POST['id']);
-        $sql = "SELECT id, id_usuario, nombre, departamento, ciudad, perfil, n_contacto telefono, eps, arl, correo, estado FROM contactos WHERE id_usuario='".$id[0]."'";
+        $sql = "SELECT id_contacto, nombre, n_contacto AS telefono , correo, estado FROM contactos WHERE id_contacto='".$id[0]."'";
         $info = datos_mysql($sql);
         return $info['responseResult'][0];        
     } 
@@ -162,21 +152,16 @@ function get_contact() {
 function gra_contact() {
     $id = divide($_POST['id']);
     $commonParams = [
-        ['type' => 'i', 'value' => $_POST['doc']],
+        
         ['type' => 's', 'value' => $_POST['nom']],
-        ['type' => 'i', 'value' => $_POST['dep']],
-        ['type' => 'i', 'value' => $_POST['ciu']],
-        ['type' => 'i', 'value' => $_POST['per']],
         ['type' => 'i', 'value' => $_POST['tel']],
-        ['type' => 'i', 'value' => $_POST['eps']],
-        ['type' => 'i', 'value' => $_POST['arl']],
         ['type' => 's', 'value' => $_POST['cor']]
     ];
     
     $usu = $_SESSION['documento'];
     
     if (empty($id[0])) {
-        $sql = "INSERT INTO contactos VALUES (NULL,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
+        $sql = "INSERT INTO contactos VALUES (NULL,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
         $params = array_merge(
             $commonParams,
             [
@@ -185,7 +170,7 @@ function gra_contact() {
             ]
         );
     } else {
-        $sql = "UPDATE contactos SET id_usuario=?,nombre=?,departamento=?,ciudad=?,perfil=?,n_contacto=?,eps=?,arl=?,correo=?,usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado=? WHERE id = ?";
+        $sql = "UPDATE contactos SET nombre=?,n_contacto=?,correo=?,usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado=? WHERE id_contacto = ?";
         $params = array_merge(
             $commonParams,
             [
@@ -203,25 +188,6 @@ function gra_contact() {
 }
 
 // Funciones de opciones (se mantienen igual que en el original)
-function opc_ciudad($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=2 and estado="A" ORDER BY 1', $id);
-}
-
-function opc_departamento($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=7 and estado="A" ORDER BY 1', $id);
-}
-
-function opc_perfil($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=3 and estado="A" ORDER BY 1', $id);
-}
-
-function opc_eps($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=4 and estado="A" ORDER BY 1', $id);
-}
-
-function opc_arl($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=5 and estado="A" ORDER BY 1', $id);
-}
 
 function opc_estado($id='') {
     return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=6 and estado="A" ORDER BY 1', $id);
