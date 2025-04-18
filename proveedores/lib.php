@@ -94,7 +94,7 @@ function lis_provider() {
     $params = $filter['params'];
     $types = $filter['types'];
     
-    $sqltot = "SELECT COUNT(*) total FROM provedores P " . $where;
+    $sqltot = "SELECT COUNT(*) total FROM provedores P WHERE " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
     
     $sql = "SELECT P.`id_provedor` AS ACCIONES, P.provedor AS Proveedor, 
