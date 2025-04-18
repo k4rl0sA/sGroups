@@ -60,8 +60,8 @@ function whe_office() {
 function tot_office() {
     $totals = [
         ['titulo'=>'Total','icono'=>'fas fa-building','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
-        ['titulo'=>'Activas','icono'=>'fa-solid fa-check-circle','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='A'"],
-        ['titulo'=>'Inactivas','icono'=>'fa-solid fa-times-circle','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado='I'"]
+        ['titulo'=>'Activas','icono'=>'fa-solid fa-check-circle','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='1'"],
+        ['titulo'=>'Inactivas','icono'=>'fa-solid fa-times-circle','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado='2'"]
     ];
     
     $rta = '';
@@ -231,7 +231,7 @@ function opc_tipo_oficina($id='') {
 }
 
 function opc_departamento($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado="A" ORDER BY 1', $id);
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=7 and estado="A" ORDER BY 1', $id);
 }
 
 function opc_ciudad($id='') {
