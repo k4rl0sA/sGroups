@@ -97,7 +97,7 @@ function lis_office() {
     $params = $filter['params'];
     $types = $filter['types'];
     
-    $sqltot = "SELECT COUNT(*) total FROM oficinas O " . $where;
+    $sqltot = "SELECT COUNT(*) total FROM oficinas O WHERE " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
     
     $sql = "SELECT O.`id_oficina` AS ACCIONES, 
