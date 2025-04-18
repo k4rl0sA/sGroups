@@ -57,8 +57,8 @@ function whe_provider() {
 function tot_provider() {
     $totals = [
         ['titulo'=>'Total','icono'=>'fas fa-truck','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
-        ['titulo'=>'Activos','icono'=>'fa-solid fa-check-circle','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='A'"],
-        ['titulo'=>'Inactivos','icono'=>'fa-solid fa-times-circle','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado='I'"]
+        ['titulo'=>'Activos','icono'=>'fa-solid fa-check-circle','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='I'"],
+        ['titulo'=>'Inactivos','icono'=>'fa-solid fa-times-circle','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado='A'"]
     ];
     
     $rta = '';
