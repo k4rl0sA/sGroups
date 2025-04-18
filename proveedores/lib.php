@@ -65,17 +65,14 @@ function tot_provider() {
     foreach ($totals as $total) {
         $sql = "SELECT count(*) AS Total FROM provedores P WHERE ";
         $filter = whe_provider();
-        
         if (!isset($filter['where']) || !isset($filter['params']) || !isset($filter['types'])) {
             $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
             continue;
         }
-        
         $sql .= $filter['where'] . $total['condicion'];
         $params = $filter['params'];
         $types = $filter['types'];
         $resultado_consulta = exec_sql($sql, $params, $types);
-        var_dump($sql);
         if ($resultado_consulta === null || !isset($resultado_consulta[0]['Total'])) {
             $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
         } else {
@@ -168,7 +165,7 @@ function get_provider() {
 function gra_provider() {
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
-    
+    $est = ($_POST['est']=='1') ? 'A' : 'I' ;
     $commonParams = [
         ['type' => 's', 'value' => $_POST['prov']],
         ['type' => 'd', 'value' => $_POST['cred']],
@@ -185,9 +182,7 @@ function gra_provider() {
     ];
     
     if (empty($id[0])) {
-        $sql = "INSERT INTO provedores VALUES (
-            NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?
-        )";
+        $sql = "INSERT INTO provedores VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
         $params = array_merge(
             $commonParams,
             [
