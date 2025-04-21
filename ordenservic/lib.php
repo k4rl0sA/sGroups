@@ -40,7 +40,7 @@ try {
     echo json_encode(['error' => 'Error interno del servidor']);
 }
 
-function whe_provider() {
+function whe_serivice_order() {
     $filtros = [];
     if (!empty($_POST['fprovedor'])) {
         $filtros[] = ['campo' => 'P.provedor', 'valor' => '%'.$_POST['fprovedor'].'%', 'operador' => 'LIKE'];
@@ -54,7 +54,7 @@ function whe_provider() {
     return fil_where($filtros);
 }
 
-function tot_provider() {
+function tot_serivice_order() {
     $totals = [
         ['titulo'=>'Total','icono'=>'fas fa-truck','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
         ['titulo'=>'Activos','icono'=>'fa-solid fa-check-circle','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='1'"],
@@ -64,7 +64,7 @@ function tot_provider() {
     $rta = '';
     foreach ($totals as $total) {
         $sql = "SELECT count(*) AS Total FROM provedores P WHERE ";
-        $filter = whe_provider();
+        $filter = whe_serivice_order();
         if (!isset($filter['where']) || !isset($filter['params']) || !isset($filter['types'])) {
             $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
             continue;
@@ -82,11 +82,11 @@ function tot_provider() {
     return $rta;
 }
 
-function lis_provider() {
+function lis_serivice_order() {
     $regxPag = 15;
-    $pag = si_noexiste('pag-provider', 1);
+    $pag = si_noexiste('pag-serivice_order', 1);
     $offset = ($pag - 1) * $regxPag;
-    $filter = whe_provider();
+    $filter = whe_serivice_order();
     $where = $filter['where'];
     $params = $filter['params'];
     $types = $filter['types'];
@@ -103,33 +103,33 @@ function lis_provider() {
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
     
     if ($datos === []) return no_reg();
-    return create_table($total, $datos, "provider", $regxPag, "lib.php");
+    return create_table($total, $datos, "serivice_order", $regxPag, "lib.php");
 }
 
-function focus_provider() {
-    return 'provider';
+function focus_serivice_order() {
+    return 'serivice_order';
 }
 
-function men_provider() {
-    $rta = cap_menus('provider','pro');
+function men_serivice_order() {
+    $rta = cap_menus('serivice_order','pro');
     return $rta;
 }
 
 function cap_menus($a, $b='cap', $con='con') {
     $rta = "";
     $acc = rol($a);
-    if ($a == 'provider' && isset($acc['crear']) && $acc['crear'] == 'SI') {  
+    if ($a == 'serivice_order' && isset($acc['crear']) && $acc['crear'] == 'SI') {  
         $rta .= "<button class='frm-btn $a grabar' onclick=\"grabar('$a', this);\"><span class='frm-txt'>Grabar</span><i class='fa-solid fa-floppy-disk icon'></i></button>";
     }
     return $rta;
 }
 
-function cmp_provider() {
+function cmp_serivice_order() {
     $rta = "";
     $t = ['id_provedor' => '','provedor' => '','credito' => '0','direccion' => '','ciudad' => '','nit' => '','comercial' => '','n_contacto' => '','correo' => '','descripcion' => '','pagina_web' => '','telefono' => '','movil_2' => '','estado' => 'A'];
-    $w = 'provider';
+    $w = 'serivice_order';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
-    $d = get_provider(); 
+    $d = get_serivice_order(); 
     if ($d == "") {$d = $t;}
     $o = 'prov';
     $c[] = new cmp('id', 'h', 100, $d['id_provedor'], $w, '', 0, '', '', '', false, '', 'col-1');
@@ -151,7 +151,7 @@ function cmp_provider() {
     return $rta;
 }
 
-function get_provider() {
+function get_serivice_order() {
     if ($_POST['id'] == '0') {
         return "";
     } else {
@@ -162,7 +162,7 @@ function get_provider() {
     } 
 }
 
-function gra_provider() {
+function gra_serivice_order() {
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
     $est = ($_POST['est']=='1') ? 'A' : 'I' ;
@@ -221,9 +221,9 @@ function opc_estado($id='') {
 function formato_dato($a, $b, $c, $d) {
     $b = strtolower($b);
     $rta = $c[$d];
-    if (($a == 'provider') && ($b == 'acciones')) {
+    if (($a == 'serivice_order') && ($b == 'acciones')) {
         $rta = "<nav class='menu right'>";
-        $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Proveedor' id='".$c['ACCIONES']."' Onclick=\"mostrar('provider','pro',event,'','lib.php',4,'Proveedores');\"></li>";
+        $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Proveedor' id='".$c['ACCIONES']."' Onclick=\"mostrar('serivice_order','pro',event,'','lib.php',4,'Proveedores');\"></li>";
         $rta .= "</nav>";
     }    
     return $rta;
@@ -231,7 +231,7 @@ function formato_dato($a, $b, $c, $d) {
 
 function bgcolor($a, $c, $f='c') {
     $rta = "";
-    if ($a == 'provider' && $c['Estado'] == 'Inactivo') {
+    if ($a == 'serivice_order' && $c['Estado'] == 'Inactivo') {
         $rta = 'bg-light-red';
     }
     return $rta;
