@@ -94,11 +94,12 @@ function lis_serivice_order() {
     $sqltot = "SELECT COUNT(*) total FROM provedores P WHERE " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
     
-    $sql = "SELECT P.`id_provedor` AS ACCIONES, P.provedor AS Proveedor, 
-            P.nit AS NIT, CTLG(2,P.ciudad) AS Ciudad,
-            P.n_contacto AS Contacto, P.correo AS Email,
-            P.telefono AS Teléfono, CTLG(6,P.estado) AS Estado
-            FROM provedores P  ";
+    $sql = "SELECT O.id_ordser AS ACCIONES, O.req AS Requerimiento, 
+            O.oficina AS Oficina, O.materiales AS Materiales,
+            O.activ_reali AS 'Actividades Realizadas', O.observacion AS Observaciones,
+            O.tecnico AS Tecnico, O.comercial AS Comercial, O.gestor AS Gestor, O.detall_gestor AS 'Detalle Gestor'
+            FROM `orden_servi` O
+  ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
     
@@ -126,15 +127,15 @@ function cap_menus($a, $b='cap', $con='con') {
 
 function cmp_serivice_order() {
     $rta = "";
-    $t = ['id_provedor' => '','provedor' => '','credito' => '0','direccion' => '','ciudad' => '','nit' => '','comercial' => '','n_contacto' => '','correo' => '','descripcion' => '','pagina_web' => '','telefono' => '','movil_2' => '','estado' => 'A'];
+    $t = ['id_ordser' => '','req' => '','empresa' => '0','direccion' => '','ciudad' => '','nit' => '','comercial' => '','n_contacto' => '','correo' => '','descripcion' => '','pagina_web' => '','telefono' => '','movil_2' => '','estado' => 'A'];
     $w = 'serivice_order';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
     $d = get_serivice_order(); 
     if ($d == "") {$d = $t;}
     $o = 'prov';
-    $c[] = new cmp('id', 'h', 100, $d['id_provedor'], $w, '', 0, '', '', '', false, '', 'col-1');
-    $c[] = new cmp('prov', 't', 100, $d['provedor'], $w.' '.$o, 'Nombre Proveedor', 'provedor', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('cred', 'n', 10, $d['credito'], $w.' '.$o, 'Crédito', 'credito', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('id', 'h', 100, $d['id_ordser'], $w, '', 0, '', '', '', false, '', 'col-1');
+    $c[] = new cmp('req', 't', 100, $d['req'], $w.' '.$o, 'Requerimiento', 'req', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('emp', 'n', 10, $d['empresa'], $w.' '.$o, 'Empresa', 'empresa', '', '', true, true, '', 'col-2');
     $c[] = new cmp('dir', 't', 50, $d['direccion'], $w.' '.$o, 'Dirección', 'direccion', '', '', true, true, '', 'col-3');
     $c[] = new cmp('ciu', 's', 3, $d['ciudad'], $w.' '.$o, 'Ciudad', 'ciudad', '', '', true, true, '', 'col-2');
     $c[] = new cmp('nit', 't', 12, $d['nit'], $w.' '.$o, 'NIT', 'nit', '', '', true, true, '', 'col-2');
