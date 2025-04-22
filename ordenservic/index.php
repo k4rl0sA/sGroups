@@ -22,7 +22,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Proveedores || <?php echo APP; ?></title>
+    <title> Orden de Servicio || <?php echo APP; ?></title>
     <link href="../libs/css/menu.css?v=30.0" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../libs/css/app.css?v=22.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -55,7 +55,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
             </nav>
             <section>
                 <div class="content content-1">
-                    <div class="title txt-center"><h2>Proveedores</h2></div>
+                    <div class="title txt-center"><h2>Ordenes de Servicio</h2></div>
                     <div class="frm-filter poppins-font" id='<?php echo $mod; ?>-fil'>
                         <div class="input-box">
                             <label for="fprovedor">Proveedor:</label>
