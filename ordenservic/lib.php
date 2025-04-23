@@ -127,7 +127,7 @@ function cap_menus($a, $b='cap', $con='con') {
 
 function cmp_serivice_order() {
     $rta = "";
-    $t = ['id_ordser' => '','req' => '','empresa' => '','oficina' => '','materiales' => '','actirea' => '','observacion' => '','tecnico' => '','detall_gestor' => ''];
+    $t = ['id_ordser' => '','req' => '','empresa' => '','oficina' => '','materiales' => '','activ_reali' => '','observacion' => '','tecnico' => '','detall_gestor' => ''];
     $w = 'serivice_order';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
     $d = get_serivice_order(); 
@@ -138,7 +138,7 @@ function cmp_serivice_order() {
     $c[] = new cmp('emp', 't', 10, $d['empresa'], $w.' '.$o, 'Empresa', 'empresa', '', '', true, true, '', 'col-2');
     $c[] = new cmp('ofi', 't', 50, $d['oficina'], $w.' '.$o, 'Oficina', 'oficina', '', '', true, true, '', 'col-3');
     $c[] = new cmp('mat', 't', 3, $d['materiales'], $w.' '.$o, 'Materiales', 'materiales', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('act', 't', 12, $d['actirea'], $w.' '.$o, 'Actividades Realizadas', 'actirea', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('act', 't', 12, $d['activ_reali'], $w.' '.$o, 'Actividades Realizadas', 'activ_reali', '', '', true, true, '', 'col-2');
     $c[] = new cmp('obs', 't', 10, $d['observacion'], $w.' '.$o, 'Observaciones', 'observacion', '', '', true, true, '', 'col-2');
     $c[] = new cmp('tec', 't', 10, $d['tecnico'], $w.' '.$o, 'Tecnico', 'tecnico', '', '', true, true, '', 'col-2');
     $c[] = new cmp('det', 't', 50, $d['detall_gestor'], $w.' '.$o, 'Detalles del Gestor', 'detall_gestor', '', '', true, true, '', 'col-3');
