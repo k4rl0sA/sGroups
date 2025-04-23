@@ -127,26 +127,22 @@ function cap_menus($a, $b='cap', $con='con') {
 
 function cmp_serivice_order() {
     $rta = "";
-    $t = ['id_ordser' => '','req' => '','empresa' => '0','direccion' => '','ciudad' => '','nit' => '','comercial' => '','n_contacto' => '','correo' => '','descripcion' => '','pagina_web' => '','telefono' => '','movil_2' => '','estado' => 'A'];
+    $t = ['id_ordser' => '','req' => '','empresa' => '','oficina' => '','materiales' => '','actirea' => '','observa' => '','tecnico' => '','detalle' => ''];
     $w = 'serivice_order';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
     $d = get_serivice_order(); 
     if ($d == "") {$d = $t;}
     $o = 'prov';
     $c[] = new cmp('id', 'h', 100, $d['id_ordser'], $w, '', 0, '', '', '', false, '', 'col-1');
-    $c[] = new cmp('req', 't', 100, $d['req'], $w.' '.$o, 'Requerimiento', 'req', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('emp', 'n', 10, $d['empresa'], $w.' '.$o, 'Empresa', 'empresa', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('dir', 't', 50, $d['direccion'], $w.' '.$o, 'Dirección', 'direccion', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('ciu', 's', 3, $d['ciudad'], $w.' '.$o, 'Ciudad', 'ciudad', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('nit', 't', 12, $d['nit'], $w.' '.$o, 'NIT', 'nit', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('com', 't', 10, $d['comercial'], $w.' '.$o, 'Teléfono Comercial', 'comercial', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('cont', 't', 10, $d['n_contacto'], $w.' '.$o, 'Contacto Principal', 'n_contacto', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('email', 't', 50, $d['correo'], $w.' '.$o, 'Correo Electrónico', 'correo', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('desc', 'a', 3000, $d['descripcion'], $w.' '.$o, 'Descripción', 'descripcion', '', '', false, true, '', 'col-12');
-    $c[] = new cmp('web', 't', 50, $d['pagina_web'], $w.' '.$o, 'Página Web', 'pagina_web', '', '', false, true, '', 'col-3');
-    $c[] = new cmp('tel', 't', 10, $d['telefono'], $w.' '.$o, 'Teléfono Fijo', 'telefono', '', '', false, true, '', 'col-2');
-    $c[] = new cmp('movil', 't', 10, $d['movil_2'], $w.' '.$o, 'Móvil Secundario', 'movil_2', '', '', false, true, '', 'col-2');
-    $c[] = new cmp('est', 's', 2, $d['estado'], $w.' '.$o, 'Estado', 'estado', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('req', 't', 100, $d['req'], $w.' '.$o, 'Codigo Requerimiento', 'req', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('emp', 't', 10, $d['empresa'], $w.' '.$o, 'Empresa', 'empresa', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('ofi', 't', 50, $d['oficina'], $w.' '.$o, 'Oficina', 'oficina', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('mat', 's', 3, $d['materiales'], $w.' '.$o, 'Materiales', 'materiales', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('act', 't', 12, $d['actirea'], $w.' '.$o, 'Actividades Realizadas', 'actirea', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('obs', 't', 10, $d['observa'], $w.' '.$o, 'Observaciones', 'observa', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('tec', 't', 10, $d['tecnico'], $w.' '.$o, 'Tecnico', 'tecnico', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('det', 't', 50, $d['detalle'], $w.' '.$o, 'Detalles del Gestor', 'detalle', '', '', true, true, '', 'col-3');
+    
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     $rta .= "</div>";
     return $rta;
