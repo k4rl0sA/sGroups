@@ -63,7 +63,7 @@ function tot_serivice_order() {
     
     $rta = '';
     foreach ($totals as $total) {
-        $sql = "SELECT count(*) AS Total FROM provedores P WHERE ";
+        $sql = "SELECT count(*) AS Total FROM orden_servi O WHERE ";
         $filter = whe_serivice_order();
         if (!isset($filter['where']) || !isset($filter['params']) || !isset($filter['types'])) {
             $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
@@ -91,7 +91,7 @@ function lis_serivice_order() {
     $params = $filter['params'];
     $types = $filter['types'];
     
-    $sqltot = "SELECT COUNT(*) total FROM provedores P WHERE " . $where;
+    $sqltot = "SELECT COUNT(*) total FROM orden_servi O WHERE " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
     
     $sql = "SELECT O.id_ordser AS ACCIONES, O.req AS Requerimiento, 
@@ -157,7 +157,7 @@ function get_serivice_order() {
         return "";
     } else {
         $id = divide($_POST['id']);
-        $sql = "SELECT * FROM provedores WHERE id_provedor='".$id[0]."'";
+        $sql = "SELECT * FROM orden_servi WHERE id_ordser='".$id[0]."'";
         $info = datos_mysql($sql);
         return $info['responseResult'][0];        
     } 
@@ -183,7 +183,7 @@ function gra_serivice_order() {
     ];
     
     if (empty($id[0])) {
-        $sql = "INSERT INTO provedores VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
+        $sql = "INSERT INTO orden_servi VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
         $params = array_merge(
             $commonParams,
             [
@@ -192,8 +192,8 @@ function gra_serivice_order() {
             ]
         );
     } else {
-        $sql = "UPDATE provedores SET    provedor=?,credito=?,direccion=?,ciudad=?,nit=?,comercial=?,n_contacto=?,correo=?,descripcion=?,pagina_web=?,telefono=?,movil_2=?,usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado=? 
-            WHERE id_provedor = ?";
+        $sql = "UPDATE orden_servi SET    provedor=?,credito=?,direccion=?,ciudad=?,nit=?,comercial=?,n_contacto=?,correo=?,descripcion=?,pagina_web=?,telefono=?,movil_2=?,usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado=? 
+            WHERE id_ordser = ?";
         $params = array_merge(
             $commonParams,
             [
