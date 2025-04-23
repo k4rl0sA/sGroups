@@ -97,7 +97,7 @@ function lis_serivice_order() {
     $sql = "SELECT O.id_ordser AS ACCIONES, O.req AS Requerimiento, 
             O.oficina AS Oficina, O.materiales AS Materiales,
             O.activ_reali AS 'Actividades Realizadas', O.observacion AS Observaciones,
-            O.tecnico AS Tecnico, O.comercial AS Comercial, O.gestor AS Gestor, O.detall_gestor AS 'Detalle Gestor'
+            O.tecnico AS Tecnico, O.comercial AS Comercial, O.detall_gestor AS 'Detalle Gestor'
             FROM `orden_servi` O
   ";
     
