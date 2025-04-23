@@ -164,22 +164,19 @@ function gra_serivice_order() {
     $usu = $_SESSION['documento'];
     $est = ($_POST['est']=='1') ? 'A' : 'I' ;
     $commonParams = [
-        ['type' => 's', 'value' => $_POST['prov']],
-        ['type' => 'd', 'value' => $_POST['cred']],
-        ['type' => 's', 'value' => $_POST['dir']],
-        ['type' => 'i', 'value' => $_POST['ciu']],
-        ['type' => 's', 'value' => $_POST['nit']],
-        ['type' => 's', 'value' => $_POST['com']],
-        ['type' => 's', 'value' => $_POST['cont']],
-        ['type' => 's', 'value' => $_POST['email']],
-        ['type' => 's', 'value' => $_POST['desc']],
-        ['type' => 's', 'value' => $_POST['web']],
-        ['type' => 's', 'value' => $_POST['tel']],
-        ['type' => 's', 'value' => $_POST['movil']]
+        ['type' => 's', 'value' => $_POST['req']],
+        ['type' => 'd', 'value' => $_POST['emp']],
+        ['type' => 's', 'value' => $_POST['ofi']],
+        ['type' => 'i', 'value' => $_POST['mat']],
+        ['type' => 's', 'value' => $_POST['act']],
+        ['type' => 's', 'value' => $_POST['obs']],
+        ['type' => 's', 'value' => $_POST['tec']],
+        ['type' => 's', 'value' => $_POST['det']]
+        
     ];
     
     if (empty($id[0])) {
-        $sql = "INSERT INTO orden_servi VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
+        $sql = "INSERT INTO orden_servi VALUES (NULL,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
         $params = array_merge(
             $commonParams,
             [
