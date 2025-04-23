@@ -137,7 +137,7 @@ function cmp_serivice_order() {
     $c[] = new cmp('req', 't', 100, $d['req'], $w.' '.$o, 'Codigo Requerimiento', 'req', '', '', true, true, '', 'col-3');
     $c[] = new cmp('emp', 't', 10, $d['empresa'], $w.' '.$o, 'Empresa', 'empresa', '', '', true, true, '', 'col-2');
     $c[] = new cmp('ofi', 't', 50, $d['oficina'], $w.' '.$o, 'Oficina', 'oficina', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('mat', 's', 3, $d['materiales'], $w.' '.$o, 'Materiales', 'materiales', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('mat', 't', 3, $d['materiales'], $w.' '.$o, 'Materiales', 'materiales', '', '', true, true, '', 'col-2');
     $c[] = new cmp('act', 't', 12, $d['actirea'], $w.' '.$o, 'Actividades Realizadas', 'actirea', '', '', true, true, '', 'col-2');
     $c[] = new cmp('obs', 't', 10, $d['observa'], $w.' '.$o, 'Observaciones', 'observa', '', '', true, true, '', 'col-2');
     $c[] = new cmp('tec', 't', 10, $d['tecnico'], $w.' '.$o, 'Tecnico', 'tecnico', '', '', true, true, '', 'col-2');
