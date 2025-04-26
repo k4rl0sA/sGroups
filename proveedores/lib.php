@@ -141,7 +141,7 @@ function cmp_provider() {
     $c[] = new cmp('com', 't', 10, $d['comercial'], $w.' '.$o, 'Teléfono Comercial', 'comercial', '', '', true, true, '', 'col-2');
     $c[] = new cmp('cont', 't', 10, $d['n_contacto'], $w.' '.$o, 'Contacto Principal', 'n_contacto', '', '', true, true, '', 'col-2');
     $c[] = new cmp('email', 't', 50, $d['correo'], $w.' '.$o, 'Correo Electrónico', 'correo', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('desc', 'a', 3000, $d['descripcion'], $w.' '.$o, 'Descripción', 'descripcion', '', '', false, true, '', 'col-12');
+    $c[] = new cmp('desc', 'a', 3000, $d['descripcion'], $w.' '.$o, 'Descripción', 'descripcion', '', '', false, true, '', 'col-5');
     $c[] = new cmp('web', 't', 50, $d['pagina_web'], $w.' '.$o, 'Página Web', 'pagina_web', '', '', false, true, '', 'col-3');
     $c[] = new cmp('tel', 't', 10, $d['telefono'], $w.' '.$o, 'Teléfono Fijo', 'telefono', '', '', false, true, '', 'col-2');
     $c[] = new cmp('movil', 't', 10, $d['movil_2'], $w.' '.$o, 'Móvil Secundario', 'movil_2', '', '', false, true, '', 'col-2');
