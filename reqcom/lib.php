@@ -140,26 +140,12 @@ function cap_menus($a, $b='cap', $con='con') {
 
 function cmp_comreq() {
     $rta = "";
-    $t = [
-        'id_reqcom' => '', 
-        'actividad' => '', 
-        'cotizacion' => '',
-        'requerimiento' => '', 
-        'cod_empresa' => '', 
-        'cod_contacto' => '', 
-        'cod_oficina' => '', 
-        'descripcion' => '', 
-        'pendienets' => '', 
-        'estado_req' => '1'
-    ];
-    
+    $t = ['id_reqcom' => '','actividad' => '','cotizacion' => '','requerimiento' => '','cod_empresa' => '','cod_contacto' => '','cod_oficina' => '','descripcion' => '','pendienets' => '','estado_req' => '1'];
     $w = 'comreq';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
     $d = get_comreq(); 
-    
     if ($d == "") {$d = $t;}
     $o = 'req';
-    
     $c[] = new cmp('id', 'h', 100, $d['id_reqcom'], $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('act', 's', 3, $d['actividad'], $w.' '.$o, 'Actividad', 'actividad', '', '', true, true, '', 'col-2');
     $c[] = new cmp('cot', 's', 3, $d['cotizacion'], $w.' '.$o, 'Cotización', 'cotizacion', '', '', true, true, '', 'col-2');
@@ -170,7 +156,6 @@ function cmp_comreq() {
     $c[] = new cmp('des', 'a', 500, $d['descripcion'], $w.' '.$o, 'Descripción', 'descripcion', '', '', true, true, '', 'col-12');
     $c[] = new cmp('pen', 'a', 500, $d['pendienets'], $w.' '.$o, 'Pendientes', 'pendienets', '', '', false, false, '', 'col-12');
     $c[] = new cmp('est', 's', 3, $d['estado_req'], $w.' '.$o, 'Estado', 'estado_req', '', '', true, true, '', 'col-2');
-    
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     $rta .= "</div>";
     return $rta;
