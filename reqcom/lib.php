@@ -239,7 +239,7 @@ function opc_requerimientos($id='') {
 }
 
 function opc_empresas($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE estado="A" ORDER BY 1', $id);
+    return opc_sql('SELECT id_cliente,cliente FROM clientes WHERE estado=1 ORDER BY 1', $id);
 }
 
 function opc_contactos($id='') {
