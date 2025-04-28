@@ -148,12 +148,12 @@ function cmp_comreq() {
     $o = 'req';
     $c[] = new cmp('id', 'h', 100, $d['id_reqcom'], $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('act', 's', 10, $d['actividad'], $w.' '.$o, 'Actividad', 'actividad', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('ofic', 't', 80, $d['oficina'], $w.' '.$o, 'Nombre Oficina', 'oficina', '', '', true, true, '', 'col-3');
+    /* $c[] = new cmp('ofic', 't', 80, $d['oficina'], $w.' '.$o, 'Nombre Oficina', 'oficina', '', '', true, true, '', 'col-3');
     $c[] = new cmp('dir', 't', 50, $d['direccion'], $w.' '.$o, 'Dirección', 'direccion', '', '', true, true, '', 'col-3');
     $c[] = new cmp('cont', 't', 10, $d['n_contacto'], $w.' '.$o, 'Teléfono Contacto', 'n_contacto', '', '', true, true, '', 'col-2');
     $c[] = new cmp('dep', 's', 1, $d['departamento'], $w.' '.$o, 'Departamento', 'departamento', '', '', true, true, '', 'col-2');
     $c[] = new cmp('ciu', 's', 1, $d['ciudad'], $w.' '.$o, 'Ciudad', 'ciudad', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('est', 's', 2, $d['estado'], $w.' '.$o, 'Estado', 'estado', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('est', 's', 2, $d['estado'], $w.' '.$o, 'Estado', 'estado', '', '', true, true, '', 'col-2'); */
 
 
     $c[] = new cmp('act', 's', 3, $d['actividad'], $w.' '.$o, 'Actividad', 'actividad', '', '', true, true, '', 'col-3');
