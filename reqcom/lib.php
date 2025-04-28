@@ -147,18 +147,9 @@ function cmp_comreq() {
     if ($d == "") {$d = $t;}
     $o = 'req';
     $c[] = new cmp('id', 'h', 100, $d['id_reqcom'], $w, '', 0, '', '', '', false, '', 'col-1');
-    $c[] = new cmp('act', 's', 10, $d['actividad'], $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3');
-    /* $c[] = new cmp('ofic', 't', 80, $d['oficina'], $w.' '.$o, 'Nombre Oficina', 'oficina', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('dir', 't', 50, $d['direccion'], $w.' '.$o, 'Dirección', 'direccion', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('cont', 't', 10, $d['n_contacto'], $w.' '.$o, 'Teléfono Contacto', 'n_contacto', '', '', true, true, '', 'col-2');
-    
-    $c[] = new cmp('ciu', 's', 1, $d['ciudad'], $w.' '.$o, 'Ciudad', 'ciudad', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('est', 's', 2, $d['estado'], $w.' '.$o, 'Estado', 'estado', '', '', true, true, '', 'col-2'); */
-
-
-    $c[] = new cmp('act', 's', 3, $d['actividad'], $w.' '.$o, 'Actividad', 'actividad', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('cot', 's', 3, $d['cotizacion'], $w.' '.$o, 'Cotización', 'cotizacion', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('req', 's', 3, $d['requerimiento'], $w.' '.$o, 'Requerimiento', 'requerimiento', '', '', true, true, '', 'col-4');
+    $c[] = new cmp('act', 's', 3, $d['actividad'], $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('cot', 's', 3, $d['cotizacion'], $w.' '.$o, 'Cotización', 'cotizaciones', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('req', 's', 3, $d['requerimiento'], $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, true, '', 'col-4');
     $c[] = new cmp('emp', 's', 3, $d['cod_empresa'], $w.' '.$o, 'Empresa', 'cod_empresa', '', '', true, true, '', 'col-3');
     $c[] = new cmp('con', 's', 3, $d['cod_contacto'], $w.' '.$o, 'Contacto', 'cod_contacto', '', '', true, true, '', 'col-3');
     $c[] = new cmp('ofi', 's', 3, $d['cod_oficina'], $w.' '.$o, 'Oficina', 'cod_oficina', '', '', true, true, '', 'col-2');
