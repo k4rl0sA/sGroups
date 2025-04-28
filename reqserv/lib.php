@@ -115,7 +115,7 @@ function lis_leadserv() {
             FROM req_lidser R
             LEFT JOIN catadeta E ON R.cod_empresa = E.idcatadeta
             LEFT JOIN contactos C ON R.cod_contacto = C.id_contacto
-            LEFT JOIN oficinas O ON R.cod_oficina = O.cod_oficina
+            LEFT JOIN oficinas O ON R.cod_oficina = O.id_oficina
              ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
