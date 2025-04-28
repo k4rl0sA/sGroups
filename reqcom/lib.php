@@ -235,15 +235,15 @@ function gra_comreq() {
 
 // Funciones de opciones para catálogos
 function opc_actividades($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=11 and estado="A" ORDER BY 1', $id);
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado="A" ORDER BY 1', $id);
 }
 
 function opc_cotizaciones($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=12 and estado="A" ORDER BY 1', $id);
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado="A" ORDER BY 1', $id);
 }
 
 function opc_requerimientos($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=13 and estado="A" ORDER BY 1', $id);
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado="A" ORDER BY 1', $id);
 }
 
 function opc_empresas($id='') {
