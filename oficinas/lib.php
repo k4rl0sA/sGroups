@@ -136,17 +136,7 @@ function cap_menus($a, $b='cap', $con='con') {
 
 function cmp_office() {
     $rta = "";
-    $t = [
-        'id_oficina' => '', 
-        'tipo_oficina' => '', 
-        'oficina' => '',
-        'direccion' => '', 
-        'n_contacto' => '', 
-        'departamento' => '', 
-        'ciudad' => '', 
-        'estado' => 'A'
-    ];
-    
+    $t = ['id_oficina' => '','tipo_oficina' => '','oficina' => '','direccion' => '','n_contacto' => '','departamento' => '','ciudad' => '','estado' => 'A'];
     $w = 'office';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
     $d = get_office(); 
