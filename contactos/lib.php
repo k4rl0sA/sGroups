@@ -127,7 +127,7 @@ function cmp_contact() {
     if ($d == "") {$d = $t;}
     $o = 'docder';
     $c[] = new cmp('id', 'h', 100, $d['id_contacto'], $w, '', 0, '', '', '', false, '', 'col-1');
-    $c[] = new cmp('nom', 't', 100, $d['nombre'], $w.' '.$o, 'Nombres', 'nombre', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('nom', 't', 100, $d['nombre'], $w.' '.$o, 'Nombres', 'nombre', '', '', true, true, '', 'col-4');
     $c[] = new cmp('tel', 'n', 9999999999, $d['telefono'], $w.' '.$o, 'Telefono', 'telefono', '', '', true, true, '', 'col-2');
     $c[] = new cmp('cor', 't', 50, $d['correo'], $w.' '.$o, 'Correo', 'correo', '', '', true, true, '', 'col-2');
     $c[] = new cmp('est', 's', 3, $d['estado'], $w.' '.$o, 'Estado', 'estado', '', '', true, true, '', 'col-2');
