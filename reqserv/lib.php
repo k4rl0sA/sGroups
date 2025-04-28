@@ -113,7 +113,7 @@ function lis_leadserv() {
             CTLG(15,R.estado_req) AS Estado,
             DATE_FORMAT(FROM_UNIXTIME(R.fecha_create), '%d/%m/%Y %H:%i') AS 'Fecha Creación'
             FROM req_lidser R
-            LEFT JOIN empresas E ON R.cod_empresa = E.cod_empresa
+            LEFT JOIN catadeta E ON R.cod_empresa = E.idcatadeta
             LEFT JOIN contactos C ON R.cod_contacto = C.id_contacto
             LEFT JOIN oficinas O ON R.cod_oficina = O.cod_oficina
              ";
