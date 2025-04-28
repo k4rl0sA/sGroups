@@ -8,8 +8,7 @@ require_once __DIR__.'/../src/gestion.php';
 $mod='leadserv';
 $ya = new DateTime();
 
-// Cargar opciones para filtros
-$empresas = opc_sql("SELECT cod_empresa, nombre FROM empresas WHERE estado = 1 ORDER BY nombre", '');
+$empresas = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 1 AND estado='A' ORDER BY descripcion", '');
 $contactos = opc_sql("SELECT cod_contacto, nombre FROM contactos WHERE estado = 1 ORDER BY nombre", '');
 $oficinas = opc_sql("SELECT id_oficina, oficina FROM oficinas WHERE estado = 1 ORDER BY oficina", '');
 $estados = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo=15 AND estado='A' ORDER BY descripcion", '');
@@ -159,7 +158,6 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                 const file = fileInput.files[0];
                 if (file) {
                     try {
-                        // Lógica para importar requerimientos
                         error.log(userData);
                     } catch (error) {
                         error.error('Error al obtener los datos: ', error);
@@ -170,7 +168,6 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                 }
             };
             
-            // Inicializar selectores con choices.js
             const selects = document.querySelectorAll('.choices-single');
             selects.forEach(select => {
                 new Choices(select, {

@@ -175,7 +175,7 @@ function get_comreq() {
 function gra_comreq() {
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
-    $fecha = time(); // Usamos timestamp UNIX
+    $fecha = time();
     
     $commonParams = [
         ['type' => 's', 'value' => $_POST['act']],
@@ -198,7 +198,7 @@ function gra_comreq() {
             [
                 ['type' => 's', 'value' => $usu],
                 ['type' => 'i', 'value' => $fecha],
-                ['type' => 'i', 'value' => 1] // Estado activo
+                ['type' => 'i', 'value' => 1]
             ]
         );
     } else {
@@ -224,7 +224,6 @@ function gra_comreq() {
     exit;
 }
 
-// Funciones de opciones para catálogos
 /* function opc_actividades($id='') {
     return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado="A" ORDER BY 1', $id);
 } */
