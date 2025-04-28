@@ -114,7 +114,7 @@ function lis_leadserv() {
             DATE_FORMAT(FROM_UNIXTIME(R.fecha_create), '%d/%m/%Y %H:%i') AS 'Fecha Creación'
             FROM req_lidser R
             LEFT JOIN empresas E ON R.cod_empresa = E.cod_empresa
-            LEFT JOIN contactos C ON R.cod_contacto = C.cod_contacto
+            LEFT JOIN contactos C ON R.cod_contacto = C.id_contacto
             LEFT JOIN oficinas O ON R.cod_oficina = O.cod_oficina
             WHERE ";
     
@@ -144,18 +144,7 @@ function cap_menus($a, $b='cap', $con='con') {
 
 function cmp_leadserv() {
     $rta = "";
-    $t = [
-        'id_reqcom' => '', 
-        'actividad' => '', 
-        'cotizacion' => '',
-        'requerimiento' => '', 
-        'cod_empresa' => '', 
-        'cod_contacto' => '', 
-        'cod_oficina' => '', 
-        'descripcion' => '', 
-        'pendienets' => '', 
-        'estado_req' => '1'
-    ];
+    $t = ['id_reqcom' => '','actividad' => '','cotizacion' => '','requerimiento' => '','cod_empresa' => '','cod_contacto' => '','cod_oficina' => '','descripcion' => '','pendienets' => '','estado_req' => '1'];
     
     $w = 'leadserv';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
@@ -257,19 +246,19 @@ function opc_requerimientos_lidser($id='') {
 }
 
 function opc_empresas($id='') {
-    return opc_sql('SELECT cod_empresa,nombre FROM empresas WHERE estado=1 ORDER BY nombre', $id);
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE estado="A" ORDER BY 1', $id);
 }
 
 function opc_contactos($id='') {
-    return opc_sql('SELECT cod_contacto,nombre FROM contactos WHERE estado=1 ORDER BY nombre', $id);
+    return opc_sql('SELECT id_contacto,nombre FROM contactos WHERE estado=1 ORDER BY nombre', $id);
 }
 
 function opc_oficinas($id='') {
     return opc_sql('SELECT cod_oficina,oficina FROM oficinas WHERE estado="A" ORDER BY oficina', $id);
 }
 
-function opc_estados_lidser($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=15 and estado="A" ORDER BY 1', $id);
+function opc_estados($id='') {
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=6 and estado="A" ORDER BY 1', $id);
 }
 
 function formato_dato($a, $b, $c, $d) {
