@@ -140,21 +140,21 @@ function cap_menus($a, $b='cap', $con='con') {
 
 function cmp_comreq() {
     $rta = "";
-    $t = ['id_reqcom' => '','actividad' => '','cotizacion' => '','requerimiento' => '','cod_empresa' => '','cod_contacto' => '','cod_oficina' => '','descripcion' => '','pendienets' => '','estado_req' => '1'];
+    $t = ['id_reqcom' => '','actividad' => '','cotizacion' => '','requerimiento' => '','cod_empresa' => '','cod_contacto' => '','cod_oficina' => '','descripcion' => '','pendientes' => '','estado_req' => '1'];
     $w = 'comreq';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
     $d = get_comreq(); 
     if ($d == "") {$d = $t;}
     $o = 'req';
     $c[] = new cmp('id', 'h', 100, $d['id_reqcom'], $w, '', 0, '', '', '', false, '', 'col-1');
-    $c[] = new cmp('act', 's', 3, $d['actividad'], $w.' '.$o, 'Actividad', 'actividad', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('cot', 's', 3, $d['cotizacion'], $w.' '.$o, 'Cotización', 'cotizacion', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('req', 's', 3, $d['requerimiento'], $w.' '.$o, 'Requerimiento', 'requerimiento', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('act', 's', 3, $d['actividad'], $w.' '.$o, 'Actividad', 'actividad', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('cot', 's', 3, $d['cotizacion'], $w.' '.$o, 'Cotización', 'cotizacion', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('req', 's', 3, $d['requerimiento'], $w.' '.$o, 'Requerimiento', 'requerimiento', '', '', true, true, '', 'col-4');
     $c[] = new cmp('emp', 's', 3, $d['cod_empresa'], $w.' '.$o, 'Empresa', 'cod_empresa', '', '', true, true, '', 'col-3');
     $c[] = new cmp('con', 's', 3, $d['cod_contacto'], $w.' '.$o, 'Contacto', 'cod_contacto', '', '', true, true, '', 'col-3');
     $c[] = new cmp('ofi', 's', 3, $d['cod_oficina'], $w.' '.$o, 'Oficina', 'cod_oficina', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('des', 'a', 500, $d['descripcion'], $w.' '.$o, 'Descripción', 'descripcion', '', '', true, true, '', 'col-12');
-    $c[] = new cmp('pen', 'a', 500, $d['pendienets'], $w.' '.$o, 'Pendientes', 'pendienets', '', '', false, false, '', 'col-12');
+    $c[] = new cmp('des', 'a', 500, $d['descripcion'], $w.' '.$o, 'Descripción', 'descripcion', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('pen', 'a', 500, $d['pendientes'], $w.' '.$o, 'Pendientes', 'pendientes', '', '', false, false, '', 'col-12');
     $c[] = new cmp('est', 's', 3, $d['estado_req'], $w.' '.$o, 'Estado', 'estado_req', '', '', true, true, '', 'col-2');
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     $rta .= "</div>";
@@ -205,7 +205,7 @@ function gra_comreq() {
         $sql = "UPDATE req_comercial SET 
             actividad=?,cotizacion=?,requerimiento=?,
             cod_empresa=?,cod_contacto=?,cod_oficina=?,
-            descripcion=?,pendienets=?,estado_req=?,
+            descripcion=?,pendientes=?,estado_req=?,
             usu_update=?,fecha_update=?
             WHERE id_reqcom = ?";
         $params = array_merge(
