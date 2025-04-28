@@ -102,14 +102,14 @@ function lis_comreq() {
             CTLG(11,R.actividad) AS Actividad,
             CTLG(12,R.cotizacion) AS Cotización,
             CTLG(13,R.requerimiento) AS Requerimiento,
-            E.nombre AS Empresa,
+            CTLG(1,E.nombre) AS Empresa,
             C.nombre AS Contacto,
             O.oficina AS Oficina,
             SUBSTRING(R.descripcion, 1, 50) AS Descripción,
             CTLG(10,R.estado_req) AS Estado,
             DATE_FORMAT(FROM_UNIXTIME(R.fecha_create), '%d/%m/%Y') AS 'Fecha Creación'
             FROM req_comercial R
-            LEFT JOIN empresas E ON R.cod_empresa = E.cod_empresa
+            LEFT JOIN catadeta E ON R.cod_empresa = E.idcatadeta
             LEFT JOIN contactos C ON R.cod_contacto = C.cod_contacto
             LEFT JOIN oficinas O ON R.cod_oficina = O.cod_oficina
               ";
