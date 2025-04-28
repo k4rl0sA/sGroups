@@ -110,7 +110,7 @@ function lis_comreq() {
             DATE_FORMAT(FROM_UNIXTIME(R.fecha_create), '%d/%m/%Y') AS 'Fecha Creación'
             FROM req_comercial R
             LEFT JOIN catadeta E ON R.cod_empresa = E.idcatadeta
-            LEFT JOIN contactos C ON R.cod_contacto = C.cod_contacto
+            LEFT JOIN contactos C ON R.id_contacto = C.cod_contacto
             LEFT JOIN oficinas O ON R.cod_oficina = O.cod_oficina
               ";
     
