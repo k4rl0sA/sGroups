@@ -9,7 +9,7 @@ $mod='comreq';
 $ya = new DateTime();
 
 // Cargar opciones para filtros
-$empresas = opc_sql("SELECT idcatadeta, descripcion FROM ctadeta WHERE idcatalogo = 1 AND estado='A' ORDER BY descripcion", '');
+$empresas = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 1 AND estado='A' ORDER BY descripcion", '');
 $contactos = opc_sql("SELECT id_contacto, nombre FROM contactos WHERE estado = 1 ORDER BY nombre", '');
 $oficinas = opc_sql("SELECT cod_oficina, oficina FROM oficinas WHERE estado = 'A' ORDER BY oficina", '');
 $estados = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo=10 AND estado='A' ORDER BY descripcion", '');
