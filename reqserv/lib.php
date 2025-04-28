@@ -106,7 +106,7 @@ function lis_leadserv() {
             CTLG(16,R.actividad) AS Actividad,
             CTLG(17,R.cotizacion) AS 'Tipo Cotización',
             CTLG(18,R.requerimiento) AS 'Tipo Requerimiento',
-            E.nombre AS Empresa,
+            CTLG(1,E.descripcion) AS Empresa,
             CONCAT(C.nombre, ' (', C.n_contacto, ')') AS Contacto,
             O.oficina AS Oficina,
             SUBSTRING(R.descripcion, 1, 50) AS Descripción,
