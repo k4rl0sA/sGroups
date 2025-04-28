@@ -242,7 +242,7 @@ function opc_empresas($id='') {
 }
 
 function opc_contactos($id='') {
-    return opc_sql('SELECT cod_contacto,nombre FROM contactos WHERE estado=1 ORDER BY nombre', $id);
+    return opc_sql('SELECT id_contacto,nombre FROM contactos WHERE estado=1 ORDER BY nombre', $id);
 }
 
 function opc_oficinas($id='') {
