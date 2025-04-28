@@ -246,7 +246,7 @@ function opc_contactos($id='') {
 }
 
 function opc_oficinas($id='') {
-    return opc_sql('SELECT cod_oficina,oficina FROM oficinas WHERE estado="A" ORDER BY oficina', $id);
+    return opc_sql('SELECT id_oficina,oficina FROM oficinas WHERE estado="A" ORDER BY oficina', $id);
 }
 
 function opc_estados_req($id='') {
