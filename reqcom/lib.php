@@ -112,7 +112,7 @@ function lis_comreq() {
             LEFT JOIN empresas E ON R.cod_empresa = E.cod_empresa
             LEFT JOIN contactos C ON R.cod_contacto = C.cod_contacto
             LEFT JOIN oficinas O ON R.cod_oficina = O.cod_oficina
-            WHERE ";
+              ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
     
