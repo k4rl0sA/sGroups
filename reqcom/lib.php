@@ -146,7 +146,7 @@ function cmp_comreq() {
     $d = get_comreq(); 
     if ($d == "") {$d = $t;}
     $o = 'req';
-    '.$v1.'='aCt';
+    $v1='aCt';
     $c[] = new cmp('id', 'h', 100, $d['id_reqcom'], $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('act', 's',500 , $d['actividad'], $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3','ActiRequCome();');
     $c[] = new cmp('cot', 's', 3, $d['cotizacion'], $w.' '.$v1.' '.$o, 'Cotización', 'cotizaciones', '', '', true, true, '', 'col-3');
