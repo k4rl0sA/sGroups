@@ -57,9 +57,8 @@ function whe_comreq() {
 function tot_comreq() {
     $totals = [
         ['titulo'=>'Total','icono'=>'fas fa-file-invoice','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
-        ['titulo'=>'Pendientes','icono'=>'fas fa-clock','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado_req=1"],
-        ['titulo'=>'En Proceso','icono'=>'fas fa-spinner','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado_req=2"],
-        ['titulo'=>'Completados','icono'=>'fas fa-check-circle','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado_req=3"]
+        ['titulo'=>'En Proceso','icono'=>'fas fa-spinner','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado_req=1"],
+        ['titulo'=>'Completados','icono'=>'fas fa-check-circle','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado_req=2"]
     ];
     
     $rta = '';
