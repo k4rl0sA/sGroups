@@ -18,7 +18,7 @@ function EnabDepeDynamic(classes, conditions) {
 /******************VALIDATION ENABLED OR DISABLED REQ COM************************/
 function ActiRequCome(){
 	const conditions = [
-		{ id: 'act', value: '6', compare: true }
+		{ id: 'act', value: '7', compare: true }
 	];
 	EnabDepeDynamic(['aCt'], conditions);
 }
