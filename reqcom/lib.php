@@ -98,18 +98,17 @@ function lis_comreq() {
     $sqltot = "SELECT COUNT(*) total FROM req_comercial R WHERE " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
     
-    $sql = "SELECT R.`id_reqcom` AS ACCIONES, 
+    $sql = "SELECT R.id_reqcom AS ACCIONES, 
             CTLG(11,R.actividad) AS Actividad,
             CTLG(12,R.cotizacion) AS Cotización,
             CTLG(13,R.requerimiento) AS Requerimiento,
-            CTLG(1,E.descripcion) AS Empresa,
+            CTLG(1,R.cod_empresa) AS Empresa,
             C.nombre AS Contacto,
             O.oficina AS Oficina,
             SUBSTRING(R.descripcion, 1, 50) AS Descripción,
-            CTLG(10,R.estado_req) AS Estado,
-            DATE_FORMAT(FROM_UNIXTIME(R.fecha_create), '%d/%m/%Y') AS 'Fecha Creación'
+            CTLG(10,R.estado_req) AS Estado
             FROM req_comercial R
-            LEFT JOIN catadeta E ON R.cod_empresa = E.idcatadeta
+            LEFT JOIN clientes CL ON R.cod_empresa = CL.id_cliente
             LEFT JOIN contactos C ON R.cod_contacto =C.id_contacto
             LEFT JOIN oficinas O ON R.cod_oficina = O.id_oficina
               ";
