@@ -233,7 +233,7 @@ function gra_leadserv() {
 }
 
 function opc_actividades_lidser($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=16 and estado="A" ORDER BY 1', $id);
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=8 and estado="A" ORDER BY 1', $id);
 }
 
 function opc_cotizaciones_lidser($id='') {
