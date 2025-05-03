@@ -118,7 +118,7 @@ require_once __DIR__ . '/../config/config.php'; // <- AQUÍ: Incluir config.php
                 $backgroundColors = ['#6c757d', '#007bff']; // Colores para el gráfico
 
                 foreach ($result['responseResult'] as $index => $row) {
-                    $labels[] = $row['estado_req'] === 1 ? 'Pendientes' : 'Completados';
+                    $labels[] = $row['estado_req'] === '1' ? 'Pendientes' : 'Completados';
                     $data[] = $row['total'];
                 }
             } else {
