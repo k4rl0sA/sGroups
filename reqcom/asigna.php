@@ -175,6 +175,7 @@ function cmp_reqasig() {
 }
 
 function get_reqasig() {
+    var_dump($_POST);
     if ($_POST['id'] == '0') {
         return "";
     }
