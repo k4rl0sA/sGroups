@@ -132,7 +132,6 @@ function cmp_reqasig() {
     if ($d == "") {$d = $t;}
     $o = 'req';
     $c[] = new cmp('id', 'h', 100, $d['id_reqseg'], $w, '', 0, '', '', '', false, '', 'col-1');
-    $c[] = new cmp('ofi', 'lb', 0, $d['oficina'] ?? '', 'reqasig', 'Oficina', '', '', '', false, false, '', 'col-6');
     $c[] = new cmp('act', 'lb',500 , $d['actividad'] ?? '', $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3','ActiRequCome();');
     $c[] = new cmp('cot', 'lb', 3, $d['cotizacion']?? '', $w.' '.$o, 'Cotización', 'cotizaciones', '', '', true, false, '', 'col-3');
     $c[] = new cmp('req', 'lb', 3, $d['requerimiento']?? '', $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, false, '', 'col-4');
