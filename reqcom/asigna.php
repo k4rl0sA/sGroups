@@ -205,7 +205,7 @@ function opc_usuarios($id='') {
 }
 
 function opc_perfil($id='') {
-    return opc_sql('SELECT id_usuario, nombre FROM usuarios WHERE estado = 3 ORDER BY nombre', $id);
+    return opc_sql('SELECT id_usuario, nombre FROM usuarios WHERE estado = 1 ORDER BY nombre', $id);
 }
 function formato_dato($a, $b, $c, $d) {
     $b = strtolower($b);
