@@ -260,7 +260,7 @@ function formato_dato($a, $b, $c, $d) {
         $rta = "<nav class='menu right'>";
         $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('comreq','pro',event,'','lib.php',4,'Requerimientos');\"></li>";
         $rta .= "<li class='fa-solid fa-paper-plane icon' title='Editar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('comreq','pro',event,'','lib.php',4,'Requerimientos');\"></li>";
-        $rta .= "<li class='fa-solid fa-check-double icon' title='Editar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('comreq','pro',event,'','lib.php',4,'Requerimientos');\"></li>";
+        $rta .= "<li class='fa-solid fa-tasks icon' title='Editar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('comreq','pro',event,'','lib.php',4,'Requerimientos');\"></li>";
         $rta .= "</nav>";
     }    
     return $rta;
