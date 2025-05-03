@@ -131,62 +131,25 @@ function cmp_reqasig() {
     $d = get_reqasig(); 
     if ($d == "") {$d = $t;}
     $o = 'req';
-    $req_info = [];
-    var_dump($d);
-    if (!empty($d['idreqcom'])) {
-        $sql_req = "SELECT RC.id_reqcom,CTLG(1, RC.cod_empresa) AS empresa,C.nombre AS contacto,O.oficina,SUBSTRING(RC.descripcion, 1, 100) AS descripcion FROM req_comercial RC  LEFT JOIN contactos C ON RC.cod_contacto = C.id_contacto LEFT JOIN oficinas O ON RC.cod_oficina = O.id_oficina WHERE RC.id_reqcom = ?";
-        $req_info = datos_mysql($sql_req, [['type' => 'i', 'value' => $d['idreqcom']]]);
-        $req_info = $req_info['responseResult'][0] ?? [];
-    }
+    
     $c[] = new cmp('id', 'h', 100, $d['id_reqseg'], $w, '', 0, '', '', '', false, '', 'col-1');
-    if ($_REQUEST['id'] == '0') {
-        $c[] = new cmp('req', 's', 3, $d['idreqcom'], $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, true, '', 'col-12');
-    } else {
-        $rta .= "<div class='form-group col-12'>";
-        $rta .= "<label>Requerimiento:</label>";
-        $rta .= "<div class='info-label'>REQ-".$d['idreqcom']."</div>";
-        $rta .= "</div>";
-        
-        if (!empty($req_info)) {
-            $rta .= "<div class='form-group col-6'>";
-            $rta .= "<label>Empresa:</label>";
-            $rta .= "<div class='info-label'>".htmlspecialchars($req_info['empresa'] ?? '')."</div>";
-            $rta .= "</div>";
-            
-            $rta .= "<div class='form-group col-6'>";
-            $rta .= "<label>Contacto:</label>";
-            $rta .= "<div class='info-label'>".htmlspecialchars($req_info['contacto'] ?? '')."</div>";
-            $rta .= "</div>";
-            
-            $rta .= "<div class='form-group col-6'>";
-            $rta .= "<label>Oficina:</label>";
-            $rta .= "<div class='info-label'>".htmlspecialchars($req_info['oficina'] ?? '')."</div>";
-            $rta .= "</div>";
-            
-            $rta .= "<div class='form-group col-12'>";
-            $rta .= "<label>Descripción:</label>";
-            $rta .= "<div class='info-label'>".htmlspecialchars($req_info['descripcion'] ?? '')."</div>";
-            $rta .= "</div>";
-        }
-    }
-    $c[] = new cmp('asi', 's', 3, $d['asignado'], $w.' '.$o, 'Asignado a', 'usuarios', '', '', true, true, '', 'col-12');
+    $c[] = new cmp('req', 's', 3, $d['idreqcom'], $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, true, '', 'col-4');
+    $c[] = new cmp('asi', 's', 3, $d['asignado'], $w.' '.$o, 'Asignado a', 'usuarios', '', '', true, true, '', 'col-4');
+    
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     $rta .= "</div>";
     return $rta;
 }
 
 function get_reqasig() {
-    var_dump($_POST);
     if ($_POST['id'] == '0') {
         return "";
-    }
-    $id = divide($_POST['id']);
-    $sql = "SELECT * FROM req_asig WHERE id_reqseg = ?";
-    $params = [['type' => 'i', 'value' => $id[0]]];
-    $types = "i";
-    show_sql($sql, array_column($params, 'value'), $types);
-    $info = datos_mysql($sql, $params);
-    return $info['responseResult'][0] ?? "";
+    } else {
+        $id = divide($_POST['id']);
+        $sql = "SELECT * FROM req_asig WHERE id_reqseg='".$id[0]."'";
+        $info = datos_mysql($sql);
+        return $info['responseResult'][0];        
+    } 
 }
 
 function gra_reqasig() {
