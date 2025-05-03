@@ -174,7 +174,7 @@ function cmp_reqasig() {
     return $rta;
 }
 
-function get_reqasig() {
+/* function get_reqasig() {
     if ($_POST['id'] == '0') {
         return "";
     } else {
@@ -183,7 +183,7 @@ function get_reqasig() {
         $info = datos_mysql($sql);
         return $info['responseResult'][0];        
     } 
-}
+} */
 
 function get_reqasig() {
     if ($_POST['id'] == '0') {
