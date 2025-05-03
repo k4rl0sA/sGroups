@@ -142,7 +142,7 @@ function cmp_reqasig() {
     $c[] = new cmp('des', 'lb', 500, $r['descripcion']?? 'SE MUESTRA TODO EL TEXTO QUE YO INGRESE AQUI TAN LARGO COMO SEA', $w.' '.$o, 'Descripción', 'descripcion', '', '', true, true, '', 'col-2');
     $c[] = new cmp('pen', 'lb', 500, $r['pendientes']?? '', $w.' '.$o, 'Pendientes', 'pendientes', '', '', false, true, '', 'col-12');
 
-    $c[] = new cmp('req', 's', 3, $d['idreqcom'], $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, true, '', 'col-4');
+    // $c[] = new cmp('req', 's', 3, $d['idreqcom'], $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, true, '', 'col-4');
     $c[] = new cmp('per', 's', 3,'', $w.' '.$o, 'Perfil', 'perfil', '', '', true, true, '', 'col-4');
     $c[] = new cmp('asi', 's', 3, $d['asignado'], $w.' '.$o, 'Asignado a', 'usuarios', '', '', true, true, '', 'col-4');
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
@@ -164,7 +164,7 @@ function get_comreq() {
         return "";
     } else {
         $id = divide($_POST['id']);
-        $sql = "SELECT CTLG(8,R.actividad) AS actividad FROM req_comercial R WHERE R.id_reqcom='".$id[0]."'";
+        $sql = "SELECT CTLG(8,R.actividad) AS actividad,* FROM req_comercial R WHERE R.id_reqcom='".$id[0]."'";
         $info = datos_mysql($sql);
         return $info['responseResult'][0];        
     } 
