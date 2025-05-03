@@ -139,7 +139,7 @@ function cmp_reqasig() {
 
     $rta .= "<div class='form-group col-6'>";
             $rta .= "<label>Contacto:</label>";
-            $rta .= "<div class='info-label'>".htmlspecialchars($req_info['contacto'] ?? '')."</div>";
+            $rta .= "<div class='info-label'>".htmlspecialchars($req_info['contacto'] ?? 'PRUEBA')."</div>";
             $rta .= "</div>";
     
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
