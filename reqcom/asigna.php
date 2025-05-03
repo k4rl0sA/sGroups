@@ -123,6 +123,24 @@ function men_reqasig() {
     return $rta;
 }
 
+function cmp_reqasig() {
+    $rta = "";
+    $t = ['id_reqseg' => '', 'idreqcom' => '', 'asignado' => ''];
+    $w = 'reqasig';
+    $uPd = $_REQUEST['id'] == '0' ? true : false;
+    $d = get_reqasig(); 
+    if ($d == "") {$d = $t;}
+    $o = 'req';
+    
+    $c[] = new cmp('id', 'h', 100, $d['id_reqseg'], $w, '', 0, '', '', '', false, '', 'col-1');
+    $c[] = new cmp('req', 's', 3, $d['idreqcom'], $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, true, '', 'col-4');
+    $c[] = new cmp('asi', 's', 3, $d['asignado'], $w.' '.$o, 'Asignado a', 'usuarios', '', '', true, true, '', 'col-4');
+    
+    for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
+    $rta .= "</div>";
+    return $rta;
+}
+
 function get_reqasig() {
     $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
     if ($id === '0' || empty($id))    return "";
