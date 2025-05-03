@@ -90,22 +90,22 @@ function lis_reqasig() {
     $where = $filter['where'];
     $params = $filter['params'];
     $types = $filter['types'];
-    
     $sqltot = "SELECT COUNT(*) total FROM req_asig RA WHERE " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
-    
-    $sql = "SELECT RA.id_reqseg AS ACCIONES, 
+    $sql = "SELECT 
+            RA.id_reqseg AS ACCIONES, 
             CONCAT('REQ-', RA.idreqcom) AS Requerimiento,
+            CTLG(1, RC.cod_empresa) AS Empresa,
+            C.nombre AS Contacto,
             U.nombre AS Asignado,
             DATE_FORMAT(FROM_UNIXTIME(RA.fecha_create), '%d/%m/%Y') AS 'Fecha Asignación',
             IF(RA.estado=1, 'Activo', 'Completado') AS Estado
             FROM req_asig RA
             LEFT JOIN req_comercial RC ON RA.idreqcom = RC.id_reqcom
+            LEFT JOIN contactos C ON RC.cod_contacto = C.id_contacto
             LEFT JOIN usuarios U ON RA.asignado = U.id_usuario
             ";
-    
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
-    
     if ($datos === []) return no_reg();
     return create_table($total, $datos, "reqasig", $regxPag, "lib.php");
 }
@@ -131,11 +131,44 @@ function cmp_reqasig() {
     $d = get_reqasig(); 
     if ($d == "") {$d = $t;}
     $o = 'req';
-    
+    $req_info = [];
+    if (!empty($d['idreqcom'])) {
+        $sql_req = "SELECT RC.id_reqcom,CTLG(1, RC.cod_empresa) AS empresa,C.nombre AS contacto,O.oficina,SUBSTRING(RC.descripcion, 1, 100) AS descripcion FROM req_comercial RC  LEFT JOIN contactos C ON RC.cod_contacto = C.id_contacto LEFT JOIN oficinas O ON RC.cod_oficina = O.id_oficina WHERE RC.id_reqcom = ?";
+        $req_info = datos_mysql($sql_req, [['type' => 'i', 'value' => $d['idreqcom']]]);
+        $req_info = $req_info['responseResult'][0] ?? [];
+    }
     $c[] = new cmp('id', 'h', 100, $d['id_reqseg'], $w, '', 0, '', '', '', false, '', 'col-1');
-    $c[] = new cmp('req', 's', 3, $d['idreqcom'], $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, true, '', 'col-4');
-    $c[] = new cmp('asi', 's', 3, $d['asignado'], $w.' '.$o, 'Asignado a', 'usuarios', '', '', true, true, '', 'col-4');
-    
+    if ($_REQUEST['id'] == '0') {
+        $c[] = new cmp('req', 's', 3, $d['idreqcom'], $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, true, '', 'col-12');
+    } else {
+        $rta .= "<div class='form-group col-12'>";
+        $rta .= "<label>Requerimiento:</label>";
+        $rta .= "<div class='info-label'>REQ-".$d['idreqcom']."</div>";
+        $rta .= "</div>";
+        
+        if (!empty($req_info)) {
+            $rta .= "<div class='form-group col-6'>";
+            $rta .= "<label>Empresa:</label>";
+            $rta .= "<div class='info-label'>".htmlspecialchars($req_info['empresa'] ?? '')."</div>";
+            $rta .= "</div>";
+            
+            $rta .= "<div class='form-group col-6'>";
+            $rta .= "<label>Contacto:</label>";
+            $rta .= "<div class='info-label'>".htmlspecialchars($req_info['contacto'] ?? '')."</div>";
+            $rta .= "</div>";
+            
+            $rta .= "<div class='form-group col-6'>";
+            $rta .= "<label>Oficina:</label>";
+            $rta .= "<div class='info-label'>".htmlspecialchars($req_info['oficina'] ?? '')."</div>";
+            $rta .= "</div>";
+            
+            $rta .= "<div class='form-group col-12'>";
+            $rta .= "<label>Descripción:</label>";
+            $rta .= "<div class='info-label'>".htmlspecialchars($req_info['descripcion'] ?? '')."</div>";
+            $rta .= "</div>";
+        }
+    }
+    $c[] = new cmp('asi', 's', 3, $d['asignado'], $w.' '.$o, 'Asignado a', 'usuarios', '', '', true, true, '', 'col-12');
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     $rta .= "</div>";
     return $rta;
