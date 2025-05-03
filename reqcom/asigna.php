@@ -128,7 +128,8 @@ function cmp_reqasig() {
     $t = ['id_reqseg' => '', 'idreqcom' => '', 'asignado' => ''];
     $w = 'reqasig';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
-    $d = get_reqasig(); 
+    $d = get_reqasig();
+    $r=get_comreq();
     if ($d == "") {$d = $t;}
     $o = 'req';
     $c[] = new cmp('id', 'h', 100, $d['id_reqseg'], $w, '', 0, '', '', '', false, '', 'col-1');
@@ -157,6 +158,16 @@ function get_reqasig() {
         return $info['responseResult'][0];
     }
     return null;
+}
+function get_comreq() {
+    if ($_POST['id'] == '0') {
+        return "";
+    } else {
+        $id = divide($_POST['id']);
+        $sql = "SELECT * FROM req_comercial WHERE id_reqcom='".$id[0]."'";
+        $info = datos_mysql($sql);
+        return $info['responseResult'][0];        
+    } 
 }
 
 function gra_reqasig() {
