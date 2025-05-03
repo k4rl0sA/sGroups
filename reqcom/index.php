@@ -49,18 +49,18 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     <?php include __DIR__.'/../src/nav.php'; ?>
     <style>
         .info-label {
-            padding: 8px 12px;
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
+            padding: 10px 12px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
             border-radius: 4px;
-            margin-bottom: 10px;
+            min-height: 40px; /* Altura mínima incluso cuando está vacío */
+            display: flex;
+            align-items: center; /* Centra verticalmente el contenido */
             word-break: break-word;
         }
-        
         .form-group {
             margin-bottom: 15px;
         }
-        
         .form-group label {
             display: block;
             margin-bottom: 5px;
