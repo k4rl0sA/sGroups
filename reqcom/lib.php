@@ -259,7 +259,7 @@ function formato_dato($a, $b, $c, $d) {
     if (($a == 'comreq') && ($b == 'acciones')) {
         $rta = "<nav class='menu right'>";
         $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('comreq','pro',event,'','lib.php',4,'Requerimientos');\"></li>";
-        $rta .= "<li class='fa-solid fa-paper-plane icon' title='Asignar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('comreq','pro',event,'','asigna.php',4,'Requerimientos');\"></li>";
+        $rta .= "<li class='fa-solid fa-paper-plane icon' title='Asignar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('reqasig','pro',event,'','asigna.php',4,'Asignación de Requerimientos');\"></li>";
         $rta .= "<li class='fa-solid fa-tasks icon' title='Gestionar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('comreq','pro',event,'','lib.php',4,'Requerimientos');\"></li>";
         $rta .= "</nav>";
     }    
