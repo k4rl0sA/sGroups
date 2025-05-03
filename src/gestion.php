@@ -661,6 +661,7 @@ class cmp {
           'c' => input_clock($this),
           'm' => select_mult($this),
           'n' => input_num($this),
+          'lb' => input_label($this),
           default => input_txt($this),
       };
       return $b . "</div>";
@@ -879,5 +880,15 @@ function subtitulo($a) {
   $d = saniti($a->d); // Sanitiza el contenido del subtítulo
   $n = saniti($a->n);
   $rta = "<div class='subtitulo {$n}'>{$d}</div>";
+  return $rta;
+}
+function input_label($a) {
+  $value = htmlspecialchars($a->d ?? '', ENT_QUOTES, 'UTF-8');
+  $label = htmlspecialchars($a->l ?? '', ENT_QUOTES, 'UTF-8');
+  $title = htmlspecialchars($a->tt ?? '', ENT_QUOTES, 'UTF-8');
+  $rta = "<div class='campo " . htmlspecialchars($a->w, ENT_QUOTES, 'UTF-8') . " " .htmlspecialchars($a->ww, ENT_QUOTES, 'UTF-8') . " borde1 oscuro'>";
+  $rta .= "<div>{$label}</div>";
+  $rta .= "<div class='info-label' title='{$title}'>{$value}</div>";
+  $rta .= "</div>";
   return $rta;
 }
