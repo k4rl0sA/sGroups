@@ -174,17 +174,6 @@ function cmp_reqasig() {
     return $rta;
 }
 
-/* function get_reqasig() {
-    if ($_POST['id'] == '0') {
-        return "";
-    } else {
-        $id = divide($_POST['id']);
-        $sql = "SELECT * FROM req_asig WHERE id_reqseg='".$id[0]."'";
-        $info = datos_mysql($sql);
-        return $info['responseResult'][0];        
-    } 
-} */
-
 function get_reqasig() {
     if ($_POST['id'] == '0') {
         return "";
