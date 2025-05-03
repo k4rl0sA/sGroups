@@ -185,6 +185,25 @@ function get_reqasig() {
     } 
 }
 
+function get_reqasig() {
+    if ($_POST['id'] == '0') {
+        return "";
+    } else {
+        $id = divide($_POST['id']);
+        $sql = "SELECT * FROM req_asig WHERE id_reqseg='".$id[0]."'";
+        $info = datos_mysql($sql);
+        if (!isset($info['responseResult'])) {
+            log_error("Error: No responseResult in datos_mysql output for query: " . $sql);
+            return "";
+        }
+        if (!isset($info['responseResult'][0])) {
+            log_error("Error: No record found in req_asig for id_reqseg: " . $id[0]);
+            return "";
+        }
+        return $info['responseResult'][0];        
+    } 
+}
+
 function gra_reqasig() {
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
