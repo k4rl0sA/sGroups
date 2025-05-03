@@ -131,9 +131,9 @@ function cmp_reqasig() {
     $d = get_reqasig(); 
     if ($d == "") {$d = $t;}
     $o = 'req';
-    
     $c[] = new cmp('id', 'h', 100, $d['id_reqseg'], $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('req', 's', 3, $d['idreqcom'], $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, true, '', 'col-4');
+    $c[] = new cmp('per', 's', 3,'', $w.' '.$o, 'Perfil', 'perfil', '', '', true, true, '', 'col-4');
     $c[] = new cmp('asi', 's', 3, $d['asignado'], $w.' '.$o, 'Asignado a', 'usuarios', '', '', true, true, '', 'col-4');
     
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
@@ -204,6 +204,9 @@ function opc_usuarios($id='') {
     return opc_sql('SELECT id_usuario, nombre FROM usuarios WHERE estado = 1 ORDER BY nombre', $id);
 }
 
+function opc_perfil($id='') {
+    return opc_sql('SELECT id_usuario, nombre FROM usuarios WHERE estado = 3 ORDER BY nombre', $id);
+}
 function formato_dato($a, $b, $c, $d) {
     $b = strtolower($b);
     $rta = $c[$d];
