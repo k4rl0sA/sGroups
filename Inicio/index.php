@@ -39,7 +39,7 @@ require_once __DIR__ . '/../config/config.php'; // <- AQUÍ: Incluir config.php
             <canvas id="vendedoresChart"></canvas>
         </div>
         <div class="card">
-            <h3>Número de Requerimientos Pendientes</h3>
+            <h3>Número de Requerimientos Comerciales</h3>
             <canvas id="requerimientosChart"></canvas>
         </div>
     </div>
