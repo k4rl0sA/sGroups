@@ -205,8 +205,9 @@ function opc_usuarios($id='') {
 }
 
 function opc_perfil($id='') {
-    return opc_sql('SELECT id_usuario, nombre FROM usuarios WHERE estado = 1 ORDER BY nombre', $id);
+    return opc_sql("SELECT `idcatalogo`,nombre FROM `catalogo` ORDER BY 2",$id = ($_POST['id'] == '') ? '' : divide($_POST['id'])[0]);
 }
+
 function formato_dato($a, $b, $c, $d) {
     $b = strtolower($b);
     $rta = $c[$d];
