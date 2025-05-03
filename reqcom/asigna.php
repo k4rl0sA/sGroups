@@ -133,14 +133,14 @@ function cmp_reqasig() {
     if ($d == "") {$d = $t;}
     $o = 'req';
     $c[] = new cmp('id', 'h', 100, $d['id_reqseg'], $w, '', 0, '', '', '', false, '', 'col-1');
-    $c[] = new cmp('act', 'lb',500 , $d['actividad'] ?? '', $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3','ActiRequCome();');
-    $c[] = new cmp('cot', 'lb', 3, $d['cotizacion']?? '', $w.' '.$o, 'Cotización', 'cotizaciones', '', '', true, false, '', 'col-3');
-    $c[] = new cmp('req', 'lb', 3, $d['requerimiento']?? '', $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, false, '', 'col-4');
-    $c[] = new cmp('emp', 'lb', 3, $d['cod_empresa']?? '', $w.' '.$o, 'Empresa', 'empresas', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('con', 'lb', 3, $d['cod_contacto']?? '', $w.' '.$o, 'Contacto', 'contactos', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('ofi', 'lb', 3, $d['cod_oficina']?? '', $w.' '.$o, 'Oficina', 'oficinas', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('des', 'lb', 500, $d['descripcion']?? 'SE MUESTRA TODO EL TEXTO QUE YO INGRESE AQUI TAN LARGO COMO SEA', $w.' '.$o, 'Descripción', 'descripcion', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('pen', 'lb', 500, $d['pendientes']?? '', $w.' '.$o, 'Pendientes', 'pendientes', '', '', false, true, '', 'col-12');
+    $c[] = new cmp('act', 'lb',500 , $r['actividad'] ?? '', $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3','ActiRequCome();');
+    $c[] = new cmp('cot', 'lb', 3, $r['cotizacion']?? '', $w.' '.$o, 'Cotización', 'cotizaciones', '', '', true, false, '', 'col-3');
+    $c[] = new cmp('req', 'lb', 3, $r['requerimiento']?? '', $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, false, '', 'col-4');
+    $c[] = new cmp('emp', 'lb', 3, $r['cod_empresa']?? '', $w.' '.$o, 'Empresa', 'empresas', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('con', 'lb', 3, $r['cod_contacto']?? '', $w.' '.$o, 'Contacto', 'contactos', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('ofi', 'lb', 3, $r['cod_oficina']?? '', $w.' '.$o, 'Oficina', 'oficinas', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('des', 'lb', 500, $r['descripcion']?? 'SE MUESTRA TODO EL TEXTO QUE YO INGRESE AQUI TAN LARGO COMO SEA', $w.' '.$o, 'Descripción', 'descripcion', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('pen', 'lb', 500, $r['pendientes']?? '', $w.' '.$o, 'Pendientes', 'pendientes', '', '', false, true, '', 'col-12');
 
     $c[] = new cmp('req', 's', 3, $d['idreqcom'], $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, true, '', 'col-4');
     $c[] = new cmp('per', 's', 3,'', $w.' '.$o, 'Perfil', 'perfil', '', '', true, true, '', 'col-4');
