@@ -164,7 +164,8 @@ function get_comreq() {
         return "";
     } else {
         $id = divide($_POST['id']);
-        $sql = "SELECT CTLG(8,R.actividad) 'actividad',R.cotizacion 'cotizacion',R.requerimiento 'requerimiento',C.cliente 'cod_contacto',CO.nombre cod_empresa,O.oficina 'cod_oficina',R.descripcion,R.pendientes  
+        $sql = "SELECT CTLG(8,R.actividad) 'actividad',R.cotizacion 'cotizacion',R.requerimiento 'requerimiento',C.cliente 'cod_contacto',CO.nombre cod_empresa,
+        O.oficina 'cod_oficina',R.descripcion,R.pendientes  
         FROM req_comercial R 
         LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom
         LEFT JOIN clientes C ON R.cod_empresa = C.id_cliente
