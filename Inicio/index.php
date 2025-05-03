@@ -107,12 +107,32 @@ require_once __DIR__ . '/../config/config.php'; // <- AQUÍ: Incluir config.php
         const requerimientosCtx = document.getElementById('requerimientosChart').getContext('2d');
         new Chart(requerimientosCtx, {
             type: 'pie',
+            <?php
+            require_once __DIR__ . '/../config/config.php';
+            $sql = "SELECT estado_req, COUNT(*) as total FROM req_comercial GROUP BY estado_req";
+            $result = datos_mysql($sql);
+
+            if ($result['code'] === 0 && !empty($result['responseResult'])) {
+                $labels = [];
+                $data = [];
+                $backgroundColors = ['#6c757d', '#007bff']; // Colores para el gráfico
+
+                foreach ($result['responseResult'] as $index => $row) {
+                    $labels[] = $row['estado_req'] === 1 ? 'Pendientes' : 'Completados';
+                    $data[] = $row['total'];
+                }
+            } else {
+                $labels = ['Error'];
+                $data = [0];
+                $backgroundColors = ['#dc3545'];
+            }
+            ?>
             data: {
-                labels: ['Pendientes', 'Completados'],
+                labels: <?php echo json_encode($labels); ?>,
                 datasets: [{
                     label: 'Requerimientos',
-                    data: [35, 65],
-                    backgroundColor: ['#6c757d', '#007bff']
+                    data: <?php echo json_encode($data); ?>,
+                    backgroundColor: <?php echo json_encode($backgroundColors); ?>
                 }]
             }
         });
