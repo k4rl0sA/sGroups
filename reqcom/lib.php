@@ -147,8 +147,8 @@ function cmp_comreq() {
     $v1='aCt';
     $c[] = new cmp('id', 'h', 100, $d['id_reqcom'], $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('act', 's',500 , $d['actividad'], $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3','ActiRequCome();');
-    $c[] = new cmp('cot', 's', 3, $d['cotizacion'], $w.' '.$v1.' '.$o, 'Cotización', 'cotizaciones', '', '', true, false, '', 'col-3');
-    $c[] = new cmp('req', 's', 3, $d['requerimiento'], $w.' '.$v1.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, false, '', 'col-4');
+    $c[] = new cmp('cot', 'a', 3, $d['cotizacion'], $w.' '.$v1.' '.$o, 'Cotización', 'cotizaciones', '', '', true, false, '', 'col-3');
+    $c[] = new cmp('req', 'a', 3, $d['requerimiento'], $w.' '.$v1.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, false, '', 'col-4');
     $c[] = new cmp('emp', 's', 3, $d['cod_empresa'], $w.' '.$o, 'Empresa', 'empresas', '', '', true, true, '', 'col-3');
     $c[] = new cmp('con', 's', 3, $d['cod_contacto'], $w.' '.$o, 'Contacto', 'contactos', '', '', true, true, '', 'col-3');
     $c[] = new cmp('ofi', 's', 3, $d['cod_oficina'], $w.' '.$o, 'Oficina', 'oficinas', '', '', true, true, '', 'col-2');
