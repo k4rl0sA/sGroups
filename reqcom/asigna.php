@@ -135,6 +135,7 @@ function cmp_reqasig() {
     $c[] = new cmp('req', 's', 3, $d['idreqcom'], $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, true, '', 'col-4');
     $c[] = new cmp('per', 's', 3,'', $w.' '.$o, 'Perfil', 'perfil', '', '', true, true, '', 'col-4');
     $c[] = new cmp('asi', 's', 3, $d['asignado'], $w.' '.$o, 'Asignado a', 'usuarios', '', '', true, true, '', 'col-4');
+    $c[] = new cmp('oficina', 'lb', 0, $d['oficina'] ?? '', 'reqasig', 'Oficina', '', '', '', false, false, '', 'col-6');
     
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     $rta .= "</div>";
