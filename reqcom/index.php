@@ -6,6 +6,8 @@ if (!isset($_SESSION['nombre'])) {
 }
 require_once __DIR__.'/../src/gestion.php';
 $mod='comreq';
+$mod1='reqasig';
+$mod2='comreq1';
 $ya = new DateTime();
 
 $empresas = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 1 AND estado='A' ORDER BY descripcion", '');
@@ -101,6 +103,10 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
             </section>
         </div>
         <div id='<?php echo $mod; ?>-frmcap'>
+        </div>
+        <div id='<?php echo $mod1; ?>-frmcap'>
+        </div>
+        <div id='<?php echo $mod2; ?>-frmcap'>
         </div>
         </form>
     </div>
