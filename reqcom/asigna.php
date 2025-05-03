@@ -205,7 +205,7 @@ function opc_usuarios($id='') {
 }
 
 function opc_perfil($id='') {
-    return opc_sql("SELECT `idcatalogo`,nombre FROM `catalogo` WHERE idcatadeta=3 and estado='A' ORDER BY 2",$id = ($_POST['id'] == '') ? '' : divide($_POST['id'])[0]);
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=3 and estado="A" ORDER BY 1', $id);
 }
 
 function formato_dato($a, $b, $c, $d) {
