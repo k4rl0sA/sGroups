@@ -132,6 +132,7 @@ function cmp_reqasig() {
     if ($d == "") {$d = $t;}
     $o = 'req';
     $req_info = [];
+    var_dump($d);
     if (!empty($d['idreqcom'])) {
         $sql_req = "SELECT RC.id_reqcom,CTLG(1, RC.cod_empresa) AS empresa,C.nombre AS contacto,O.oficina,SUBSTRING(RC.descripcion, 1, 100) AS descripcion FROM req_comercial RC  LEFT JOIN contactos C ON RC.cod_contacto = C.id_contacto LEFT JOIN oficinas O ON RC.cod_oficina = O.id_oficina WHERE RC.id_reqcom = ?";
         $req_info = datos_mysql($sql_req, [['type' => 'i', 'value' => $d['idreqcom']]]);
@@ -175,7 +176,6 @@ function cmp_reqasig() {
 }
 
 function get_reqasig() {
-    var_dump($_POST);
     if ($_POST['id'] == '0') {
         return "";
     }
