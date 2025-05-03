@@ -47,6 +47,26 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
         }
     </script>
     <?php include __DIR__.'/../src/nav.php'; ?>
+    <style>
+        .info-label {
+            padding: 8px 12px;
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            word-break: break-word;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body Onload="actualizar();">
     <div class="wrapper main" id='<?php echo $mod; ?>-main'>
