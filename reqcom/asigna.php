@@ -183,7 +183,8 @@ function get_reqasig() {
     $id = divide($_POST['id']);
     $sql = "SELECT * FROM req_asig WHERE id_reqseg = ?";
     $info = datos_mysql($sql, [['type' => 'i', 'value' => $id[0]]]);
-    return $info['responseResult'][0] ?? "";
+    return show_sql($info, 'id_reqseg');
+    // return $info['responseResult'][0] ?? "";
 }
 
 function gra_reqasig() {
