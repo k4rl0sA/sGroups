@@ -164,7 +164,7 @@ function get_comreq() {
         return "";
     } else {
         $id = divide($_POST['id']);
-        $sql = "SELECT * FROM req_comercial WHERE id_reqcom='".$id[0]."'";
+        $sql = "SELECT CTLG(11,R.actividad) AS Actividad, CTLG(12,R.cotizacion) AS Cotización, CTLG(13,R.requerimiento) AS Requerimiento, CTLG(1,R.cod_empresa) AS Empresa FROM req_comercial R WHERE R.id_reqcom='".$id[0]."'";
         $info = datos_mysql($sql);
         return $info['responseResult'][0];        
     } 
