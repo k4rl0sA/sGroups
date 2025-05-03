@@ -164,7 +164,12 @@ function get_comreq() {
         return "";
     } else {
         $id = divide($_POST['id']);
-        $sql = "SELECT *,CTLG(8,R.actividad) AS actividad FROM req_comercial R WHERE R.id_reqcom='".$id[0]."'";
+        $sql = "SELECT CTLG(8,R.actividad) AS actividad,R.cotizacion,R.requerimiento,C.cliente 'Empresa',CO.nombre,O.oficina,R.descripcion,R.pendientes  FROM req_comercial R 
+        LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom
+        LEFT JOIN clientes C ON R.cod_empresa = C.id_cliente
+        LEFT JOIN contactos CO ON R.cod_contacto = CO.id_contacto
+        LEFT JOIN oficinas O ON R.cod_oficina = O.id_oficina
+        WHERE R.id_reqcom='".$id[0]."'";
         $info = datos_mysql($sql);
         return $info['responseResult'][0];        
     } 
