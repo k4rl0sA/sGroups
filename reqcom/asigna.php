@@ -126,9 +126,7 @@ function men_reqasig() {
 function get_reqasig() {
     $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
     if ($id === '0' || empty($id))    return "";
-    $sql = "SELECT * FROM req_asig WHERE id_reqseg = ?";
-    $params = [['type' => 'i', 'value' => $id]];
-    $info = mysql_prepd($sql, $params);
+    $info = mysql_prepd("SELECT * FROM req_asig WHERE id_reqseg = ?",[['type' => 'i', 'value' => $id]]);
     if (isset($info['responseResult'][0])) {
         return $info['responseResult'][0];
     }
