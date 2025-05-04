@@ -184,10 +184,11 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
             }
             const rutaMap = {'reqasig':'asigna.php'};
             let ruta_app = rutaMap[tb] || 'lib.php';
+            let res;
             if(tb==='reqasig'){
-                const res = confirm("¿Desea guardar la asignación del requerimiento comercial?");
+                res = confirm("¿Desea guardar la asignación del requerimiento comercial?");
             }else{
-                const res = confirm("¿Desea guardar el requerimiento comercial?");
+                res = confirm("¿Desea guardar el requerimiento comercial?");
             }
             if (res) {
                 myFetch(ruta_app, `a=gra&tb=${tb}`)
