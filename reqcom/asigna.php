@@ -178,6 +178,7 @@ function get_comreq() {
 }
 
 function gra_reqasig() {
+    var_dump($_POST);
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
     $fecha = time();
@@ -215,7 +216,6 @@ function gra_reqasig() {
             ]
         );
     }
-    
     $rta = mysql_prepd($sql, $params);
     header('Content-Type: application/json; charset=utf-8'); 
     echo json_encode($rta);
