@@ -239,7 +239,7 @@ function opc_perasi(){
 		$sql="SELECT id_usuario,nombre FROM usuarios u LEFT JOIN catadeta c ON u.perfil=c.idcatadeta and c.idcatalogo=3 
         WHERE u.estado=1 and u.perfil='".$id[0]."' ORDER BY 1";
 		$info=datos_mysql($sql);		
-        error_log($sql);
+        log_error($sql);
         return json_encode($info['responseResult'] ?? []);
     }
     return json_encode([]);

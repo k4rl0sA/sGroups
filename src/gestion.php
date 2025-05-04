@@ -256,7 +256,7 @@ function fil_where($filtros) {
   $types = "";
   foreach ($filtros as $filtro) {
       if (!isset($filtro['campo']) || !isset($filtro['valor'])) {
-          error_log("fil_where: Filtro incompleto.");
+          log_error("fil_where: Filtro incompleto.");
           continue;
       }
       $campo = $filtro['campo'];
