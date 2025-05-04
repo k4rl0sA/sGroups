@@ -129,6 +129,7 @@ function cmp_reqasig() {
     $w = 'reqasig';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
     $d = get_reqasig();
+    var_dump($d);
     $r=get_comreq();
     if ($d == "") {$d = $t;}
     $o = 'req';
