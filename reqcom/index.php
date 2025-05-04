@@ -31,9 +31,9 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Requerimientos Comerciales || <?php echo APP; ?></title>
     <link href="../libs/css/menu.css?v=30.0" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="../libs/css/app.css?v=1.0">
+    <link rel="stylesheet" href="../libs/css/app.css?v=2.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="../libs/js/main.js?v=3.0"></script>
+    <script src="../libs/js/main.js?v=4.0"></script>
     <script src="../libs/js/app.js?v=3.0"></script>
     <link rel="stylesheet" href="../libs/css/choices.min.css?v=2.0">
     <script src="../libs/js/choices.min.js"></script>
@@ -48,24 +48,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     </script>
     <?php include __DIR__.'/../src/nav.php'; ?>
     <style>
-        .info-label {
-            padding: 10px 12px;
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-            min-height: 40px; /* Altura mínima incluso cuando está vacío */
-            display: flex;
-            align-items: center; /* Centra verticalmente el contenido */
-            word-break: break-word;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
+        
     </style>
 </head>
 <body Onload="actualizar();">
