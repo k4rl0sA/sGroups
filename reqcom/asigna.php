@@ -240,8 +240,9 @@ function opc_perasi(){
         WHERE u.estado=1 and u.perfil='".$id[0]."' ORDER BY 1";
 		$info=datos_mysql($sql);		
         var_dump($sql);
-		return json_encode($info['responseResult']??[]);
-	} 
+        return json_encode($info['responseResult'] ?? []);
+    }
+    return json_encode([]);
 }
 
 function formato_dato($a, $b, $c, $d) {
