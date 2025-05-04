@@ -12,8 +12,8 @@ $ya = new DateTime();
 
 $empresas = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 1 AND estado='A' ORDER BY descripcion", '');
 $contactos = opc_sql("SELECT id_contacto, nombre FROM contactos WHERE estado = 1 ORDER BY nombre", '');
-$oficinas = opc_sql("SELECT id_oficina, oficina FROM oficinas WHERE estado = 'A' ORDER BY oficina", '');
-$estados = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo=10 AND estado='A' ORDER BY descripcion", '');
+$oficinas = opc_sql("SELECT id_oficina, oficina FROM oficinas WHERE estado =1 ORDER BY oficina", '');
+$estados = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo=10 AND estado='A' ORDER BY descripcion",'');
 
 $acc = acceBtns('comreq');
 $btns = '<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
