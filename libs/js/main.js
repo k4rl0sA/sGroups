@@ -13,19 +13,6 @@ window.appVersion = "1.03.29.1";
 
 const version = document.querySelector("div.usuario");
 
-if (version) {
-  const actual = version.textContent;
-  let ver=actual.split("_");
-   // Verificar si la versión en el div.usuario es igual a window.appVersion
-   
-  if (ver[1] !== window.appVersion) {
-	alert('Por favor recuerda borrar tu Cache, para utilizar la versión más estable del sistema '+window.appVersion);
-	window.location.href = '/logout.php';
-	exit;
-    version.textContent = actual + '_' + window.appVersion;
-  }
-}
-
 document.addEventListener('keydown', function (event) {
 	if (event.ctrlKey && event.key === 'v') {
 		inform('Esta acción no esta permitida');
@@ -80,8 +67,6 @@ function solo_hora(e) {
 	}
 }
 
-
-
 function checkon(a) {
 	if (a.value == 'NO')
 		a.value = 'SI';
@@ -96,39 +81,8 @@ function is_option(a) {
     }
     return false;
 }
-/* function solo_reg(a,b='[A..Z]',inver = false) {
-	eliminarError(a);
-	var r = new RegExp(b);
-	a.classList.remove('alert');
-	a.classList.remove('invalid');
-	// Simplificando la lógica con un operador ternario
-	(inver ? r.test(a.value) : !r.test(a.value)) ? a.classList.add('alert', 'invalid') : null;
-	if(a.classList.contains('alert','invalid')){
-		return mostrarError(a,"El formato no es valido");
-	}
-} */
-/* function valido(a) {
-	eliminarError(a);
-    a.classList.remove('alert', 'invalid');
-    // Maneja campos vacíos (tanto selects simples como múltiples)
-    if (a.value === '') {
-        a.classList.add('alert', 'invalid');
-        if (a.multiple) {
-            document.querySelector('select[name="' + a.id + '[]"]').previousElementSibling.classList.add('alerta');
-        }
-        return mostrarError(a, 'Este campo es obligatorio.'); // Mensaje personalizado para campos vacíos
-    }
-	if (a.list !== undefined && a.list !==null) {if (!is_option(a)) {a.classList.add('alerta','invalid');return mostrarError(a, 'El valor ingresado no es una opción válida.');}}
-    // Maneja validación de rango para fechas, horas y fechas/horas
-    if (['date', 'time', 'datetime-local', 'datetime'].includes(a.type)) {
-        if ((a.min !== '' || a.max !== '') && (a.value < a.min || a.value > a.max)) {
-            const minMaxMessage = `El valor debe estar entre ${a.min} y ${a.max}.`;
-            return mostrarError(a, minMaxMessage); // Mensaje personalizado para rangos de fecha/hora
-        }
-    }
-    return !a.classList.contains('alert', 'invalid');
-} */
-	function solo_reg(a, b='[A..Z]', inver = false) {
+	
+function solo_reg(a, b='[A..Z]', inver = false) {
 		eliminarError(a);
 		var r = new RegExp(b);
 		const isValid = inver ? r.test(a.value) : !r.test(a.value);
@@ -257,27 +211,7 @@ function crear_panel(tb, a, b = 7, lib = ruta_app, tit = '') {
         act_html(id+'-menu',lib,'tb='+tb+'&a=men&b='+a, false);
 	}
 }
-/* function act_html(a, b, c, d = false) {  
-    if (document.getElementById(a) != undefined) {
-        pFetch(b, c + form_input('fapp'), function(responseText) { 
-            let x = document.getElementById(a);
-            if (x.tagName == "INPUT")
-                x.value = responseText.replace(/(\r\n|\n|\r)/gm, "");
-            else 
-			x.insertAdjacentHTML('afterend',responseText.replace(/(\r\n|\n|\r)/gm, ""))
-                // x.innerHTML = responseText.replace(/(\r\n|\n|\r)/gm, "");03-02-2025
-				ShowCells(a.split("-")[0]+'_fil');
-				if (x.classList.contains('frm-row')) {
-					const elementos = x.querySelectorAll('input, select, textarea');
-					if (elementos.length > 1) {
-						elementos[1].focus();
-					}
-				}
-            if (d != false)
-                d.apply('a');
-        }, "POST", {"Content-type": "application/x-www-form-urlencoded"});
-    }
-} */
+
 function act_html(a, b, c, d = false) {
     if (document.getElementById(a) != undefined) {
         pFetch(b, c + form_input('fapp'), function (responseText) {
@@ -309,25 +243,8 @@ function act_html(a, b, c, d = false) {
         }, "POST", { "Content-type": "application/x-www-form-urlencoded" });
     }
 }
-/*  function form_input(a) {
-	var d = "";
-	var frm = document.getElementById(a);
-	for (i = 0; i < frm.elements.length; i++) {
-		if (frm.elements[i].tagName = "select" && frm.elements[i].multiple) {
-			var vl = [];
-			for (var o = 0; o < frm.elements[i].options.length; o++) {
-				if (frm.elements[i].options[o].selected) {
-					vl.push("'"+frm.elements[i].options[o].value+"'");
-				}
-			}
-			d += "&"+frm.elements[i].id+"="+vl.join(",");
-		} else {
-			d += "&"+frm.elements[i].id+"="+frm.elements[i].value.toString();
-		}
-	}
-	return d;
-} 
- */	 function form_input(a) {
+
+function form_input(a) {
     var d = "";
     var frm = document.getElementById(a);
     for (var i = 0; i < frm.elements.length; i++) {
@@ -346,54 +263,6 @@ function act_html(a, b, c, d = false) {
     }
     return d;
 }
-/* function mostrar(tb, a='', ev, m='', lib=ruta_app, w=7, tit='', k='0') {
-	var id = tb+'-'+a;
-	if (a == 'pro') {
-        if (ev!=undefined) {
-			k=ev.target.id;
-		}else{
-			tit=document.querySelector('.content.content-2 .title.txt-center h2').innerText;
-		}
-		crear_panel(tb, a, w, lib, tit);
-        act_html(id+'-con',lib,'a=cmp&tb='+tb+'&id='+k);
-	}
-	if (a == 'fix') {
-        if (ev!=undefined) {tit=ev.currentTarget.title;k=ev.target.id;}
-		panel_fix(tb, a, w, lib, tit);
-        act_html(id+'-con',lib,'a=cmp&tb='+tb+'&id='+k);        
-	}
-	if (a == 'sta') {
-        if (ev!=undefined) {tit=ev.currentTarget.title;k=ev.target.id;}
-		panel_static(tb, a, w, lib, tit);
-        act_html(id+'-con',lib,'a=cmp&tb='+tb+'&id='+k);        
-	}
-    if (document.getElementById(id+'-msj')!=undefined) document.getElementById(id+'-msj').innerHTML="";
-	if (document.getElementById(tb+'-msj')!=undefined) document.getElementById(tb+'-msj').innerHTML="";
-    foco(inner(id+'-foco'));
-}
-
-function crear_panel(tb, a, b = 7, lib = ruta_app, tit = '') {
-	var id = tb+'-'+a;
-	if (document.getElementById(id) == undefined) {
-		var p = document.createElement('div');
-		p.id = id;
-		p.className = a+' frm-data ';
-		var txt ="<div class='ventana'><div class='barra-titulo'>";
-		txt += "<span class='frm-title txt-center'>"+(tit==''?tb.replace('_', ' '):tit)+"</span>";
-		txt += "<button class='btn-cerrar' Onclick=\"ocultar('"+tb+"','"+a+"');\"><i class='fas fa-times'></i></button></div>";
-
-		// txt += "<nav class='left'><ul class='menu' id='"+id+"-menu'></ul></nav><nav class='menu right'><li class='icono "+tb+ " cancelar' title='Cerrar' Onclick=\"ocultar('"+tb+"','"+a+"');\"></li></nav></div>";
-        txt += "<div class='frm-row "+(a=='lib'?'lib-con':'')+"' id='"+id+"-con' ></div>";
-		txt +="<div class='frm-menu' id='"+id+"-menu'></div>";
-		txt +='<div class="card-body"></div>';
-		p.innerHTML = txt;
-		document.getElementById(tb+'-main').appendChild(p);
-        act_html(id+'-menu',lib,'tb='+tb+'&a=men&b='+a, false);
-        // act_html(id+'-foco',lib,'tb='+tb+'&a=focus&b='+a, false); 
-	}
-	// document.getElementById(id).style.display = "block";	
-	//document.getElementById(id+"-con").innerHTML="";		
-} */
 
 function panel_fix(tb, a, b = 7, lib = ruta_app, tit = '') {
 	var id = tb+'-'+a;
@@ -491,101 +360,8 @@ function act_lista(tb, b,lib = ruta_app) {
 	if (parent.document.getElementById(tb+'-frm- ') != undefined)
 		resizeIframe(parent.document.getElementById(tb+'-frm-con').childNodes[0]);
 }
-/* function act_html(a, b, c, d = false) {  
-    if (document.getElementById(a) != undefined) {
-        pFetch(b, c + form_input('fapp'), function(responseText) { 
-            var x = document.getElementById(a);
-            if (x.tagName == "INPUT")
-                x.value = responseText.replace(/(\r\n|\n|\r)/gm, "");
-            else 
-                x.innerHTML = responseText.replace(/(\r\n|\n|\r)/gm, "");
-                
-            //  if (x.classList.contains('contenido')){
-            //     var f = x.id.replace('con', 'foco');
-            //     if (document.getElementById(f) != undefined)
-            //         foco(document.getElementById(f).innerText);
-            // } 
-				if (x.classList.contains('frm-row')) {
-					const elementos = x.querySelectorAll('input, select, textarea');
-					if (elementos.length > 1) {
-						elementos[1].focus();
-					}
-				}
-            if (d != false)
-                d.apply('a');
-        }, "POST", {"Content-type": "application/x-www-form-urlencoded"});
-    }
-} 
-function form_input(a) {
-	var d = "";
-	var frm = document.getElementById(a);
-	for (i = 0; i < frm.elements.length; i++) {
-		if (frm.elements[i].tagName = "select" && frm.elements[i].multiple) {
-			var vl = [];
-			for (var o = 0; o < frm.elements[i].options.length; o++) {
-				if (frm.elements[i].options[o].selected) {
-					vl.push("'"+frm.elements[i].options[o].value+"'");
-				}
-			}
-			d += "&"+frm.elements[i].id+"="+vl.join(",");
-		} else {
-			d += "&"+frm.elements[i].id+"="+frm.elements[i].value.toString();
-		}
-	}
-	return d;
-} */
 
-/* function act_html(a, b, c, d = false) {
-    if (document.getElementById(a) != undefined) {
-        const form = document.getElementById('fapp');
-        if (!form) {
-            console.error("Formulario 'fapp' no encontrado.");
-            return;
-        }
-        const formData = new FormData(form);
-        const params = new URLSearchParams(c);
-        for (const [key, value] of params) {
-            formData.append(key, value);
-        }
-        if (!formData.has('tb')) {
-            formData.append('tb', valParam('tb'));
-        }
-        if (!formData.has('a')) {
-            formData.append('a', valParam('a'));
-        }
-        if (!formData.has('id')) {
-            formData.append('id', valParam('id'));
-        }
-		console.log(formData)
-        pFetch(b, formData, function(responseText) {
-            // *** ESTO ES LO QUE FALTABA ***
-            var x = document.getElementById(a);
-            if (x.tagName == "INPUT")
-                x.value = responseText.replace(/(\r\n|\n|\r)/gm, "");
-            else 
-                x.innerHTML = responseText.replace(/(\r\n|\n|\r)/gm, "");
-            if (x.classList.contains('frm-row')) {
-                const elementos = x.querySelectorAll('input, select, textarea');
-                if (elementos.length > 1) {
-                    elementos[1].focus();
-                }
-            }
-            if (d != false)
-                d.apply('a');
-            // *** FIN DE LA PARTE QUE FALTABA ***
-        }, "POST");
-    }
-}
-function valParam(nombre) {
-    nombre = nombre.replace(/[\[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + nombre + '(=([^&#]*)|&|#|$)'),
-        resultados = regex.exec(window.location.href);
-    if (!resultados) return null;
-    if (!resultados[2]) return '';
-    return decodeURIComponent(resultados[2].replace(/\+/g, ' '));
-} */
-
-function selectDepend(a,b,c){
+/* function selectDepend(a,b,c){
 	if(b!=''){
 		const x = document.getElementById(a);
 		const z = document.getElementById(b);
@@ -617,7 +393,43 @@ function selectDepend(a,b,c){
 					z.add(opt);
 				}
 	}
-}
+} */
+	function selectDepend(a, b, c) {
+		if (b !== '') {
+			const x = document.getElementById(a);
+			const z = document.getElementById(b);
+			z.innerHTML = "";
+			if (!x || !z) {
+				console.error("Elementos no encontrados para selectDepend");
+				return;
+			}
+			const data = `a=opc&tb=${a}${b}&id=${x.value}`;
+			myFetch(c, data)
+				.then(responseData => {
+					if (!responseData || !Array.isArray(responseData)) {
+						console.error("Respuesta inválida o no es un array:", responseData);
+						return;
+					}
+					const opt = document.createElement('option');
+					opt.text = 'SELECCIONE';
+					opt.value = '';
+					z.add(opt);
+					responseData.forEach(item => {
+						const keys = Object.keys(item);
+						if (keys.length >= 2) {
+							const opt = document.createElement('option');
+							opt.text = item[keys[1]];
+							opt.value = item[keys[0]];
+							z.add(opt);
+						}
+					});
+				})
+				.catch(error => {
+					console.error("Error en selectDepend:", error);
+					enqueueMessage('error', "Error al cargar las opciones.", ERROR_DURATION);
+				});
+		}
+	}
 
 // Cola de mensajes global
 const messageQueue = [];
@@ -712,33 +524,8 @@ function displayToast(type, message, duration) {
         }, 500);
     }, duration);
 }
-/**
- * Función mejorada de myFetch para hacer peticiones a un backend.
- */
-/* async function myFetch(url, data) {
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: data + form_input('fapp')
-        });
-        if (!response.ok) {
-            const errorText = await response.text();
-            throw new Error(`Error ${response.status}: ${errorText}`);
-        }
-        const contentType = response.headers.get('content-type');
-        let responseData = contentType && contentType.includes('application/json')
-            ? await response.json()
-            : await response.text();
-        return responseData;
-    } catch (error) {
-        console.error('Error en la petición:', error);
-        enqueueMessage('error', `Error en la petición: ${error.message}`, 7000);
-        return null;
-    }
-} */
-
-	async function myFetch(url, data) {
+	
+async function myFetch(url, data) {
 		try {
 			const csrfToken = document.querySelector('input[name="csrf_tkn"]').value; // Obtener el token CSRF
 			const response = await fetch(url, {
@@ -763,7 +550,7 @@ function displayToast(type, message, duration) {
 			enqueueMessage('error', `Error en la petición: ${typeErrors(error.message)}`, 7000);
 			return null;
 		}
-	}
+}
 	
 function typeErrors(rta) {
 	console.error("Error del servidor:", rta);
@@ -1032,27 +819,6 @@ function getDatForm(clsKey, fun,clsCmp) {
 	RangeDateTime(a.id,min,max);
   }
   
-
-//++++++++++++++++++++++++++++++++APARIENCIA++++++++++++++++++++++
-/* function collapse(a) {
-	const el=document.getElementById(a.id);
-	if (el.classList.contains('collapsible')){
-		var coll = document.getElementsByClassName('collapsible');
-		var i;
-		for (i = 0; i < coll.length; i++) {
-    		coll[i].classList.toggle("active");
-    		var content = coll[i].nextElementSibling;
-    		if (content.style.maxHeight){
-      			content.style.maxHeight = null;
-    		} else {
-      			content.style.maxHeight = content.scrollHeight + "px";
-    		}
-		}
-	}else{
-		return;
-	}
-}
- */
 function hideFix(a,b){
 	const panel=document.getElementById(a+'-'+b);
 	if (panel!=undefined) panel.style.display='none';
@@ -1079,7 +845,6 @@ function noRequired(ele,flag){
 	ele.required = !flag;
 	ele.classList.toggle('valido', !flag);
 }
-
 
 function hidFie(ele,flag){
 	switch (ele.nodeName) {
@@ -1161,7 +926,6 @@ function lockeds(ele,flag) {
     ele.disabled = flag === true;
 }
 
-
 function hidLabFie(ele,flag){
 	switch (ele.nodeName) {
 		case 'SELECT':
@@ -1190,34 +954,6 @@ function hidLabFie(ele,flag){
 	}
 }
 
-/*   function Color(a) {
-	var div = document.getElementById(a);
-	var tabla = div.querySelector('table');
-  
-	tabla.addEventListener('click', function(event) {
-	  var td = event.target.closest('td');
-  
-	  if (td !== null && td.parentElement !== null) {
-		cambiarColorFila(div, td);//td.parentElement   .firstChild.parentNode
-	  }
-	});Enab
-  
-	var filaSeleccionada = null;
-  
-	function cambiarColorFila(div, fila) {
-	  if (filaSeleccionada !== null) {
-		filaSeleccionada.style.backgroundColor = '';
-	  }
-  
-	  fila.style.backgroundColor = '#fbeb4dc4';
-	  filaSeleccionada = fila;
-	}
-  }
- */
-  
-  
-  
-  
 //++++++++++++++++++++++++++++++++Validar fechas Minimos y maximos++++++++++++++++++++++
 function dateAdd(d=0,m=0,y=0,H=0,M=0,S=0){
 	var now=new Date();
@@ -1308,7 +1044,6 @@ function RangeDateTime(a,b,c){
 	}
   }
   
-
   function hidFieOpt(act,clsCmp,x,valid) {
 	const cmpAct=document.getElementById(act);
 	const cmps = document.querySelectorAll(`.${clsCmp}`);
@@ -1361,21 +1096,15 @@ if (localStorage.getItem('demo-theme')) {
 }
 
 function countFilter(a) {
-    // Seleccionamos el contenedor con id 'deriva-fil'
     const contenedor = document.getElementById(a+'-fil');
-    // Seleccionamos todos los inputs y selects dentro del contenedor
     const inputs = contenedor.querySelectorAll('input, select');
     let contador = 0;
-    // Iteramos sobre todos los inputs y selects
     inputs.forEach(elemento => {
-        // Verificamos si el elemento es un checkbox
         if (elemento.type === 'checkbox') {
-            // Contamos si el checkbox está marcado
             if (elemento.checked) {
                 contador++;
             }
         } else {
-            // Para inputs normales o selects, verificamos si tienen un valor
             if (elemento.value.trim() !== '') {
                 contador++;
             }
