@@ -233,6 +233,16 @@ function opc_usuarios($id='') {
 function opc_perfil($id='') {
     return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=3 and estado="A" ORDER BY 1', $id);
 }
+function opc_perasi(){
+	if($_REQUEST['id']!=''){
+		$id=divide($_REQUEST['id']);
+		$sql="SELECT id_usuario,nombre FROM usuarios u LEFT JOIN catadeta c ON u.perfil=c.idcatadeta and c.idcatalogo=3 
+        WHERE u.estado=1 and u.perfil='".$id[0]."' ORDER BY 1";
+		$info=datos_mysql($sql);		
+		// echo $_REQUEST['id'];
+		return json_encode($info['responseResult']);
+	} 
+}
 
 function formato_dato($a, $b, $c, $d) {
     $b = strtolower($b);
