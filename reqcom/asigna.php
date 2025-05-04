@@ -183,7 +183,7 @@ function gra_reqasig() {
     $fecha = time();
     
     $commonParams = [
-        ['type' => 'i', 'value' => $_POST['req']],
+        ['type' => 'i', 'value' => $_POST['id']],
         ['type' => 's', 'value' => $_POST['asi']]
     ];
     
