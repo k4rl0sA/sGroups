@@ -2,9 +2,9 @@
 require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../src/gestion.php';
 
-$perf = perfil($_POST['tb']);
+if ($_POST['a'] != 'opc') $perf = perfil($_POST['tb']);
 if (!isset($_SESSION['documento'])) {
-    log_error("Error 20: Usuario No Autorizado.".$_SESSION['documento']);
+    log_error("Error 20: Usuario No Autorizado." . $_SESSION['documento']);
     http_response_code(401);
     echo json_encode(['redirect' => '/']);
     exit();
