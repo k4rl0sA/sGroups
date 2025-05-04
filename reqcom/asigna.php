@@ -243,7 +243,7 @@ function opc_perasi(){
         log_error("info: PERASI: " . $info['responseResult']); */
         return json_encode($info['responseResult'] ?? []);
     }
-    return json_encode(['OK']);
+    return json_encode([$_REQUEST]);
 }
 
 function formato_dato($a, $b, $c, $d) {
