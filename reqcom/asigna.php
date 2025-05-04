@@ -132,7 +132,7 @@ function cmp_reqasig() {
     $r=get_comreq();
     if ($d == "") {$d = $t;}
     $o = 'req';
-    $c[] = new cmp('id', 'h', 100, $_POST['id'], $w, '', 0, '', '', '', false, '', 'col-1');
+    $c[] = new cmp('id', 'h', 100, $d['id_reqseg'], $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('act', 'lb',500 , $r['actividad'] ?? '', $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3','ActiRequCome();');
     $c[] = new cmp('cot', 'lb', 3, $r['cotizacion']?? '', $w.' '.$o, 'Cotización', 'cotizaciones', '', '', true, false, '', 'col-3');
     $c[] = new cmp('req', 'lb', 3, $r['requerimiento']?? '', $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, false, '', 'col-4');
@@ -183,7 +183,7 @@ function gra_reqasig() {
     $fecha = time();
     
     $commonParams = [
-        ['type' => 'i', 'value' => $_POST['id']],
+        ['type' => 'i', 'value' => $_POST['req']],
         ['type' => 's', 'value' => $_POST['asi']]
     ];
     
