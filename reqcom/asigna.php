@@ -157,14 +157,13 @@ function get_reqasig() {
     if ($id === '0' || empty($id)) return "";
     $sql="SELECT * FROM req_asig WHERE idreqcom =$id";
     $info = datos_mysql($sql);
-    return $info['responseResult'][0];
-    // show_sql("SELECT * FROM req_asig WHERE idreqcom = ?", array_column($params,'value'),'i');
-    // var_dump($info);
-    // $info = mysql_prepd($sql, $params);
-    if (isset($info['responseResult'][0])) {
+    if (isset($info['responseResult']) && !empty($info['responseResult'])) {
         return $info['responseResult'][0];
     }
     return null;
+    // show_sql("SELECT * FROM req_asig WHERE idreqcom = ?", array_column($params,'value'),'i');
+    // var_dump($info);
+    // $info = mysql_prepd($sql, $params);
 }
 function get_comreq() {
     if ($_POST['id'] == '0') {
