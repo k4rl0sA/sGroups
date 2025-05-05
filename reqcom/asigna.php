@@ -136,6 +136,7 @@ function cmp_reqasig() {
         $r['idreqcom'] = $d['idreqcom'];
     }
     $o = 'req';
+    var_dump($d);
     $key=$r['req'].'_'.$d['id_reqseg'];
     $c[] = new cmp('id', 'h', 100, $key, $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('act', 'lb',500 , $r['actividad'] ?? '', $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3','ActiRequCome();');
