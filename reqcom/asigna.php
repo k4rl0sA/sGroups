@@ -136,6 +136,7 @@ function cmp_reqasig() {
         $r['idreqcom'] = $d['idreqcom'];
     }
     $o = 'req';
+    var_dump($r);
     $req = ($r['idreqcom']??'');
     $key=$d['id_reqseg'].'_'.$req;
     $c[] = new cmp('id', 'h', 100, $key, $w, '', 0, '', '', '', false, '', 'col-1');
