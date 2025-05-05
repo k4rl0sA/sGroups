@@ -156,7 +156,7 @@ function get_reqasig() {
     $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
     if ($id === '0' || empty($id))    return "";
     $info = mysql_prepd("SELECT * FROM req_asig WHERE idreqcom = ?",[['type' => 'i', 'value' => $id]]);
-    show_sql("SELECT * FROM req_asig WHERE idreqcom = ?",[['type' => 'i', 'value' => $id]]);
+    show_sql($sql,array_merge(['type' => 'i', 'value' => $id],[]),$types ."i");
     if (isset($info['responseResult'][0])) {
         return $info['responseResult'][0];
     }
