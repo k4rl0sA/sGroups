@@ -159,7 +159,7 @@ function get_reqasig() {
     $sql = "SELECT * FROM req_asig WHERE idreqcom = ?";
     $params = [['type' => 'i', 'value' => $id]];
     $types = "i";
-    $info = mysql_prepd($sql, $params, $types);
+    show_sql($sql, $params, $types);
     if (isset($info['responseResult'][0])) {
         return $info['responseResult'][0];
     }
