@@ -58,9 +58,19 @@ function cmp_reqlidser() {
     $t = ['id_reqser' => '','tecnicos' => '','fecha_ejecu' => '','activi_realiza' => '','obs_gestor' => '','no_tecnicos' => 1,'no_dias' => 1,'inversion' => '','estado_ejecu' => '1']; 
     $w = 'reqlidser';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
-    $d = get_reqlidser();
+    $d = get_reqasig();
+    $r = get_reqlidser();
     if ($d == "") $d = $t; 
     $c[] = new cmp('id', 'h', 100, $d['id_reqser'], $w, '', 0, '', '', '', false, '', 'col-1');
+    $c[] = new cmp('act', 'lb',500 , $r['actividad'] ?? '', $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3','ActiRequCome();');
+    $c[] = new cmp('cot', 'lb', 3, $r['cotizacion']?? '', $w.' '.$o, 'Cotización', 'cotizaciones', '', '', true, false, '', 'col-3');
+    $c[] = new cmp('req', 'lb', 3, $r['requerimiento']?? '', $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, false, '', 'col-4');
+    $c[] = new cmp('emp', 'lb', 3, $r['cod_empresa']?? '', $w.' '.$o, 'Empresa', 'empresas', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('con', 'lb', 3, $r['cod_contacto']?? '', $w.' '.$o, 'Contacto', 'contactos', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('ofi', 'lb', 3, $r['cod_oficina']?? '', $w.' '.$o, 'Oficina', 'oficinas', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('des', 'lb', 500, $r['descripcion']?? '', $w.' '.$o, 'Descripción', 'descripcion', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('pen', 'lb', 500, $r['pendientes']?? '', $w.' '.$o, 'Pendientes', 'pendientes', '', '', false, true, '', 'col-12');
+
     $c[] = new cmp('tec', 'm', 3, $d['tecnicos'], $w, 'Técnicos', 'usuarios', '', '', true, $uPd, '', 'col-6');
     $c[] = new cmp('fec', 'd', 3, $d['fecha_ejecu'], $w, 'Fecha Ejecución', '', '', '', true, $uPd, '', 'col-3');
     $c[] = new cmp('act', 't', 500, $d['activi_realiza'], $w, 'Actividades Realizadas', '', '', '', true, $uPd, '', 'col-12');
