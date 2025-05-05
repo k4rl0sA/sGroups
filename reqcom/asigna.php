@@ -186,9 +186,8 @@ function gra_reqasig() {
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
     $fecha = time();
-    
     $commonParams = [
-        ['type' => 'i', 'value' => $_POST['req']],
+        ['type' => 'i', 'value' => $id[0]],
         ['type' => 's', 'value' => $_POST['asi']]
     ];
     
