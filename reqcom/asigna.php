@@ -177,31 +177,24 @@ function get_comreq() {
     } 
 }
 
-function get_comreq() {
-    if ($_POST['id'] == '0') {
-        return ["idreqcom" => ""];
-    } else {
-        $id = divide($_POST['id']);
-        $sql = "SELECT R.id_reqcom as idreqcom,CTLG(8,R.actividad) 'actividad',R.cotizacion 'cotizacion',R.requerimiento 'requerimiento',C.cliente 'cod_empresa',CO.nombre 'cod_contacto',O.oficina 'cod_oficina',R.descripcion,R.pendientes  
-            FROM req_comercial R 
-                LEFT JOIN clientes C ON R.cod_empresa = C.id_cliente
-                LEFT JOIN contactos CO ON R.cod_contacto = CO.id_contacto
-                LEFT JOIN oficinas O ON R.cod_oficina = O.id_oficina
-                WHERE R.id_reqcom='".$id[0]."'";
-        $info = datos_mysql($sql);
-        return $info['responseResult'][0];
-    } 
-}
-
 function gra_reqasig() {
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
     $fecha = time();
-    $commonParams = [['type' => 'i', 'value' => $_POST['req']],['type' => 's', 'value' => $_POST['asi']]];
+    
+    $commonParams = [
+        ['type' => 'i', 'value' => $_POST['req']],
+        ['type' => 's', 'value' => $_POST['asi']]
+    ];
+    
     if (empty($id[0])) {
-        $sql = "INSERT INTO req_asig VALUES (NULL,?,?,?,?,?,?,?)";
-        $params = array_merge($commonParams,
-            [   ['type' => 's', 'value' => $usu],
+        $sql = "INSERT INTO req_asig VALUES (
+            NULL,?,?,?,?,?,?,?
+        )";
+        $params = array_merge(
+            $commonParams,
+            [
+                ['type' => 's', 'value' => $usu],
                 ['type' => 'i', 'value' => $fecha],
                 ['type' => 's', 'value' => $usu],
                 ['type' => 'i', 'value' => $fecha],
@@ -209,9 +202,14 @@ function gra_reqasig() {
             ]
         );
     } else {
-        $sql = "UPDATE req_asig SET idreqcom=?,asignado=?,usu_update=?,fecha_update=?  WHERE id_reqseg = ?";
-        $params = array_merge($commonParams,
-            [   ['type' => 's', 'value' => $usu],
+        $sql = "UPDATE req_asig SET 
+            idreqcom=?,asignado=?,
+            usu_update=?,fecha_update=?
+            WHERE id_reqseg = ?";
+        $params = array_merge(
+            $commonParams,
+            [
+                ['type' => 's', 'value' => $usu],
                 ['type' => 'i', 'value' => $fecha],
                 ['type' => 'i', 'value' => $id[0]]
             ]
@@ -222,7 +220,6 @@ function gra_reqasig() {
     echo json_encode($rta);
     exit;
 }
-
 
 function opc_requerimientos($id='') {
     return opc_sql('SELECT id_reqcom, CONCAT("REQ-", id_reqcom) as descripcion FROM req_comercial WHERE estado = 1 ORDER BY id_reqcom', $id);
