@@ -155,10 +155,11 @@ function cmp_reqasig() {
 function get_reqasig() {
     $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
     if ($id === '0' || empty($id)) return "";
+    $info = mysql_prepd("SELECT * FROM req_asig WHERE idreqcom = ?", [['type' => 'i', 'value' => $id]]);
     $sql = "SELECT * FROM req_asig WHERE idreqcom = ?";
     $params = [['type' => 'i', 'value' => $id]];
     $types = 'i';
-    show_sql($sql, array_column($params, 'value'), $types);
+    show_sql($sql, $id,'i');
     $info = mysql_prepd($sql, $params);
     if (isset($info['responseResult'][0])) {
         return $info['responseResult'][0];
