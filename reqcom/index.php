@@ -7,7 +7,7 @@ if (!isset($_SESSION['nombre'])) {
 require_once __DIR__.'/../src/gestion.php';
 $mod='comreq';
 $mod1='reqasig';
-$mod2='comreq1';
+$mod2='reqlidser';
 $ya = new DateTime();
 
 $empresas = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 1 AND estado='A' ORDER BY descripcion", '');
