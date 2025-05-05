@@ -96,7 +96,17 @@ function get_reqlidser() {
     }
     return "";
 }
-
+function get_reqasig() {
+    $id = $_POST['id'];
+    if ($id === '0' || empty($id)) return "";
+    $sql="SELECT * FROM req_asig WHERE idreqcom =$id";
+    $info = datos_mysql($sql);
+    // show_sql("SELECT * FROM req_asig WHERE idreqcom = ?", array_column($params,'value'),'i');
+    if (isset($info['responseResult']) && !empty($info['responseResult'])) {
+        return $info['responseResult'][0];
+    }
+    return null;
+}
 function gra_reqlidser() {
     $id = $_POST['id'];
     $usu = $_SESSION['documento'];
