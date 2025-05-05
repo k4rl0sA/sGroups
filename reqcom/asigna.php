@@ -192,7 +192,7 @@ function gra_reqasig() {
         ['type' => 's', 'value' => $_POST['asi']]
     ];
     
-    if (empty($id[0])) {
+    if (empty($id[1])) {
         $sql = "INSERT INTO req_asig VALUES (
             NULL,?,?,?,?,?,?,?
         )";
