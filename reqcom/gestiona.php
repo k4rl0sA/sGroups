@@ -55,13 +55,14 @@ function men_reqlidser() {
 
 function cmp_reqlidser() {
     $rta = "";
-    $t = ['id_reqser' => '','tecnicos' => '','fecha_ejecu' => '','activi_realiza' => '','obs_gestor' => '','no_tecnicos' => 1,'no_dias' => 1,'inversion' => '','estado_ejecu' => '1']; 
+    $t = ['id_reqser' => '','idreqcom' => '','tecnicos' => '','fecha_ejecu' => '','activi_realiza' => '','obs_gestor' => '','no_tecnicos' => 1,'no_dias' => 1,'inversion' => '','estado_ejecu' => 'PEN']; 
     $w = 'reqlidser';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
-    $d = get_reqasig();
-    $r = get_reqlidser();
+    $d = get_reqlidser();
+    $r = get_comreq();
     if ($d == "") $d = $t; 
-    $c[] = new cmp('id', 'h', 100, $d['id_reqser'], $w, '', 0, '', '', '', false, '', 'col-1');
+    $o = 'req';
+    $c[] = new cmp('id', 'h', 100, $r['req'].'_'.$d['id_reqser'], $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('act', 'lb',500 , $r['actividad'] ?? '', $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3','ActiRequCome();');
     $c[] = new cmp('cot', 'lb', 3, $r['cotizacion']?? '', $w.' '.$o, 'Cotización', 'cotizaciones', '', '', true, false, '', 'col-3');
     $c[] = new cmp('req', 'lb', 3, $r['requerimiento']?? '', $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, false, '', 'col-4');
@@ -79,7 +80,6 @@ function cmp_reqlidser() {
     $c[] = new cmp('ndi', 'n', 2, $d['no_dias'], $w, 'N° Días', '', '', '', true, $uPd, '', 'col-2');
     $c[] = new cmp('inv', 't', 500, $d['inversion'], $w, 'Inversión', '', '', '', true, $uPd, '', 'col-6');
     $c[] = new cmp('est', 's', 3, $d['estado_ejecu'], $w, 'Estado Ejecución', 'estado_ejecucion', '', '', true, $uPd, '', 'col-3');
-    
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     $rta .= "</div>";
     return $rta;
@@ -96,28 +96,34 @@ function get_reqlidser() {
     }
     return "";
 }
-function get_reqasig() {
-    $id = $_POST['id'];
-    if ($id === '0' || empty($id)) return "";
-    $sql="SELECT * FROM req_asig WHERE idreqcom =$id";
-    $info = datos_mysql($sql);
-    // show_sql("SELECT * FROM req_asig WHERE idreqcom = ?", array_column($params,'value'),'i');
-    if (isset($info['responseResult']) && !empty($info['responseResult'])) {
-        return $info['responseResult'][0];
-    }
-    return null;
+
+function get_comreq() {
+    if ($_POST['id'] == '0') {
+        return "";
+    } else {
+        $id = divide($_POST['id']);
+        $sql = "SELECT R.id_reqcom req,CTLG(8,R.actividad) 'actividad',R.cotizacion 'cotizacion',R.requerimiento 'requerimiento',C.cliente 'cod_contacto',CO.nombre cod_empresa,
+        O.oficina 'cod_oficina',R.descripcion,R.pendientes  
+        FROM req_comercial R 
+        LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom
+        LEFT JOIN clientes C ON R.cod_empresa = C.id_cliente
+        LEFT JOIN contactos CO ON R.cod_contacto = CO.id_contacto
+        LEFT JOIN oficinas O ON R.cod_oficina = O.id_oficina
+        WHERE R.id_reqcom='".$id[0]."'";
+        $info = datos_mysql($sql);
+        return $info['responseResult'][0];        
+    } 
 }
 function gra_reqlidser() {
-    $id = $_POST['id'];
+    $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
     $fecha = time();
     
-    if ($id == '0') {
+    if (empty($id[1])) {
         // Insert
-        $sql = "INSERT INTO req_lidser VALUES (
-            NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+        $sql = "INSERT INTO req_lidser VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
-        $params = [
+        $params = [['type' => 'i', 'value' => $id[0]],
             ['type' => 's', 'value' => $_POST['tec']],
             ['type' => 's', 'value' => $_POST['fec']],
             ['type' => 's', 'value' => $_POST['act']],
@@ -134,19 +140,9 @@ function gra_reqlidser() {
         ];
     } else {
         // Update
-        $sql = "UPDATE req_lidser SET    tecnicos = ?,
-            fecha_ejecu = ?,
-            activi_realiza = ?,
-            obs_gestor = ?,
-            no_tecnicos = ?,
-            no_dias = ?,
-            inversion = ?,
-            estado_ejecu = ?,
-            usu_update = ?,
-            fecha_update = ?
+        $sql = "UPDATE req_lidser SET tecnicos = ?,fecha_ejecu = ?,activi_realiza = ?,obs_gestor = ?,no_tecnicos = ?,no_dias = ?,inversion = ?,estado_ejecu = ?,usu_update = ?,fecha_update = ?
             WHERE id_reqser = ?";
-        $params = [
-            ['type' => 's', 'value' => $_POST['tec']],
+        $params = [['type' => 's', 'value' => $_POST['tec']],
             ['type' => 's', 'value' => $_POST['fec']],
             ['type' => 's', 'value' => $_POST['act']],
             ['type' => 's', 'value' => $_POST['obs']],
@@ -156,16 +152,13 @@ function gra_reqlidser() {
             ['type' => 's', 'value' => $_POST['est']],
             ['type' => 's', 'value' => $usu],
             ['type' => 'i', 'value' => $fecha],
-            ['type' => 'i', 'value' => $id]
-        ];
+            ['type' => 'i', 'value' => $id[1]]];
     }
-    
     $rta = mysql_prepd($sql, $params);
     header('Content-Type: application/json; charset=utf-8'); 
     echo json_encode($rta);
     exit;
 }
-
 function opc_estado_ejecucion($id='') {
     $opciones = [
         ['value' => 'PEN', 'descripcion' => 'Pendiente'],
