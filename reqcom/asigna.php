@@ -219,7 +219,7 @@ function gra_reqasig() {
             ]
         );
     }
-    // $rta = mysql_prepd($sql, $params);
+    $rta = mysql_prepd($sql, $params);
     header('Content-Type: application/json; charset=utf-8'); 
     echo json_encode($rta);
     exit;
