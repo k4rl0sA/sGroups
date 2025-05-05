@@ -153,8 +153,8 @@ function cmp_reqasig() {
 }
 
 function get_reqasig() {
-    $id = $_POST['id'];
-    if ($id === '0' || empty($id)) return "";
+    $id = divide($_POST['id']);
+    if ($id[1] === '0' || empty($id[1])) return "";
     $sql="SELECT * FROM req_asig WHERE idreqcom =$id";
     $info = datos_mysql($sql);
     return $info['responseResult'][0];
