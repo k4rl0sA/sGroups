@@ -40,7 +40,7 @@ try {
     echo json_encode(['error' => 'Error interno del servidor']);
 }
 
-function whe_reqasig() {
+/*function whe_reqasig() {
     $filtros = [];
     if (!empty($_POST['freq'])) {
         $filtros[] = ['campo' => 'RA.idreqcom', 'valor' => $_POST['freq'], 'operador' => '='];
@@ -82,7 +82,7 @@ function tot_reqasig() {
     return $rta;
 }
 
-function lis_reqasig() {
+ function lis_reqasig() {
     $regxPag = 15;
     $pag = si_noexiste('pag-reqasig', 1);
     $offset = ($pag - 1) * $regxPag;
@@ -108,7 +108,7 @@ function lis_reqasig() {
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
     if ($datos === []) return no_reg();
     return create_table($total, $datos, "reqasig", $regxPag, "lib.php");
-}
+} */
 
 function focus_reqasig() {
     return 'reqasig';
