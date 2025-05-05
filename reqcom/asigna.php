@@ -130,9 +130,14 @@ function cmp_reqasig() {
     $uPd = $_REQUEST['id'] == '0' ? true : false;
     $d = get_reqasig();
     $r=get_comreq();
-    if ($d == "") {$d = $t;}
+    if ($d == "") {
+        $d = $t;
+    } else {
+        $r['idreqcom'] = $d['idreqcom'];
+    }
     $o = 'req';
-    $c[] = new cmp('id', 'h', 100, $d['id_reqseg'], $w, '', 0, '', '', '', false, '', 'col-1');
+    $key=$d['id_reqseg'].'_'.$r['idreqcom'];
+    $c[] = new cmp('id', 'h', 100, $key, $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('act', 'lb',500 , $r['actividad'] ?? '', $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3','ActiRequCome();');
     $c[] = new cmp('cot', 'lb', 3, $r['cotizacion']?? '', $w.' '.$o, 'Cotización', 'cotizaciones', '', '', true, false, '', 'col-3');
     $c[] = new cmp('req', 'lb', 3, $r['requerimiento']?? '', $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, false, '', 'col-4');
