@@ -266,8 +266,8 @@ function bgcolor($a, $c, $f='c') {
     $rta = "";
     if ($a == 'reqasig') {
         switch($c['Estado']) {
-            case 'Activo': $rta = 'bg-light-blue'; break;
-            case 'Completado': $rta = 'bg-light-green'; break;
+            case 1: $rta = 'bg-light-blue'; break;
+            case 2: $rta = 'bg-light-green'; break;
         }
     }
     return $rta;
