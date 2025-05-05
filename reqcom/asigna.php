@@ -132,7 +132,7 @@ function cmp_reqasig() {
     $r=get_comreq();
     if ($d == "") $d = $t; 
     $o = 'req';
-    $up = (empty($d['asignado'])) ? false  : true ;
+    $up = (!empty($d['asignado'])) ? false  : true ;
     $key=$r['req'].'_'.$d['id_reqseg'];
     $c[] = new cmp('id', 'h', 100, $key, $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('act', 'lb',500 , $r['actividad'] ?? '', $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3','ActiRequCome();');
