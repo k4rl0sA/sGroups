@@ -209,7 +209,7 @@ function gra_reqasig() {
         );
     } else {
         $sql = "UPDATE req_asig SET 
-            idreqcom=?,asignado=?,
+            asignado=?,
             usu_update=?,fecha_update=?
             WHERE id_reqseg = ?";
         $params = array_merge(
