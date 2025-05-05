@@ -130,11 +130,7 @@ function cmp_reqasig() {
     $uPd = $_REQUEST['id'] == '0' ? true : false;
     $d = get_reqasig();
     $r=get_comreq();
-    if ($d == "") {
-        $d = $t;
-    } else {
-        $r['idreqcom'] = $d['idreqcom'];
-    }
+    if ($d == "") $d = $t; 
     $o = 'req';
     var_dump($d);
     $key=$r['req'].'_'.$d['id_reqseg'];
@@ -145,7 +141,7 @@ function cmp_reqasig() {
     $c[] = new cmp('emp', 'lb', 3, $r['cod_empresa']?? '', $w.' '.$o, 'Empresa', 'empresas', '', '', true, true, '', 'col-3');
     $c[] = new cmp('con', 'lb', 3, $r['cod_contacto']?? '', $w.' '.$o, 'Contacto', 'contactos', '', '', true, true, '', 'col-3');
     $c[] = new cmp('ofi', 'lb', 3, $r['cod_oficina']?? '', $w.' '.$o, 'Oficina', 'oficinas', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('des', 'lb', 500, $r['descripcion']?? 'SE MUESTRA TODO EL TEXTO QUE YO INGRESE AQUI TAN LARGO COMO SEA', $w.' '.$o, 'Descripción', 'descripcion', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('des', 'lb', 500, $r['descripcion']?? '', $w.' '.$o, 'Descripción', 'descripcion', '', '', true, true, '', 'col-2');
     $c[] = new cmp('pen', 'lb', 500, $r['pendientes']?? '', $w.' '.$o, 'Pendientes', 'pendientes', '', '', false, true, '', 'col-12');
 
     // $c[] = new cmp('req', 's', 3, $d['idreqcom'], $w.' '.$o, 'Requerimiento', 'requerimientos', '', '', true, true, '', 'col-4');
@@ -157,10 +153,10 @@ function cmp_reqasig() {
 }
 
 function get_reqasig() {
-    var_dump($_POST);
     $id = filter_var($_POST['id'], FILTER_SANITIZE_NUMBER_INT);
     if ($id === '0' || empty($id))    return "";
     $info = mysql_prepd("SELECT * FROM req_asig WHERE idreqcom = ?",[['type' => 'i', 'value' => $id]]);
+    show_sql("SELECT * FROM req_asig WHERE idreqcom = ?",[['type' => 'i', 'value' => $id]]);
     if (isset($info['responseResult'][0])) {
         return $info['responseResult'][0];
     }
