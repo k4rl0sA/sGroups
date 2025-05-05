@@ -154,17 +154,17 @@ function cmp_reqasig() {
 
 function get_reqasig() {
     $id = divide($_POST['id']);
-    if ($id[1] === '0' || empty($id[1])) return "";
-    $sql = "SELECT * FROM req_asig WHERE idreqcom = ?";
-    $params = [['type' => 'i', 'value' => $id[0]]];
-    $info = datos_mysql($sql, $params);
+    if ($id === '0' || empty($id)) return "";
+    $sql="SELECT * FROM req_asig WHERE idreqcom =$id";
+    $info = datos_mysql($sql);
+    return $info['responseResult'][0];
+    // show_sql("SELECT * FROM req_asig WHERE idreqcom = ?", array_column($params,'value'),'i');
+    // var_dump($info);
+    // $info = mysql_prepd($sql, $params);
     if (isset($info['responseResult'][0])) {
         return $info['responseResult'][0];
     }
     return null;
-    // show_sql("SELECT * FROM req_asig WHERE idreqcom = ?", array_column($params,'value'),'i');
-    // var_dump($info);
-    // $info = mysql_prepd($sql, $params);
 }
 function get_comreq() {
     if ($_POST['id'] == '0') {
