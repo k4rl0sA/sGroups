@@ -155,7 +155,7 @@ function cmp_leadserv() {
     
     $c[] = new cmp('id', 'h', 100, $d['id_reqcom'], $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('act', 's', 3, $d['actividad'], $w.' '.$o, 'Tipo Actividad', 'actividad', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('cot', 's', 3, $d['cotizacion'], $w.' '.$o, 'Tipo Cotización', 'cotizacion', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('cot', 'n', 9999999999, $d['cotizacion'], $w.' '.$o, 'Tipo Cotización', 'cotizacion', '', '', true, true, '', 'col-2');
     $c[] = new cmp('req', 's', 3, $d['requerimiento'], $w.' '.$o, 'Tipo Requerimiento', 'requerimiento', '', '', true, true, '', 'col-2');
     $c[] = new cmp('emp', 's', 3, $d['cod_empresa'], $w.' '.$o, 'Empresa', 'cod_empresa', '', '', true, true, '', 'col-3');
     $c[] = new cmp('con', 's', 3, $d['cod_contacto'], $w.' '.$o, 'Contacto', 'cod_contacto', '', '', true, true, '', 'col-3');
