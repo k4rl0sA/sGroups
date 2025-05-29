@@ -160,7 +160,7 @@ function cmp_customer() {
     $c[] = new cmp('nit', 'n', 9999999999, $d['nit'], $w.' '.$o, 'NIT', 'nit', '', '', true, true, '', 'col-2');
     $c[] = new cmp('cli', 't', 80, $d['cliente'], $w.' '.$o, 'Nombre Cliente', 'cliente', '', '', true, true, '', 'col-3');
     $c[] = new cmp('dir', 't', 50, $d['direccion'], $w.' '.$o, 'Dirección', 'direccion', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('web', 't', 50, $d['pagina_web'], $w.' '.$o, 'Página Web', 'pagina_web', '', '', false, false, '', 'col-2');
+    $c[] = new cmp('web', 't', 50, $d['pagina_web'], $w.' '.$o, 'Página Web', 'pagina_web', '', '', false, true, '', 'col-2');
     $c[] = new cmp('cont', 't', 10, $d['n_contacto'], $w.' '.$o, 'Teléfono Contacto', 'n_contacto', '', '', true, true, '', 'col-2');
     $c[] = new cmp('dep', 's', 1, $d['departamento'], $w.' '.$o, 'Departamento', 'departamento', '', '', true, true, '', 'col-2');
     $c[] = new cmp('ciu', 's', 1, $d['ciudad'], $w.' '.$o, 'Ciudad', 'ciudad', '', '', true, true, '', 'col-2');
