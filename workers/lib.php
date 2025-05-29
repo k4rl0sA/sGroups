@@ -90,7 +90,7 @@ function lis_employee() {
     $tabla = "usuarios";
 	$sqltot="SELECT COUNT(*) total  FROM `usuarios` U WHERE " . $where;
     $total = obtener_total_registros($sqltot,$params, $types);
-    $sql = "SELECT U.`id_usuario` AS ACCIONES, U.id_usuario AS Documento,nombre,CTLG(7,area) 'area',CTLG(1,departamento) AS Departamento, 
+    $sql = "SELECT U.`id_usuario` AS ACCIONES, U.id_usuario AS Documento,nombre,CTLG(7,area) 'Area de la Empresa',CTLG(1,departamento) AS Departamento, 
     CTLG(2,ciudad) Ciudad,CTLG(3,perfil) Perfil,U.`n_contacto` AS Telefono, CTLG(4,eps) AS EPS, CTLG(5,U.arl) AS ARL, 
     U.correo AS Correo,CTLG(6,estado) Estado
  FROM `usuarios` U ";
