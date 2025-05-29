@@ -117,7 +117,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
   }
   function cmp_employee(){
 	$rta="";
-	$t=['id'=>'','id_usuario'=>'','nombre'=>'','departamento'=>'','ciudad'=>'','perfil'=>'','telefono'=>'','eps'=>'','arl'=>'','correo'=>'','estado'=>''];
+	$t=['id'=>'','id_usuario'=>'','nombre'=>'','area'=>'','departamento'=>'','ciudad'=>'','perfil'=>'','telefono'=>'','eps'=>'','arl'=>'','correo'=>'','estado'=>''];
 	$w='employee';
 	$uPd = $_REQUEST['id']=='0' ? true : false;
 	$d=get_employee(); 
@@ -128,6 +128,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 	$c[]=new cmp('id','h',100,$d['id'],$w,'',0,'','','',false,'','col-1');
     $c[]=new cmp('doc','n',9999999999,$d['id_usuario'],$w.' '.$o,'Numero de Documento','doc','','',true,true,'','col-2');
     $c[]=new cmp('nom','t',100,$d['nombre'],$w.' '.$o,'Nombres','nombre','','',true,true,'','col-2');
+    $c[]=new cmp('are','s',3,$d['area'],$w.' '.$o,'Area','area','','',true,true,'','col-2');
     $c[]=new cmp('dep','s',3,$d['departamento'],$w.' '.$o,'Departamento','departamento','','',true,true,'','col-2');
     $c[]=new cmp('ciu','s',3,$d['ciudad'],$w.' '.$o,'Ciudad','ciudad','','',true,true,'','col-2');
     $c[]=new cmp('per','s',3,$d['perfil'],$w.' '.$o,'Perfil','perfil','','',true,true,'','col-2');
@@ -199,6 +200,9 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 
     function opc_ciudad($id=''){
     return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=2 and estado="A" ORDER BY 1',$id);
+    }
+    function opc_area($id=''){
+        return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=7 and estado="A" ORDER BY 1',$id);
     }
     function opc_departamento($id=''){
         return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado="A" ORDER BY 1',$id);
