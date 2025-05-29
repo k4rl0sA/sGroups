@@ -109,7 +109,7 @@ function lis_customer() {
             CTLG(1,C.departamento) AS Departamento,
             CTLG(2,C.ciudad) AS Ciudad,
             CTLG(6,C.estado) AS Estado
-            FROM clientes C WHERE ";
+            FROM clientes C ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
     
