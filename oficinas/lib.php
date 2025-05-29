@@ -101,7 +101,7 @@ function lis_office() {
     $total = obtener_total_registros($sqltot, $params, $types);
     
     $sql = "SELECT O.`id_oficina` AS ACCIONES, 
-            CTLG(7,O.tipo_oficina) AS Tipo, 
+            CTLG(9,O.tipo_oficina) AS Tipo, 
             O.oficina AS Oficina,
             O.direccion AS Dirección,
             O.n_contacto AS Contacto,
