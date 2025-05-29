@@ -156,6 +156,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
         $commonParams = [
             ['type' => 'i', 'value' => $_POST['doc']],
             ['type' => 's', 'value' => $_POST['nom']],
+            ['type' => 'i', 'value' => $_POST['are']],
             ['type' => 'i', 'value' => $_POST['dep']],
             ['type' => 'i', 'value' => $_POST['ciu']],
             ['type' => 'i', 'value' => $_POST['per']],
@@ -168,7 +169,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
         $usu=$_SESSION['documento'];
 			if (empty($id[0])) {
                 
-                $sql = "INSERT INTO usuarios VALUES (NULL,?,?,?,?,?,?,?,?,?,null,null,null,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
+                $sql = "INSERT INTO usuarios VALUES (NULL,?,?,?,?,?,?,?,?,?,?,null,null,null,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
                 $params = array_merge(
                     $commonParams,
                     [
@@ -177,7 +178,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
                     ]
                 );
 			}else{
-                $sql = "UPDATE usuarios SET id_usuario=?,nombre=?,departamento=?,ciudad=?,perfil=?,n_contacto=?,eps=?,arl=?,correo=?,usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado =? WHERE id = ?";
+                $sql = "UPDATE usuarios SET id_usuario=?,nombre=?,area=?,departamento=?,ciudad=?,perfil=?,n_contacto=?,eps=?,arl=?,correo=?,usu_update=?,fecha_update=DATE_SUB(NOW(), INTERVAL 5 HOUR),estado =? WHERE id = ?";
                 $params = array_merge(
                     $commonParams,
                     [
