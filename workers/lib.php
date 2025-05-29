@@ -90,7 +90,7 @@ function lis_employee() {
     $tabla = "usuarios";
 	$sqltot="SELECT COUNT(*) total  FROM `usuarios` U WHERE " . $where;
     $total = obtener_total_registros($sqltot,$params, $types);
-    $sql = "SELECT U.`id_usuario` AS ACCIONES, U.id_usuario AS Documento,nombre,CTLG(7,area) 'Area de la Empresa',CTLG(1,departamento) AS Departamento, 
+    $sql = "SELECT U.`id_usuario` AS ACCIONES, U.id_usuario AS Documento,nombre,CTLG(7,area) 'area',CTLG(1,departamento) AS Departamento, 
     CTLG(2,ciudad) Ciudad,CTLG(3,perfil) Perfil,U.`n_contacto` AS Telefono, CTLG(4,eps) AS EPS, CTLG(5,U.arl) AS ARL, 
     U.correo AS Correo,CTLG(6,estado) Estado
  FROM `usuarios` U ";
@@ -128,7 +128,7 @@ $where.=" GROUP BY U.Departamento,U.nombre";
 	$c[]=new cmp('id','h',100,$d['id'],$w,'',0,'','','',false,'','col-1');
     $c[]=new cmp('doc','n',9999999999,$d['id_usuario'],$w.' '.$o,'Numero de Documento','doc','','',true,true,'','col-2');
     $c[]=new cmp('nom','t',100,$d['nombre'],$w.' '.$o,'Nombres','nombre','','',true,true,'','col-2');
-    $c[]=new cmp('are','s',3,$d['area'],$w.' '.$o,'Area','area','','',true,true,'','col-2');
+    $c[]=new cmp('are','s',3,$d['area'],$w.' '.$o,'Area de la Empresa','area','','',true,true,'','col-2');
     $c[]=new cmp('dep','s',3,$d['departamento'],$w.' '.$o,'Departamento','departamento','','',true,true,'','col-2');
     $c[]=new cmp('ciu','s',3,$d['ciudad'],$w.' '.$o,'Ciudad','ciudad','','',true,true,'','col-2');
     $c[]=new cmp('per','s',3,$d['perfil'],$w.' '.$o,'Perfil','perfil','','',true,true,'','col-2');
