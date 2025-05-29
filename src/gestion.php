@@ -66,16 +66,16 @@ function acceBtns($a) {
   $perfil = obtenerPerfil($_SESSION['documento']);
   $componente = obtenerComponente($_SESSION['documento']);
   if ($perfil !== null && $componente !== null) {
-      $sql = "SELECT perfil, departamento, crear, editar, consultar, exportar, importar FROM adm_roles WHERE modulo = ? AND perfil = ? AND departamento = ? AND estado = 'A'";
+      $sql = "SELECT perfil, area, crear, editar, consultar, exportar, importar FROM adm_roles WHERE modulo = ? AND perfil = ? AND area = ? AND estado = 'A'";
       $params = [$a, $perfil, $componente];$types = "sss";
       $data = exec_sql($sql, $params, $types);
       if ($data !== null && isset($data[0])) { 
           $rta = $data[0];
       } else {
-          log_error("acceBtns: No se encontraron datos para el modulo: ".$a." Perfil: ".$perfil." departamento: ".$componente." SQL: ".$sql);
+          log_error("acceBtns: No se encontraron datos para el modulo: ".$a." Perfil: ".$perfil." area: ".$componente." SQL: ".$sql);
       }
   } else {
-      log_error("acceBtns: No se encontraron perfil o departamento.");
+      log_error("acceBtns: No se encontraron perfil o area.");
   }
   return $rta;
 }
@@ -102,20 +102,20 @@ function rol($a) {
       $perfil = obtenerPerfil($documento);
       $componente = obtenerComponente($documento);
       if ($perfil !== null && $componente !== null) {
-          $sql = "SELECT perfil, departamento, crear, editar, consultar, exportar, importar FROM adm_roles WHERE modulo = ? AND perfil = ? AND departamento = ? AND estado = 'A'";
+          $sql = "SELECT perfil, area, crear, editar, consultar, exportar, importar FROM adm_roles WHERE modulo = ? AND perfil = ? AND area = ? AND estado = 'A'";
           $params = [$a, $perfil, $componente];$types = "sss";
           $data = exec_sql($sql, $params, $types); 
           if ($data !== null && isset($data[0])) { // Verificar si $data no es null y tiene al menos un elemento
               $rta = $data[0];
           } else {
             if(!$_SESSION['documento']){
-              log_error("rol: No se encontraron datos para el modulo: ".$a." Perfil: ".$perfil." departamento: ".$componente." SQL: ".$sql);
+              log_error("rol: No se encontraron datos para el modulo: ".$a." Perfil: ".$perfil." area: ".$componente." SQL: ".$sql);
               http_response_code(401);
             exit();
             }
           }
       } else {
-          log_error('rol: No se encontró perfil o departamento para el usuario: ' . $documento . " Perfil: " . var_export($perfil,true) . " departamento: " . var_export($componente,true));
+          log_error('rol: No se encontró perfil o area para el usuario: ' . $documento . " Perfil: " . var_export($perfil,true) . " area: " . var_export($componente,true));
       }
   } else {
       log_error('rol: Intento de acceder a rol sin documento de usuario: ' . $a);
@@ -130,7 +130,7 @@ function obtenerPerfil($documento) {
   return exec_sql($sql, $params, $types, false);
 }
 function obtenerComponente($documento) {
-  $sql = "SELECT departamento
+  $sql = "SELECT area
         FROM usuarios
         WHERE id_usuario = ? AND estado = '1'";
   $params = [$documento];
