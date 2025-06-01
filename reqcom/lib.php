@@ -266,7 +266,7 @@ function opc_oficinas($id='') {
 }
 
 function opc_estado($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=6 and estado="A" ORDER BY 1', $id);
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=10 and estado="A" ORDER BY 1', $id);
 }
 
 function formato_dato($a, $b, $c, $d) {
