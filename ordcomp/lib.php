@@ -65,7 +65,6 @@ function lis_ordcom() {
     $params = $filter['params'];
     $types = $filter['types'];
 
-    if (empty($where)) $where = '1=1';
 
     $sqltot = "SELECT COUNT(*) total FROM orden_compra O WHERE $where";
     $total = obtener_total_registros($sqltot, $params, $types);
@@ -80,9 +79,12 @@ function lis_ordcom() {
                 O.gestor AS Gestor,
                 O.estado AS Estado,
                 DATE_FORMAT(O.fecha_create, '%d/%m/%Y %H:%i') AS 'Fecha Creación'
-            FROM orden_compra O
-             WHERE $where
-            ORDER BY O.fecha_create DESC";
+            FROM orden_compra O";
+            
+    if (!empty($where)) {
+        $sql .= " WHERE $where";
+    }
+    $sql .= " ORDER BY O.fecha_create DESC";
 
     $datos = obtener_datos_paginados($sql, '', $params, $types, $offset, $regxPag);
     if ($datos === []) return no_reg();
