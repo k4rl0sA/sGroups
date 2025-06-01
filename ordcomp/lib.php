@@ -67,13 +67,12 @@ function lis_ordcom() {
 
 
     $sqltot = "SELECT COUNT(*) total FROM orden_compra O";
-    if (!empty($where)) {
+    if (trim($where) !== '') {
         $sqltot .= " WHERE $where";
     }
     $total = obtener_total_registros($sqltot, $params, $types);
 
-    $sql = "SELECT 
-                O.id_ordcom AS ACCIONES,
+    $sql = "SELECT O.id_ordcom AS ACCIONES,
                 O.id_ordcom AS 'N° Orden',
                 O.cliente AS Cliente,
                 O.valor AS Valor,
@@ -83,7 +82,7 @@ function lis_ordcom() {
                 O.estado AS Estado,
                 DATE_FORMAT(O.fecha_create, '%d/%m/%Y %H:%i') AS 'Fecha Creación'
             FROM orden_compra O";
-    if (!empty($where)) {
+    if (trim($where) !== '') {
         $sql .= " WHERE $where";
     }
     $sql .= " ORDER BY O.fecha_create DESC";
