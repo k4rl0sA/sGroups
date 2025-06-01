@@ -86,7 +86,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                         </div>
 
                         <div class="input-box">
-                            <label for="choices-multiple-remove-button">Cod Catalogo :</label>
+                            <label for="choices-multiple-remove-button">Funcionarios :</label>
                 			    <select class='choices-multiple-remove-button' id="fidcata" name="fidcata" multiple OnChange="actualizar();">
 								    <?php echo $catalogos; ?>
                 			    </select>
