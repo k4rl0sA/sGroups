@@ -25,7 +25,12 @@ $usuarios=opc_sql("SELECT DISTINCT u.id_usuario, u.nombre
 $usu=$_SESSION['documento'];
 $sql="SELECT id_usuario, nombre FROM `usuarios` WHERE id_usuario =".$usu." AND perfil IN (1) AND estado = 'A'  ORDER BY 2";
 $colaborador=opc_sql($sql,$usu);
-$catalogos=opc_sql("SELECT `idcatalogo`,concat(idcatalogo,' - ',nombre) FROM `catalogo` ORDER BY 1",'');
+$catalogos=opc_sql("SELECT DISTINCT u.id_usuario, u.nombre 
+     FROM usuarios u
+     INNER JOIN req_comercial r ON u.id_usuario = r.usu_create
+     WHERE u.estado = 'A'
+     ORDER BY u.nombre",
+    $_SESSION['documento']);
 
 $acc = acceBtns('comreq');
 $btns = '<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';

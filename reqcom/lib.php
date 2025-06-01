@@ -48,13 +48,13 @@ function whe_comreq() {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
     } */
    if (!empty($_POST['fcatalogo'])) {
-        $filtros[] = ['campo' => 'C.descripcion', 'valor' => $_POST['fcatalogo'], 'operador' => 'like'];
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => $_POST['fcatalogo'], 'operador' => 'IN'];
     }
-     if (!empty($_POST['fusuario']) && $perfil == 'ADM') {
+    /*  if (!empty($_POST['fusuario']) && $perfil == 'ADM') {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fusuario'])), 'operador' => 'IN'];
     } else {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
-    }
+    } */
     if (!empty($_POST['fempresa'])) {
         $filtros[] = ['campo' => 'R.cod_empresa', 'valor' => $_POST['fempresa'], 'operador' => '='];
     }
