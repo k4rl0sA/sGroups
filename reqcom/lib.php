@@ -42,14 +42,17 @@ try {
 
 function whe_comreq() {
     $filtros = [];
-    /* if (!empty($_POST['fusuario']) && $perfil == '1') {
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fusuario'])), 'operador' => 'IN'];
-    } else {
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
-    } */
-if (!empty($_POST['fidcata'])) {
+    $perfil = obtenerPerfil($_SESSION['documento']);
+    if (!empty($_POST['fidcata']) && $perfil == '1') {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
-    }  
+    } elseif {
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
+    }
+/* if (!empty($_POST['fidcata'])) {
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
+    }   */
+
+    
     /*  if (!empty($_POST['fusuario']) && $perfil == 'ADM') {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fusuario'])), 'operador' => 'IN'];
     } else {
