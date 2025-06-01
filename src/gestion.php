@@ -204,14 +204,17 @@ function opc_sql($sql, $val = null, $id_column = null, $descripcion_column = nul
       $descripcion = isset($row[$descripcion_column]) ? $row[$descripcion_column] : null;
          if ($id !== null) { // Solo se requiere que el ID no sea null
     $selected = '';
+    if ($id !== null) { // Solo se requiere que el ID no sea null
+    $selected = '';
     if ($val !== null) {
         if (is_array($val) && in_array(strtoupper($id), array_map('strtoupper', $val))) {
             $selected = " selected";
-        } elseif (strtoupper($id) == strtoupper($val)) {
+        } elseif (!is_array($val) && strtoupper($id) == strtoupper($val)) {
             $selected = " selected";
         }
     }
     $rta .= "<option value='" . $id . "'$selected>" . htmlentities($descripcion ?? $id, ENT_QUOTES) . "</option>";
+}
       } else {
           log_error("opc_sql: Fila con ID NULL en la consulta: " . $sql . ". Fila: " . var_export($row, true));
       }
