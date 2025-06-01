@@ -83,7 +83,6 @@ function lis_ordcom() {
                 O.estado AS Estado,
                 DATE_FORMAT(O.fecha_create, '%d/%m/%Y %H:%i') AS 'Fecha Creación'
             FROM orden_compra O";
-
     if (!empty($where)) {
         $sql .= " WHERE $where";
     }
