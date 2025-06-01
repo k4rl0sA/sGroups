@@ -215,7 +215,7 @@ function gra_ordser() {
 
 // OPCIONES PARA SELECTS
 function opc_empresas($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE estado="A" ORDER BY 1', $id);
+    return opc_sql('SELECT nit, cliente FROM clientes WHERE estado=1 ORDER BY 2', $id);
 }
 function opc_oficinas($id='') {
     return opc_sql('SELECT id_oficina,oficina FROM oficinas WHERE estado=1 ORDER BY oficina', $id);
