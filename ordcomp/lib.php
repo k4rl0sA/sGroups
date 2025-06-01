@@ -9,24 +9,20 @@ if (!isset($_SESSION['documento'])) {
     echo json_encode(['redirect' => '/']);
     exit();
 }
-
 if (!isset($_POST['csrf_tkn']) || $_POST['csrf_tkn'] !== $_SESSION['csrf_tkn']) {
     log_error("Error 24: Intento de CSRF detectado. " . $_POST['csrf_tkn'] . ' frente a ' . $_SESSION['csrf_tkn']);
     http_response_code(403);
     exit();
 }
-
 $a = filter_var($_POST['a'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $tb = filter_var($_POST['tb'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $func = $a . '_' . $tb;
-
 if (!function_exists($func)) {
     log_error("Error 21: Función no encontrada. Intento de llamar a: " . $func);
     http_response_code(400);
     echo json_encode(['error' => 'Función no encontrada', 'funcion' => $func]);
     exit();
 }
-
 try {
     $rta = $func();
     if (is_array($rta)) {
@@ -40,126 +36,97 @@ try {
     echo json_encode(['error' => 'Error interno del servidor']);
 }
 
-function whe_serivice_order() {
+function whe_ordcomp() {
     $filtros = [];
-    if (!empty($_POST['fprovedor'])) {
-        $filtros[] = ['campo' => 'P.provedor', 'valor' => '%'.$_POST['fprovedor'].'%', 'operador' => 'LIKE'];
-    }
-    if (!empty($_POST['fnit'])) {
-        $filtros[] = ['campo' => 'P.nit', 'valor' => '%'.$_POST['fnit'].'%', 'operador' => 'LIKE'];
-    }
-    if (!empty($_POST['fciudad'])) {
-        $filtros[] = ['campo' => 'P.ciudad', 'valor' => $_POST['fciudad'], 'operador' => '='];
-    }
-    return fil_where($filtros);
-}
+    $params = [];
+    $types = '';
 
-function tot_serivice_order() {
-    $totals = [
-        ['titulo'=>'Total','icono'=>'fas fa-truck','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
-        ['titulo'=>'Activos','icono'=>'fa-solid fa-check-circle','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='1'"],
-        ['titulo'=>'Inactivos','icono'=>'fa-solid fa-times-circle','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado='2'"]
+    $map = [
+        'fcliente'   => ['field' => 'O.cliente',   'type' => 'i'],
+        'fcomercial' => ['field' => 'O.comercial', 'type' => 'i'],
+        'fgestor'    => ['field' => 'O.gestor',    'type' => 'i'],
+        'festado'    => ['field' => 'O.estado',    'type' => 's'],
     ];
-    
-    $rta = '';
-    foreach ($totals as $total) {
-        $sql = "SELECT count(*) AS Total FROM orden_servi O WHERE ";
-        $filter = whe_serivice_order();
-        if (!isset($filter['where']) || !isset($filter['params']) || !isset($filter['types'])) {
-            $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
-            continue;
-        }
-        $sql .= $filter['where'] . $total['condicion'];
-        $params = $filter['params'];
-        $types = $filter['types'];
-        $resultado_consulta = exec_sql($sql, $params, $types);
-        if ($resultado_consulta === null || !isset($resultado_consulta[0]['Total'])) {
-            $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
-        } else {
-            $rta .= generar_metrica($total['titulo'], $total['icono'], $total['indicador'], $resultado_consulta[0]['Total']);
+    foreach ($map as $key => $info) {
+        if (!empty($_POST[$key])) {
+            $filtros[] = "{$info['field']} = ?";
+            $params[] = $_POST[$key];
+            $types .= $info['type'];
         }
     }
-    return $rta;
+    if (!isset($_POST['festado']) || $_POST['festado'] === '') {
+        $filtros[] = "O.estado = 'A'";
+    }
+    $where = implode(' AND ', $filtros);
+    return ['where' => $where, 'params' => $params, 'types' => $types];
 }
 
-function lis_serivice_order() {
+function lis_ordcomp() {
     $regxPag = 15;
-    $pag = si_noexiste('pag-serivice_order', 1);
+    $pag = si_noexiste('pag-ordcomp', 1);
     $offset = ($pag - 1) * $regxPag;
-    $filter = whe_serivice_order();
+    $filter = whe_ordcomp();
     $where = $filter['where'];
     $params = $filter['params'];
     $types = $filter['types'];
-    
-    $sqltot = "SELECT COUNT(*) total FROM orden_servi O WHERE " . $where;
+
+    if (empty($where)) $where = '1=1';
+
+    $sqltot = "SELECT COUNT(*) total FROM orden_compra O WHERE $where";
     $total = obtener_total_registros($sqltot, $params, $types);
-    
-    $sql = "SELECT O.id_ordser AS ACCIONES, O.req AS Requerimiento, 
-            O.oficina AS Oficina, O.materiales AS Materiales,
-            O.activ_reali AS 'Actividades Realizadas', O.observacion AS Observaciones,
-            O.tecnico AS Tecnico, O.comercial AS Comercial, O.detall_gestor AS 'Detalle Gestor'
-            FROM `orden_servi` O
-  ";
-    
-    $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
-    
+
+    $sql = "SELECT 
+                O.id_ordcom AS ACCIONES,
+                O.id_ordcom AS 'N° Orden',
+                O.cliente AS Cliente,
+                O.valor AS Valor,
+                O.factura AS Factura,
+                O.comercial AS Comercial,
+                O.gestor AS Gestor,
+                O.estado AS Estado,
+                DATE_FORMAT(O.fecha_create, '%d/%m/%Y %H:%i') AS 'Fecha Creación'
+            FROM orden_compra O
+            WHERE $where
+            ORDER BY O.fecha_create DESC";
+
+    $datos = obtener_datos_paginados($sql, '', $params, $types, $offset, $regxPag);
     if ($datos === []) return no_reg();
-    return create_table($total, $datos, "serivice_order", $regxPag, "lib.php");
+    return create_table($total, $datos, "ordcomp", $regxPag, "lib.php");
 }
 
-function focus_serivice_order() {
-    return 'serivice_order';
-}
-
-function men_serivice_order() {
-    $rta = cap_menus('serivice_order','pro');
-    return $rta;
-}
-
-function cap_menus($a, $b='cap', $con='con') {
+function cmp_ordcomp() {
     $rta = "";
-    $acc = rol($a);
-    if ($a == 'serivice_order' && isset($acc['crear']) && $acc['crear'] == 'SI') {  
-        $rta .= "<button class='frm-btn $a grabar' onclick=\"grabar('$a', this);\"><span class='frm-txt'>Grabar</span><i class='fa-solid fa-floppy-disk icon'></i></button>";
-    }
-    return $rta;
-}
-
-function cmp_serivice_order() {
-    $rta = "";
-    $t = ['id_ordser' => '','req' => '','empresa' => '','oficina' => '','materiales' => '','activ_reali' => '','observacion' => '','tecnico' => '','detall_gestor' => ''];
-    $w = 'serivice_order';
+    $t = ['id_ordcom'=>'','cliente'=>'','valor'=>'','factura'=>'','comercial'=>'','gestor'=>'','estado'=>'A'];
+    $w = 'ordcomp';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
-    $d = get_serivice_order(); 
+    $d = get_ordcomp();
     if ($d == "") {$d = $t;}
-    $o = 'prov';
-    $c[] = new cmp('id', 'h', 100, $d['id_ordser'], $w, '', 0, '', '', '', false, '', 'col-1');
-    $c[] = new cmp('req', 't', 100, $d['req'], $w.' '.$o, 'Codigo Requerimiento', 'req', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('emp', 't', 10, $d['empresa'], $w.' '.$o, 'Empresa', 'empresa', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('ofi', 't', 50, $d['oficina'], $w.' '.$o, 'Oficina', 'oficina', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('mat', 't', 3, $d['materiales'], $w.' '.$o, 'Materiales', 'materiales', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('act', 't', 12, $d['activ_reali'], $w.' '.$o, 'Actividades Realizadas', 'activ_reali', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('obs', 't', 10, $d['observacion'], $w.' '.$o, 'Observaciones', 'observacion', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('tec', 't', 10, $d['tecnico'], $w.' '.$o, 'Tecnico', 'tecnico', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('det', 't', 50, $d['detall_gestor'], $w.' '.$o, 'Detalles del Gestor', 'detall_gestor', '', '', true, true, '', 'col-3');
-    
+    $o = 'oc';
+    $c[] = new cmp('id', 'h', 100, $d['id_ordcom'], $w, '', 0, '', '', '', false, '', 'col-1');
+    $c[] = new cmp('cli', 's', 11, $d['cliente'], $w.' '.$o, 'Cliente', 'clientes', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('val', 'n', 11, $d['valor'], $w.' '.$o, 'Valor', 'valor', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('fac', 'n', 11, $d['factura'], $w.' '.$o, 'Factura', 'factura', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('com', 's', 11, $d['comercial'], $w.' '.$o, 'Comercial', 'comerciales', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('ges', 's', 11, $d['gestor'], $w.' '.$o, 'Gestor', 'gestores', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('est', 's', 1, $d['estado'], $w.' '.$o, 'Estado', 'estados_ordcomp', '', '', true, true, '', 'col-2');
+
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     $rta .= "</div>";
     return $rta;
 }
 
-function get_serivice_order() {
+function get_ordcomp() {
     if ($_POST['id'] == '0') {
         return "";
     } else {
-        $id = divide($_POST['id']);
-        $sql = "SELECT * FROM orden_servi WHERE id_ordser='".$id[0]."'";
-        $info = datos_mysql($sql);
-        return $info['responseResult'][0];        
-    } 
+        $id = intval($_POST['id']);
+        $sql = "SELECT * FROM orden_compra WHERE id_ordcom = ?";
+        $info = datos_mysql($sql, [$id], "i");
+        return $info['responseResult'][0] ?? "";
+    }
 }
 
-function gra_serivice_order() {
+function gra_ordcomp() {
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
     $est = ($_POST['est']=='1') ? 'A' : 'I' ;
@@ -203,29 +170,39 @@ function gra_serivice_order() {
     exit;
 }
 
-// Funciones de opciones
-function opc_ciudad($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=2 and estado="A" ORDER BY 1', $id);
+function men_ordcomp() {
+    return cap_menus('ordcomp', 'pro');
+}
+function focus_ordcomp() {
+    return 'ordcomp';
 }
 
-function opc_estado($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=6 and estado="A" ORDER BY 1', $id);
+function opc_clientes($id='') {
+    return opc_sql('SELECT id_cliente, cliente FROM clientes WHERE estado=1 ORDER BY cliente', $id);
+}
+function opc_comerciales($id='') {
+    return opc_sql('SELECT id_usuario, nombre FROM usuarios WHERE perfil=3 AND estado=1 ORDER BY nombre', $id);
+}
+function opc_gestores($id='') {
+    return opc_sql('SELECT id_usuario, nombre FROM usuarios WHERE perfil=5 AND estado=1 ORDER BY nombre', $id);
+}
+function opc_estados_ordcomp($id='') {
+    return opc_sql('SELECT DISTINCT estado, estado FROM orden_compra ORDER BY estado', $id);
 }
 
 function formato_dato($a, $b, $c, $d) {
     $b = strtolower($b);
     $rta = $c[$d];
-    if (($a == 'serivice_order') && ($b == 'acciones')) {
+    if (($a == 'ordcomp') && ($b == 'acciones')) {
         $rta = "<nav class='menu right'>";
-        $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Proveedor' id='".$c['ACCIONES']."' Onclick=\"mostrar('serivice_order','pro',event,'','lib.php',4,'Proveedores');\"></li>";
+        $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Orden' id='".$c['ACCIONES']."' Onclick=\"mostrar('ordcomp','pro',event,'','lib.php',4,'Orden de Compra');\"></li>";
         $rta .= "</nav>";
-    }    
+    }
     return $rta;
 }
-
 function bgcolor($a, $c, $f='c') {
     $rta = "";
-    if ($a == 'serivice_order' && $c['Estado'] == 'Inactivo') {
+    if ($a == 'ordcomp' && $c['Estado'] == 'I') {
         $rta = 'bg-light-red';
     }
     return $rta;
