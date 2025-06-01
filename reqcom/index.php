@@ -83,12 +83,12 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                                 <?php echo $contactos; ?>
                             </select>
                         </div>
-                       <div class="input-box">
-                            <label for="fusuario">Usuarios:</label>
-                            <select class='choices-single' id="fusuario" name="fusuario" OnChange="actualizar();">
-                                <?php echo $usuarios; ?>
-                            </select>
-                        </div>
+                        <div class="input-box">
+							<label for="choices-multiple-remove-button">Funcionario :</label>
+                			<select class='choices-multiple-remove-button' id="fusuario" name="fusuario" multiple OnChange="actualizar();">
+								 <?php echo $usuarios; ?>
+                			</select>
+    					</div>
                         <div class="input-box">
                             <label for="festado">Estado Requerimiento:</label>
                             <select class='choices-single' id="festado" name="festado" OnChange="actualizar();">
