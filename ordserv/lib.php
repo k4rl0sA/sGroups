@@ -123,26 +123,12 @@ function lis_ordser() {
 // FORMULARIO
 function cmp_ordser() {
     $rta = "";
-    $t = [
-        'id_ordser' => '',
-        'req' => '',
-        'empresa' => '',
-        'oficina' => '',
-        'materiales' => '',
-        'activ_reali' => '',
-        'observacion' => '',
-        'tecnico' => '',
-        'comercial' => '',
-        'gestor' => '',
-        'detalle_gestor' => '',
-        'estado' => 'A'
-    ];
+    $t = ['id_ordser'=>'','req'=>'','empresa'=>'','oficina'=>'','materiales'=>'','activ_reali'=>'','observacion'=>'','tecnico'=>'','comercial'=>'','gestor'=>'','detalle_gestor'=>'','estado'=>'A'];
     $w = 'ordser';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
     $d = get_ordser();
     if ($d == "") {$d = $t;}
     $o = 'os';
-
     $c[] = new cmp('id', 'h', 100, $d['id_ordser'], $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('req', 'n', 9999999999, $d['req'], $w.' '.$o, 'Requerimiento', 'req', '', '', true, true, '', 'col-2');
     $c[] = new cmp('emp', 's', 3, $d['empresa'], $w.' '.$o, 'Empresa', 'empresa', '', '', true, true, '', 'col-3');
