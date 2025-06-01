@@ -15,22 +15,7 @@ $contactos = opc_sql("SELECT id_contacto, nombre FROM contactos WHERE estado = 1
 $oficinas = opc_sql("SELECT id_oficina, oficina FROM oficinas WHERE estado =1 ORDER BY oficina", '');
 $estados = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo=10 AND estado='A' ORDER BY descripcion",'');
 // $usuarios = opc_sql("SELECT DISTINCT usu_create, usu_create AS nombre FROM req_comercial ORDER BY usu_create", [$_SESSION['documento']]);
-$usuarios=opc_sql("SELECT DISTINCT u.id_usuario, u.nombre 
-     FROM usuarios u
-     INNER JOIN req_comercial r ON u.id_usuario = r.usu_create
-     WHERE u.estado = 'A'
-     ORDER BY u.nombre",
-    $_SESSION['documento']);
-
-$usu=$_SESSION['documento'];
-$sql="SELECT id_usuario, nombre FROM `usuarios` WHERE id_usuario =".$usu." AND perfil IN (1) AND estado = 'A'  ORDER BY 2";
-$colaborador=opc_sql($sql,$usu);
-$catalogos=opc_sql("SELECT DISTINCT u.id_usuario, u.nombre 
-     FROM usuarios u
-     INNER JOIN req_comercial r ON u.id_usuario = r.usu_create
-     WHERE u.estado = 'A'
-     ORDER BY u.nombre",
-    $_SESSION['documento']);
+$catalogos=opc_sql("SELECT `idcatalogo`,concat(idcatalogo,' - ',nombre) FROM `catalogo` ORDER BY 1",'');
 
 $acc = acceBtns('comreq');
 $btns = '<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
@@ -99,24 +84,14 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                                 <?php echo $contactos; ?>
                             </select>
                         </div>
-                        <div class="input-box">
-							<label for="choices-multiple-remove-button">Funcionario :</label>
-                			<select class='choices-multiple-remove-button' id="fusuario" name="fusuario" multiple OnChange="actualizar();">
-								 <?php echo $usuarios; ?>
-                			</select>
-    					</div>
-                        <div class="input-box">
-							<label for="choices-multiple-remove-button">Colaborador :</label>
-                			<select class='choices-multiple-remove-button' id="fcol" name="fcol" multiple OnChange="actualizar();">
-								 <?php echo $colaborador; ?>
-                			</select>
-    					</div>
+
                         <div class="input-box">
                             <label for="choices-multiple-remove-button">Cod Catalogo :</label>
                 			    <select class='choices-multiple-remove-button' id="fidcata" name="fidcata" multiple OnChange="actualizar();">
 								    <?php echo $catalogos; ?>
                 			    </select>
     					</div>
+
                         <div class="input-box">
                             <label for="festado">Estado Requerimiento:</label>
                             <select class='choices-single' id="festado" name="festado" OnChange="actualizar();">
