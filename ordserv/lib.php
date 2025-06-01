@@ -207,13 +207,13 @@ function opc_oficinas($id='') {
     return opc_sql('SELECT id_oficina,oficina FROM oficinas WHERE estado=1 ORDER BY oficina', $id);
 }
 function opc_tecnicos($id='') {
-    return opc_sql('SELECT documento,nombre FROM usuarios WHERE perfil=14 AND estado="A" ORDER BY nombre', $id);
+    return opc_sql('SELECT id_usuario,nombre FROM usuarios WHERE perfil=14 AND estado="A" ORDER BY nombre', $id);
 }
 function opc_comerciales($id='') {
-    return opc_sql('SELECT documento,nombre FROM usuarios WHERE perfil=3 AND estado="A" ORDER BY nombre', $id);
+    return opc_sql('SELECT id_usuario,nombre FROM usuarios WHERE perfil=3 AND estado="A" ORDER BY nombre', $id);
 }
 function opc_gestores($id='') {
-    return opc_sql('SELECT documento,nombre FROM usuarios WHERE perfil= AND estado="A" ORDER BY nombre', $id);
+    return opc_sql('SELECT id_usuario,nombre FROM usuarios WHERE perfil= AND estado="A" ORDER BY nombre', $id);
 }
 function opc_estados_ordser($id='') {
     return opc_sql('SELECT "A" as id, "Activa" as descripcion UNION SELECT "C", "Cerrada"', $id);
