@@ -36,7 +36,7 @@ try {
     echo json_encode(['error' => 'Error interno del servidor']);
 }
 
-function whe_ordcomp() {
+function whe_ordcom() {
     $filtros = [];
     $params = [];
     $types = '';
@@ -61,11 +61,11 @@ function whe_ordcomp() {
     return ['where' => $where, 'params' => $params, 'types' => $types];
 }
 
-function lis_ordcomp() {
+function lis_ordcom() {
     $regxPag = 15;
-    $pag = si_noexiste('pag-ordcomp', 1);
+    $pag = si_noexiste('pag-ordcom', 1);
     $offset = ($pag - 1) * $regxPag;
-    $filter = whe_ordcomp();
+    $filter = whe_ordcom();
     $where = $filter['where'];
     $params = $filter['params'];
     $types = $filter['types'];
@@ -91,15 +91,15 @@ function lis_ordcomp() {
 
     $datos = obtener_datos_paginados($sql, '', $params, $types, $offset, $regxPag);
     if ($datos === []) return no_reg();
-    return create_table($total, $datos, "ordcomp", $regxPag, "lib.php");
+    return create_table($total, $datos, "ordcom", $regxPag, "lib.php");
 }
 
-function cmp_ordcomp() {
+function cmp_ordcom() {
     $rta = "";
     $t = ['id_ordcom'=>'','cliente'=>'','valor'=>'','factura'=>'','comercial'=>'','gestor'=>'','estado'=>'A'];
-    $w = 'ordcomp';
+    $w = 'ordcom';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
-    $d = get_ordcomp();
+    $d = get_ordcom();
     if ($d == "") {$d = $t;}
     $o = 'oc';
     $c[] = new cmp('id', 'h', 100, $d['id_ordcom'], $w, '', 0, '', '', '', false, '', 'col-1');
@@ -108,14 +108,14 @@ function cmp_ordcomp() {
     $c[] = new cmp('fac', 'n', 11, $d['factura'], $w.' '.$o, 'Factura', 'factura', '', '', true, true, '', 'col-2');
     $c[] = new cmp('com', 's', 11, $d['comercial'], $w.' '.$o, 'Comercial', 'comerciales', '', '', true, true, '', 'col-2');
     $c[] = new cmp('ges', 's', 11, $d['gestor'], $w.' '.$o, 'Gestor', 'gestores', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('est', 's', 1, $d['estado'], $w.' '.$o, 'Estado', 'estados_ordcomp', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('est', 's', 1, $d['estado'], $w.' '.$o, 'Estado', 'estados_ordcom', '', '', true, true, '', 'col-2');
 
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     $rta .= "</div>";
     return $rta;
 }
 
-function get_ordcomp() {
+function get_ordcom() {
     if ($_POST['id'] == '0') {
         return "";
     } else {
@@ -126,7 +126,7 @@ function get_ordcomp() {
     }
 }
 
-function gra_ordcomp() {
+function gra_ordcom() {
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
     $est = ($_POST['est']=='1') ? 'A' : 'I' ;
@@ -170,11 +170,11 @@ function gra_ordcomp() {
     exit;
 }
 
-function men_ordcomp() {
-    return cap_menus('ordcomp', 'pro');
+function men_ordcom() {
+    return cap_menus('ordcom', 'pro');
 }
-function focus_ordcomp() {
-    return 'ordcomp';
+function focus_ordcom() {
+    return 'ordcom';
 }
 
 function opc_clientes($id='') {
@@ -186,23 +186,23 @@ function opc_comerciales($id='') {
 function opc_gestores($id='') {
     return opc_sql('SELECT id_usuario, nombre FROM usuarios WHERE perfil=5 AND estado=1 ORDER BY nombre', $id);
 }
-function opc_estados_ordcomp($id='') {
+function opc_estados_ordcom($id='') {
     return opc_sql('SELECT DISTINCT estado, estado FROM orden_compra ORDER BY estado', $id);
 }
 
 function formato_dato($a, $b, $c, $d) {
     $b = strtolower($b);
     $rta = $c[$d];
-    if (($a == 'ordcomp') && ($b == 'acciones')) {
+    if (($a == 'ordcom') && ($b == 'acciones')) {
         $rta = "<nav class='menu right'>";
-        $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Orden' id='".$c['ACCIONES']."' Onclick=\"mostrar('ordcomp','pro',event,'','lib.php',4,'Orden de Compra');\"></li>";
+        $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Orden' id='".$c['ACCIONES']."' Onclick=\"mostrar('ordcom','pro',event,'','lib.php',4,'Orden de Compra');\"></li>";
         $rta .= "</nav>";
     }
     return $rta;
 }
 function bgcolor($a, $c, $f='c') {
     $rta = "";
-    if ($a == 'ordcomp' && $c['Estado'] == 'I') {
+    if ($a == 'ordcom' && $c['Estado'] == 'I') {
         $rta = 'bg-light-red';
     }
     return $rta;
