@@ -15,7 +15,7 @@ $contactos = opc_sql("SELECT id_contacto, nombre FROM contactos WHERE estado = 1
 $oficinas = opc_sql("SELECT id_oficina, oficina FROM oficinas WHERE estado =1 ORDER BY oficina", '');
 $estados = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo=10 AND estado='A' ORDER BY descripcion",'');
 // $usuarios = opc_sql("SELECT DISTINCT usu_create, usu_create AS nombre FROM req_comercial ORDER BY usu_create", [$_SESSION['documento']]);
-$catalogos=opc_sql("SELECT id_usuario,nombre FROM usuarios ORDER BY 2 ",'3');
+$catalogos=opc_sql("SELECT id_usuario,nombre FROM usuarios ORDER BY 2 ",$_SESSION['documento']);
 
 $acc = acceBtns('comreq');
 $btns = '<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
