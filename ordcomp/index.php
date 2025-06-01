@@ -11,7 +11,7 @@ $ya = new DateTime();
 
 $clientes = opc_sql("SELECT id_cliente, cliente FROM clientes WHERE estado = 1 ORDER BY cliente", '');
 $comerciales = opc_sql("SELECT id_usuario, nombre FROM usuarios WHERE perfil = 3 AND estado = 1 ORDER BY nombre", ''); // Asumiendo perfil 3 es comercial
-$gestores = opc_sql("SELECT id_usuario, nombre FROM usuarios WHERE perfil = 4 AND estado = 1 ORDER BY nombre", ''); // Asumiendo perfil 4 es gestor
+$gestores = opc_sql("SELECT id_usuario, nombre FROM usuarios WHERE perfil = 15 AND estado = 1 ORDER BY nombre", ''); // Asumiendo perfil 4 es gestor
 
 $acc = acceBtns('ordcom');
 $btns = '<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
