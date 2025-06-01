@@ -112,7 +112,7 @@ function lis_comreq() {
              ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
-    
+    show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types);
     if ($datos === []) return no_reg();
     return create_table($total, $datos, "comreq", $regxPag, "lib.php");
 }
