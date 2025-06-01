@@ -41,7 +41,7 @@ try {
 }
 
 function whe_comreq() {
-    $filtros = [];
+    $filtros = ['campo' => 'R.usu_create', 'valor' => $_SESSION['documento'], 'operador' => '='];
     if (!empty($_POST['fempresa'])) {
         $filtros[] = ['campo' => 'R.cod_empresa', 'valor' => $_POST['fempresa'], 'operador' => '='];
     }
@@ -69,8 +69,7 @@ function tot_comreq() {
         if (!isset($filter['where']) || !isset($filter['params']) || !isset($filter['types'])) {
             $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
             continue;
-        }
-        
+        }    
         $sql .= $filter['where'] . $total['condicion'];
         $params = $filter['params'];
         $types = $filter['types'];
@@ -110,7 +109,7 @@ function lis_comreq() {
             LEFT JOIN clientes CL ON R.cod_empresa = CL.id_cliente
             LEFT JOIN contactos C ON R.cod_contacto =C.id_contacto
             LEFT JOIN oficinas O ON R.cod_oficina = O.id_oficina
-              ";
+             ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
     
