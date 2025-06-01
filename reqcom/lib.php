@@ -48,7 +48,7 @@ function whe_comreq() {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
     } */
 if (!empty($_POST['fidcata'])) {
-        $filtros[] = ['campo' => 'C.idcatalogo', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
     }  
     /*  if (!empty($_POST['fusuario']) && $perfil == 'ADM') {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fusuario'])), 'operador' => 'IN'];
