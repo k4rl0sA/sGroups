@@ -67,7 +67,7 @@ function lis_ordcom() {
 
     if (empty($where)) $where = '1=1';
 
-    $sqltot = "SELECT COUNT(*) total FROM orden_compra O $where";
+    $sqltot = "SELECT COUNT(*) total FROM orden_compra O WHERE $where";
     $total = obtener_total_registros($sqltot, $params, $types);
 
     $sql = "SELECT 
