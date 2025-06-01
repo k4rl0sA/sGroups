@@ -97,6 +97,8 @@ function lis_comreq() {
     $where = $filter['where'];
     $params = $filter['params'];
     $types = $filter['types'];
+
+    if (empty($where)) $where = '1=1';
     
     $sqltot = "SELECT COUNT(*) total FROM req_comercial R WHERE " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
@@ -117,7 +119,7 @@ function lis_comreq() {
              ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
-    // show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
+    show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
     if ($datos === []) return no_reg();
     return create_table($total, $datos, "comreq", $regxPag, "lib.php");
 }
