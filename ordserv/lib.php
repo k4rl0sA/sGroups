@@ -216,7 +216,7 @@ function opc_gestores($id='') {
     return opc_sql('SELECT id_usuario,nombre FROM usuarios WHERE perfil=15 AND estado=1 ORDER BY nombre', $id);
 }
 function opc_estados_ordser($id='') {
-       return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=6 and estado="A" ORDER BY 1', $id);
+       return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=10 and estado="A" ORDER BY 1', $id);
 }
 
 // FORMATO DE DATOS PARA TABLA
