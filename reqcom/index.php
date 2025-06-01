@@ -17,12 +17,9 @@ $estados = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalog
 // $usuarios = opc_sql("SELECT DISTINCT usu_create, usu_create AS nombre FROM req_comercial ORDER BY usu_create", [$_SESSION['documento']]);
 
 $usu=$_SESSION['documento'];
-$sql_col = "SELECT DISTINCT colaborador AS id_usuario, colaborador AS nombre 
+$sql_col = "SELECT DISTINCT usu_create AS id_usuario, usu_create AS nombre 
         FROM req_comercial 
         WHERE estado = 'A' 
-        AND subred IN (
-        SELECT subred FROM usuarios WHERE id_usuario = {$usu}
-        )
         ORDER BY nombre";
 $colaborador = opc_sql($sql_col, $usu);
 
