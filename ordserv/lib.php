@@ -41,7 +41,7 @@ try {
 }
 
 // FILTROS
-function whe_ordserv() {
+function whe_ordser() {
     $filtros = [];
     if (!empty($_POST['fempresa'])) {
         $filtros[] = ['campo' => 'O.empresa', 'valor' => $_POST['fempresa'], 'operador' => '='];
@@ -59,7 +59,7 @@ function whe_ordserv() {
 }
 
 // TOTALES
-function tot_ordserv() {
+function tot_ordser() {
     $totals = [
         ['titulo'=>'Total','icono'=>'fas fa-tasks','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
         ['titulo'=>'Activas','icono'=>'fas fa-check','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado='A'"],
@@ -68,7 +68,7 @@ function tot_ordserv() {
     $rta = '';
     foreach ($totals as $total) {
         $sql = "SELECT count(*) AS Total FROM orden_servi O WHERE ";
-        $filter = whe_ordserv();
+        $filter = whe_ordser();
         if (!isset($filter['where']) || !isset($filter['params']) || !isset($filter['types'])) {
             $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
             continue;
@@ -87,11 +87,11 @@ function tot_ordserv() {
 }
 
 // LISTADO
-function lis_ordserv() {
+function lis_ordser() {
     $regxPag = 15;
-    $pag = si_noexiste('pag-ordserv', 1);
+    $pag = si_noexiste('pag-ordser', 1);
     $offset = ($pag - 1) * $regxPag;
-    $filter = whe_ordserv();
+    $filter = whe_ordser();
     $where = $filter['where'];
     $params = $filter['params'];
     $types = $filter['types'];
@@ -117,11 +117,11 @@ function lis_ordserv() {
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
 
     if ($datos === []) return no_reg();
-    return create_table($total, $datos, "ordserv", $regxPag, "lib.php");
+    return create_table($total, $datos, "ordser", $regxPag, "lib.php");
 }
 
 // FORMULARIO
-function cmp_ordserv() {
+function cmp_ordser() {
     $rta = "";
     $t = [
         'id_ordser' => '',
@@ -137,9 +137,9 @@ function cmp_ordserv() {
         'detalle_gestor' => '',
         'estado' => 'A'
     ];
-    $w = 'ordserv';
+    $w = 'ordser';
     $uPd = $_REQUEST['id'] == '0' ? true : false;
-    $d = get_ordserv();
+    $d = get_ordser();
     if ($d == "") {$d = $t;}
     $o = 'os';
 
@@ -162,7 +162,7 @@ function cmp_ordserv() {
 }
 
 // OBTENER REGISTRO
-function get_ordserv() {
+function get_ordser() {
     if ($_POST['id'] == '0') {
         return "";
     } else {
@@ -174,7 +174,7 @@ function get_ordserv() {
 }
 
 // GUARDAR/ACTUALIZAR
-function gra_ordserv() {
+function gra_ordser() {
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
     $fecha = date('Y-m-d H:i:s');
@@ -229,7 +229,7 @@ function opc_comerciales($id='') {
 function opc_gestores($id='') {
     return opc_sql('SELECT documento,nombre FROM usuarios WHERE rol="gestor" AND estado="A" ORDER BY nombre', $id);
 }
-function opc_estados_ordserv($id='') {
+function opc_estados_ordser($id='') {
     return opc_sql('SELECT "A" as id, "Activa" as descripcion UNION SELECT "C", "Cerrada"', $id);
 }
 
@@ -237,9 +237,9 @@ function opc_estados_ordserv($id='') {
 function formato_dato($a, $b, $c, $d) {
     $b = strtolower($b);
     $rta = $c[$d];
-    if (($a == 'ordserv') && ($b == 'acciones')) {
+    if (($a == 'ordser') && ($b == 'acciones')) {
         $rta = "<nav class='menu right'>";
-        $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Orden' id='".$c['ACCIONES']."' Onclick=\"mostrar('ordserv','pro',event,'','lib.php',4,'Orden de Servicio');\"></li>";
+        $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Orden' id='".$c['ACCIONES']."' Onclick=\"mostrar('ordser','pro',event,'','lib.php',4,'Orden de Servicio');\"></li>";
         $rta .= "</nav>";
     }
     return $rta;
@@ -248,7 +248,7 @@ function formato_dato($a, $b, $c, $d) {
 // COLORES DE FILA
 function bgcolor($a, $c, $f='c') {
     $rta = "";
-    if ($a == 'ordserv') {
+    if ($a == 'ordser') {
         switch($c['Estado']) {
             case 'A': $rta = 'bg-light-blue'; break;
             case 'C': $rta = 'bg-light-green'; break;
@@ -258,17 +258,17 @@ function bgcolor($a, $c, $f='c') {
 }
 
 // MENÚS Y FOCUS
-function focus_ordserv() {
-    return 'ordserv';
+function focus_ordser() {
+    return 'ordser';
 }
-function men_ordserv() {
-    $rta = cap_menus('ordserv','pro');
+function men_ordser() {
+    $rta = cap_menus('ordser','pro');
     return $rta;
 }
 function cap_menus($a, $b='cap', $con='con') {
     $rta = "";
     $acc = rol($a);
-    if ($a == 'ordserv' && isset($acc['crear']) && $acc['crear'] == 'SI') {
+    if ($a == 'ordser' && isset($acc['crear']) && $acc['crear'] == 'SI') {
         $rta .= "<button class='frm-btn $a grabar' onclick=\"grabar('$a', this);\"><span class='frm-txt'>Grabar</span><i class='fa-solid fa-floppy-disk icon'></i></button>";
     }
     return $rta;
