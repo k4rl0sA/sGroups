@@ -45,7 +45,7 @@ function whe_comreq() {
     $perfil = obtenerPerfil($_SESSION['documento']);
     if (!empty($_POST['fidcata']) && $perfil == '1') {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
-    } elseif {
+    } else {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
     }
 /* if (!empty($_POST['fidcata'])) {
