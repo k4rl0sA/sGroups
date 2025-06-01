@@ -575,7 +575,7 @@ h2 {
 }
 /*=============================*/
 /*===========WINDOWS=================*/
-.frm-data{position: absolute; top: 0;left: 0;margin: 0 15px 10px 0;height: 100vh;width:100%;background:var(--body-color);z-index: 2; padding: 10px 10px 10px 10px;}
+.frm-data{position: absolute; top: 0;left: 0;margin: 0 15px 10px 0;width:100%;background:var(--body-color);z-index: 2; padding: 10px 10px 10px 10px;}
 .ventana {
   background: #f3f5fa;
   height: 100%;
