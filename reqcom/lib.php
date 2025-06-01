@@ -47,8 +47,11 @@ function whe_comreq() {
     } else {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
     } */
-     if (!empty($_POST['fcol']) && $perfil == 'ADM') {
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fcol'])), 'operador' => 'IN'];
+   if (!empty($_POST['fcatalogo'])) {
+        $filtros[] = ['campo' => 'C.descripcion', 'valor' => $_POST['fcatalogo'], 'operador' => 'like'];
+    }
+     if (!empty($_POST['fusuario']) && $perfil == 'ADM') {
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fusuario'])), 'operador' => 'IN'];
     } else {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
     }

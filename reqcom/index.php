@@ -25,6 +25,7 @@ $usuarios=opc_sql("SELECT DISTINCT u.id_usuario, u.nombre
 $usu=$_SESSION['documento'];
 $sql="SELECT id_usuario, nombre FROM `usuarios` WHERE id_usuario =".$usu." AND perfil IN (1) AND estado = 'A'  ORDER BY 2";
 $colaborador=opc_sql($sql,$usu);
+$catalogos=opc_sql("SELECT `idcatalogo`,concat(idcatalogo,' - ',nombre) FROM `catalogo` ORDER BY 1",'');
 
 $acc = acceBtns('comreq');
 $btns = '<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
@@ -104,6 +105,12 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                 			<select class='choices-multiple-remove-button' id="fcol" name="fcol" multiple OnChange="actualizar();">
 								 <?php echo $colaborador; ?>
                 			</select>
+    					</div>
+                        <div class="input-box">
+                            <label for="choices-multiple-remove-button">Cod Catalogo :</label>
+                			    <select class='choices-multiple-remove-button' id="fidcata" name="fidcata" multiple OnChange="actualizar();">
+								    <?php echo $catalogos; ?>
+                			    </select>
     					</div>
                         <div class="input-box">
                             <label for="festado">Estado Requerimiento:</label>
