@@ -81,7 +81,7 @@ function lis_ordcom() {
                 O.estado AS Estado,
                 DATE_FORMAT(O.fecha_create, '%d/%m/%Y %H:%i') AS 'Fecha Creación'
             FROM orden_compra O
-             $where
+             WHERE $where
             ORDER BY O.fecha_create DESC";
 
     $datos = obtener_datos_paginados($sql, '', $params, $types, $offset, $regxPag);
