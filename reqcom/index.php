@@ -14,7 +14,7 @@ $empresas = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalo
 $contactos = opc_sql("SELECT id_contacto, nombre FROM contactos WHERE estado = 1 ORDER BY nombre", '');
 $oficinas = opc_sql("SELECT id_oficina, oficina FROM oficinas WHERE estado =1 ORDER BY oficina", '');
 $estados = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo=10 AND estado='A' ORDER BY descripcion",'');
-$usuarios = opc_sql("SELECT DISTINCT usu_create, usu_create AS nombre FROM req_comercial ORDER BY usu_create", '');
+$usuarios = opc_sql("SELECT DISTINCT usu_create, usu_create AS nombre FROM req_comercial ORDER BY usu_create",$_SESSION['documento']);
 
 
 $acc = acceBtns('comreq');
