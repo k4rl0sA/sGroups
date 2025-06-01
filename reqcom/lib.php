@@ -42,8 +42,13 @@ try {
 
 function whe_comreq() {
     $filtros = [];
-    if (!empty($_POST['fusuario']) && $perfil == '1') {
+    /* if (!empty($_POST['fusuario']) && $perfil == '1') {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fusuario'])), 'operador' => 'IN'];
+    } else {
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
+    } */
+     if (!empty($_POST['fcol']) && $perfil == 'ADM') {
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fcol'])), 'operador' => 'IN'];
     } else {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
     }
