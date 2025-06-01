@@ -140,7 +140,7 @@ function cmp_ordser() {
     $c[] = new cmp('com', 's', 3, $d['comercial'], $w.' '.$o, 'Comercial', 'comerciales', '', '', true, true, '', 'col-2');
     $c[] = new cmp('ges', 's', 3, $d['gestor'], $w.' '.$o, 'Gestor', 'gestores', '', '', true, true, '', 'col-2');
     $c[] = new cmp('detges', 'a', 500, $d['detalle_gestor'], $w.' '.$o, 'Detalle Gestor', 'detalle_gestor', '', '', true, true, '', 'col-12');
-    $c[] = new cmp('est', 's', 2, $d['estado'], $w.' '.$o, 'Estado', 'estado', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('est', 's', 2, $d['estado'], $w.' '.$o, 'Estado', 'estados_ordser', '', '', true, true, '', 'col-2');
 
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     $rta .= "</div>";
@@ -216,7 +216,7 @@ function opc_gestores($id='') {
     return opc_sql('SELECT id_usuario,nombre FROM usuarios WHERE perfil=15 AND estado=1 ORDER BY nombre', $id);
 }
 function opc_estados_ordser($id='') {
-       return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=10 and estado="A" ORDER BY 1', $id);
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=10 and estado="A" ORDER BY 1', $id);
 }
 
 // FORMATO DE DATOS PARA TABLA
