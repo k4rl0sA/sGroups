@@ -41,12 +41,7 @@ function whe_ordcom() {
     $params = [];
     $types = '';
 
-    $map = [
-        'fcliente'   => ['field' => 'O.cliente',   'type' => 'i'],
-        'fcomercial' => ['field' => 'O.comercial', 'type' => 'i'],
-        'fgestor'    => ['field' => 'O.gestor',    'type' => 'i'],
-        'festado'    => ['field' => 'O.estado',    'type' => 's'],
-    ];
+    $map = ['fcliente'   => ['field' => 'O.cliente',   'type' => 'i'],'fcomercial' => ['field' => 'O.comercial', 'type' => 'i'],'fgestor'    => ['field' => 'O.gestor',    'type' => 'i'],'festado'    => ['field' => 'O.estado',    'type' => 's'],];
     foreach ($map as $key => $info) {
         if (!empty($_POST[$key])) {
             $filtros[] = "{$info['field']} = ?";
@@ -72,7 +67,7 @@ function lis_ordcom() {
 
     if (empty($where)) $where = '1=1';
 
-    $sqltot = "SELECT COUNT(*) total FROM orden_compra O WHERE $where";
+    $sqltot = "SELECT COUNT(*) total FROM orden_compra O $where";
     $total = obtener_total_registros($sqltot, $params, $types);
 
     $sql = "SELECT 
@@ -86,7 +81,7 @@ function lis_ordcom() {
                 O.estado AS Estado,
                 DATE_FORMAT(O.fecha_create, '%d/%m/%Y %H:%i') AS 'Fecha Creación'
             FROM orden_compra O
-            WHERE $where
+             $where
             ORDER BY O.fecha_create DESC";
 
     $datos = obtener_datos_paginados($sql, '', $params, $types, $offset, $regxPag);
