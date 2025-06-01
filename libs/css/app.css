@@ -1464,25 +1464,14 @@ border-radius: 10rem;
 /*********FIN MODULOS FILTRO Y DATA*****/
 
 /*********** Estilos para los inputs de moneda ***********/
-.currency-input {
+/* Agregar a tu archivo CSS */
+.currency-field input {
     text-align: right;
     padding-right: 25px;
 }
 
-/* Estilos para los filtros */
-.frm-filter .input-box {
-    margin-bottom: 15px;
-}
-
-/* Estilos para la tabla de datos */
-#ordcom-lis table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-#ordcom-lis th {
-    background-color: #f8f9fa;
-    position: sticky;
-    top: 0;
-}
+/* Estilos para los estados */
+.bg-light-blue { background-color: #e7f5ff; }
+.bg-light-green { background-color: #ebfbee; }
+.bg-light-yellow { background-color: #fff9db; }
 /********** FIN Estilos para los inputs de moneda ***********/

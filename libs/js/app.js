@@ -23,3 +23,15 @@ function ActiRequCome(){
 	EnabDepeDynamic(['aCt'], conditions);
 }
 /******************VALIDATION ENABLED OR DISABLED REQ COM************************/
+// Función para formatear el valor monetario al guardar
+function prepareCurrencyValue() {
+    const valorInput = document.querySelector('[name="val"]');
+    if (valorInput) {
+        valorInput.value = valorInput.value.replace(/[^0-9]/g, '');
+    }
+}
+
+// Llamar esta función antes de enviar el formulario
+document.getElementById('fapp').addEventListener('submit', function() {
+    prepareCurrencyValue();
+});
