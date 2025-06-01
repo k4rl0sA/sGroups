@@ -55,6 +55,12 @@ function whe_ordser() {
     if (!empty($_POST['ftecnico'])) {
         $filtros[] = ['campo' => 'O.tecnico', 'valor' => $_POST['ftecnico'], 'operador' => '='];
     }
+    if (!empty($_POST['freq'])) {
+        $filtros[] = ['campo' => 'O.req', 'valor' => $_POST['freq'], 'operador' => '='];
+    }
+    if (!empty($_POST['fcomercial'])) {
+        $filtros[] = ['campo' => 'O.comercial', 'valor' => $_POST['fcomercial'], 'operador' => '='];
+    }
     return fil_where($filtros);
 }
 
