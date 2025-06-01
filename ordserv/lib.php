@@ -131,8 +131,8 @@ function cmp_ordser() {
     $o = 'os';
     $c[] = new cmp('id', 'h', 100, $d['id_ordser'], $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('req', 'n', 9999999999, $d['req'], $w.' '.$o, 'Requerimiento', 'req', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('emp', 's', 3, $d['empresa'], $w.' '.$o, 'Empresa', 'empresa', '', '', true, true, '', 'col-3');
-    $c[] = new cmp('ofi', 's', 3, $d['oficina'], $w.' '.$o, 'Oficina', 'oficina', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('emp', 's', 3, $d['empresa'], $w.' '.$o, 'Empresa', 'empresas', '', '', true, true, '', 'col-3');
+    $c[] = new cmp('ofi', 's', 3, $d['oficina'], $w.' '.$o, 'Oficina', 'oficinas', '', '', true, true, '', 'col-3');
     $c[] = new cmp('mat', 'a', 500, $d['materiales'], $w.' '.$o, 'Materiales', 'materiales', '', '', true, true, '', 'col-12');
     $c[] = new cmp('act', 'a', 500, $d['activ_reali'], $w.' '.$o, 'Actividades Realizadas', 'activ_reali', '', '', true, true, '', 'col-12');
     $c[] = new cmp('obs', 'a', 500, $d['observacion'], $w.' '.$o, 'Observación', 'observacion', '', '', true, true, '', 'col-12');
