@@ -9,7 +9,7 @@ $mod='ordser'; // Módulo para órdenes de servicio
 $ya = new DateTime();
 
 // Obtener datos para filtros
-$empresas = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 1 AND estado='A' ORDER BY descripcion", '');
+$empresas = opc_sql("SELECT nit, cliente FROM clientes WHERE estado=1 ORDER BY 2", '');
 $oficinas = opc_sql("SELECT id_oficina, oficina FROM oficinas WHERE estado = 'A' ORDER BY oficina", '');
 $tecnicos = opc_sql("SELECT id_usuario, nombre FROM usuarios WHERE perfil = 5 AND estado = 1 ORDER BY nombre", ''); // Asumiendo perfil 5 es técnico
 $comerciales = opc_sql("SELECT id_usuario, nombre FROM usuarios WHERE perfil = 3 AND estado = 1 ORDER BY nombre", ''); // Asumiendo perfil 3 es comercial
