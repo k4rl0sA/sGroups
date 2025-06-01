@@ -42,10 +42,10 @@ try {
 
 function whe_comreq() {
     $filtros = [];
-    if (!empty($_POST['fusuario']) && is_array($_POST['fusuario'])) {
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => $_POST['fusuario'], 'operador' => 'IN'];
+    if (!empty($_POST['fusuario']) && $perfil == '1') {
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fusuario'])), 'operador' => 'IN'];
     } else {
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => $_SESSION['documento'], 'operador' => '='];
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
     }
     if (!empty($_POST['fempresa'])) {
         $filtros[] = ['campo' => 'R.cod_empresa', 'valor' => $_POST['fempresa'], 'operador' => '='];
@@ -98,7 +98,6 @@ function lis_comreq() {
     $params = $filter['params'];
     $types = $filter['types'];
 
-    if (empty($where)) $where = '1=1';
     
     $sqltot = "SELECT COUNT(*) total FROM req_comercial R WHERE " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
