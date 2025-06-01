@@ -66,7 +66,10 @@ function lis_ordcom() {
     $types = $filter['types'];
 
 
-    $sqltot = "SELECT COUNT(*) total FROM orden_compra O WHERE $where";
+    $sqltot = "SELECT COUNT(*) total FROM orden_compra O";
+    if (!empty($where)) {
+        $sqltot .= " WHERE $where";
+    }
     $total = obtener_total_registros($sqltot, $params, $types);
 
     $sql = "SELECT 
@@ -80,7 +83,7 @@ function lis_ordcom() {
                 O.estado AS Estado,
                 DATE_FORMAT(O.fecha_create, '%d/%m/%Y %H:%i') AS 'Fecha Creación'
             FROM orden_compra O";
-            
+
     if (!empty($where)) {
         $sql .= " WHERE $where";
     }
