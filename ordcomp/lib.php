@@ -463,7 +463,7 @@ function opc_gestores($id='') {
 }
 
 function opc_estado_orden($id='') {
-  return opc_sql('SELECT DISTINCT estado, estado FROM orden_compra ORDER BY estado', $id);
+       return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=10 and estado="A" ORDER BY 1', $id);
 }
 
 function formato_dato($a, $b, $c, $d) {
