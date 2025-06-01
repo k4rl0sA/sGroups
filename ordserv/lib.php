@@ -138,8 +138,8 @@ function cmp_ordser() {
     $c[] = new cmp('obs', 'a', 500, $d['observacion'], $w.' '.$o, 'Observación', 'observacion', '', '', true, true, '', 'col-12');
     $c[] = new cmp('tec', 's', 3, $d['tecnico'], $w.' '.$o, 'Técnico', 'tecnicos', '', '', true, true, '', 'col-2');
     $c[] = new cmp('com', 's', 3, $d['comercial'], $w.' '.$o, 'Comercial', 'comerciales', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('ges', 's', 3, $d['gestor'], $w.' '.$o, 'Gestor', 'gestores', '', '', false, false, '', 'col-2');
-    $c[] = new cmp('detges', 'a', 500, $d['detalle_gestor'], $w.' '.$o, 'Detalle Gestor', 'detalle_gestor', '', '', false, false, '', 'col-12');
+    $c[] = new cmp('ges', 's', 3, $d['gestor'], $w.' '.$o, 'Gestor', 'gestores', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('detges', 'a', 500, $d['detalle_gestor'], $w.' '.$o, 'Detalle Gestor', 'detalle_gestor', '', '', true, true, '', 'col-12');
     $c[] = new cmp('est', 's', 2, $d['estado'], $w.' '.$o, 'Estado', 'estado', '', '', true, true, '', 'col-2');
 
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
