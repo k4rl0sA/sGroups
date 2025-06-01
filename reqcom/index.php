@@ -23,7 +23,7 @@ $usuarios=opc_sql("SELECT DISTINCT u.id_usuario, u.nombre
     $_SESSION['documento']);
 
 $usu=$_SESSION['documento'];
-$sql="SELECT id_usuario, nombre FROM `usuarios` WHERE (EXISTS (SELECT id_usuario, nombre FROM `usuarios`  WHERE  id_usuario =".$usu." AND perfil IN ('ADM') AND estado = 'A') OR id_usuario =".$usu.") and estado='A' AND subred in (SELECT subred FROM `usuarios`  WHERE  id_usuario={$_SESSION['documento']}) ORDER BY 2";
+$sql="SELECT id_usuario, nombre FROM `usuarios` WHERE id_usuario =".$usu." AND perfil IN (1) AND estado = 'A'  ORDER BY 2";
 $colaborador=opc_sql($sql,$usu);
 
 $acc = acceBtns('comreq');
