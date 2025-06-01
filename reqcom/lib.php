@@ -41,7 +41,9 @@ try {
 }
 
 function whe_comreq() {
-    $filtros = ['campo' => 'R.usu_create', 'valor' => $_SESSION['documento'], 'operador' => '='];
+    $filtros = [
+        ['campo' => 'R.usu_create', 'valor' => $_SESSION['documento'], 'operador' => '=']
+    ];
     if (!empty($_POST['fempresa'])) {
         $filtros[] = ['campo' => 'R.cod_empresa', 'valor' => $_POST['fempresa'], 'operador' => '='];
     }
