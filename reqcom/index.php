@@ -86,7 +86,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                         </div>
                        <div class="input-box">
                             <label for="fusuario">Usuario Creador:</label>
-                            <select class='choices-single' id="fusuario" name="fusuario" multiple OnChange="actualizar();">
+                            <select class='choices-single' id="fusuario" name="fusuario" OnChange="actualizar();">
                                 <?php echo $usuarios; ?>
                             </select>
                         </div>
