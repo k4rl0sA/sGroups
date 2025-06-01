@@ -136,9 +136,9 @@ function cmp_ordser() {
     $c[] = new cmp('mat', 'a', 500, $d['materiales'], $w.' '.$o, 'Materiales', 'materiales', '', '', true, true, '', 'col-12');
     $c[] = new cmp('act', 'a', 500, $d['activ_reali'], $w.' '.$o, 'Actividades Realizadas', 'activ_reali', '', '', true, true, '', 'col-12');
     $c[] = new cmp('obs', 'a', 500, $d['observacion'], $w.' '.$o, 'Observación', 'observacion', '', '', true, true, '', 'col-12');
-    $c[] = new cmp('tec', 's', 3, $d['tecnico'], $w.' '.$o, 'Técnico', 'tecnico', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('com', 's', 3, $d['comercial'], $w.' '.$o, 'Comercial', 'comercial', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('ges', 's', 3, $d['gestor'], $w.' '.$o, 'Gestor', 'gestor', '', '', false, false, '', 'col-2');
+    $c[] = new cmp('tec', 's', 3, $d['tecnico'], $w.' '.$o, 'Técnico', 'tecnicos', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('com', 's', 3, $d['comercial'], $w.' '.$o, 'Comercial', 'comerciales', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('ges', 's', 3, $d['gestor'], $w.' '.$o, 'Gestor', 'gestores', '', '', false, false, '', 'col-2');
     $c[] = new cmp('detges', 'a', 500, $d['detalle_gestor'], $w.' '.$o, 'Detalle Gestor', 'detalle_gestor', '', '', false, false, '', 'col-12');
     $c[] = new cmp('est', 's', 2, $d['estado'], $w.' '.$o, 'Estado', 'estado', '', '', true, true, '', 'col-2');
 
@@ -207,13 +207,13 @@ function opc_oficinas($id='') {
     return opc_sql('SELECT id_oficina,oficina FROM oficinas WHERE estado=1 ORDER BY oficina', $id);
 }
 function opc_tecnicos($id='') {
-    return opc_sql('SELECT documento,nombre FROM usuarios WHERE rol="tecnico" AND estado="A" ORDER BY nombre', $id);
+    return opc_sql('SELECT documento,nombre FROM usuarios WHERE perfil=14 AND estado="A" ORDER BY nombre', $id);
 }
 function opc_comerciales($id='') {
-    return opc_sql('SELECT documento,nombre FROM usuarios WHERE rol="comercial" AND estado="A" ORDER BY nombre', $id);
+    return opc_sql('SELECT documento,nombre FROM usuarios WHERE perfil=3 AND estado="A" ORDER BY nombre', $id);
 }
 function opc_gestores($id='') {
-    return opc_sql('SELECT documento,nombre FROM usuarios WHERE rol="gestor" AND estado="A" ORDER BY nombre', $id);
+    return opc_sql('SELECT documento,nombre FROM usuarios WHERE perfil= AND estado="A" ORDER BY nombre', $id);
 }
 function opc_estados_ordser($id='') {
     return opc_sql('SELECT "A" as id, "Activa" as descripcion UNION SELECT "C", "Cerrada"', $id);
