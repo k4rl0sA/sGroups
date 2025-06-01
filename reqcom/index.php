@@ -15,13 +15,16 @@ $contactos = opc_sql("SELECT id_contacto, nombre FROM contactos WHERE estado = 1
 $oficinas = opc_sql("SELECT id_oficina, oficina FROM oficinas WHERE estado =1 ORDER BY oficina", '');
 $estados = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo=10 AND estado='A' ORDER BY descripcion",'');
 // $usuarios = opc_sql("SELECT DISTINCT usu_create, usu_create AS nombre FROM req_comercial ORDER BY usu_create", [$_SESSION['documento']]);
-$colaborador=opc_sql("SELECT DISTINCT u.id_usuario, u.nombre 
+$usuarios=opc_sql("SELECT DISTINCT u.id_usuario, u.nombre 
      FROM usuarios u
      INNER JOIN req_comercial r ON u.id_usuario = r.usu_create
      WHERE u.estado = 'A'
      ORDER BY u.nombre",
     $_SESSION['documento']);
 
+$usu=$_SESSION['documento'];
+$sql="SELECT id_usuario, nombre FROM `usuarios` WHERE (EXISTS (SELECT id_usuario, nombre FROM `usuarios`  WHERE  id_usuario =".$usu." AND perfil IN ('ADM') AND estado = 'A') OR id_usuario =".$usu.") and estado='A' AND subred in (SELECT subred FROM `usuarios`  WHERE  id_usuario={$_SESSION['documento']}) ORDER BY 2";
+$colaborador=opc_sql($sql,$usu);
 
 $acc = acceBtns('comreq');
 $btns = '<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
