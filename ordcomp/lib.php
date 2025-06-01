@@ -246,10 +246,6 @@ try {
     echo json_encode(['error' => 'Error interno del servidor']);
 }
 
-/**********************************************/
-/* FUNCIONES ESPECÍFICAS PARA LA TABLA orden_compra */
-/**********************************************/
-
 function whe_ordcom() {
     $filtros = [];
     if (!empty($_POST['fcliente'])) {
@@ -401,7 +397,6 @@ function gra_ordcom() {
     $usu = $_SESSION['documento'];
     $fecha = time();
     
-    // Limpiar y validar el valor monetario
     $valor = str_replace(['$', '.', ','], '', $_POST['val']);
     $valor = filter_var($valor, FILTER_SANITIZE_NUMBER_INT);
     
@@ -455,10 +450,6 @@ function gra_ordcom() {
     exit;
 }
 
-/************************************/
-/* FUNCIONES AUXILIARES PARA ordcom */
-/************************************/
-
 function opc_clientes($id='') {
     return opc_sql('SELECT id_cliente, cliente FROM clientes WHERE estado = 1 ORDER BY cliente', $id);
 }
@@ -468,30 +459,11 @@ function opc_comerciales($id='') {
 }
 
 function opc_gestores($id='') {
-    return opc_sql('SELECT id_usuario, nombre FROM usuarios WHERE perfil = 4 AND estado = 1 ORDER BY nombre', $id);
+    return opc_sql('SELECT id_usuario,nombre FROM usuarios WHERE perfil=15 AND estado=1 ORDER BY nombre', $id);
 }
 
 function opc_estado_orden($id='') {
-    $opciones = [
-        ['value' => 'A', 'text' => 'Activo'],
-        ['value' => 'C', 'text' => 'Completado'],
-        ['value' => 'P', 'text' => 'Pendiente']
-    ];
-    
-    if ($id === '') {
-        $rta = '';
-        foreach ($opciones as $opc) {
-            $rta .= "<option value='{$opc['value']}'>{$opc['text']}</option>";
-        }
-        return $rta;
-    } else {
-        foreach ($opciones as $opc) {
-            if ($opc['value'] == $id) {
-                return $opc['text'];
-            }
-        }
-        return '';
-    }
+  return opc_sql('SELECT DISTINCT estado, estado FROM orden_compra ORDER BY estado', $id);
 }
 
 function formato_dato($a, $b, $c, $d) {
