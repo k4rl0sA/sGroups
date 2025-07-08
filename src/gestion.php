@@ -248,7 +248,7 @@ function show_sql($data_query, $params, $types) {
       $consulta_final = preg_replace('/\?/', $valor_escapado, $consulta_final, 1);
       $param_index++;
   }
-  echo "<pre>".htmlentities($consulta_final)."</pre>";
+  echo "<pre>".$consulta_final."</pre>";//htmlentities($consulta_final)
 }
 function fil_where($filtros) {
   $where = "1";
