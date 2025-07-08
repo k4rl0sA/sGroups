@@ -222,8 +222,8 @@ function gra_customer() {
             ]
         );
     }
-    
-    $rta = mysql_prepd($sql, $params);
+    $rta=show_sql($sql, $params);
+    // $rta = mysql_prepd($sql, $params);
     header('Content-Type: application/json; charset=utf-8'); 
     echo json_encode($rta);
     exit;
