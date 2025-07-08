@@ -157,7 +157,7 @@ function cmp_customer() {
     $o = 'cli';
     
     $c[] = new cmp('id', 'h', 100, $d['id_cliente'], $w, '', 0, '', '', '', false, '', 'col-1');
-    $c[] = new cmp('nit', 'n', 9999999999, $d['nit'], $w.' '.$o, 'NIT', 'nit', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('nit', 'n', 999999999999, $d['nit'], $w.' '.$o, 'NIT', 'nit', '', '', true, true, '', 'col-2');
     $c[] = new cmp('cli', 't', 80, $d['cliente'], $w.' '.$o, 'Nombre Cliente', 'cliente', '', '', true, true, '', 'col-3');
     $c[] = new cmp('dir', 't', 50, $d['direccion'], $w.' '.$o, 'Dirección', 'direccion', '', '', true, true, '', 'col-3');
     $c[] = new cmp('web', 't', 50, $d['pagina_web'], $w.' '.$o, 'Página Web', 'pagina_web', '', '', false, true, '', 'col-2');
