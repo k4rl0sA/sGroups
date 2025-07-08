@@ -224,8 +224,8 @@ function gra_customer() {
     }
     //depurar lo que se envia a la BD
      // Mostrar la consulta antes de ejecutarla para depuración
-    // show_sql($sql, array_column($params, 'value'), "isssssssi");
-    $rta = mysql_prepd($sql, $params);
+    show_sql($sql, array_column($params, 'value'), "isssssssi");
+    // $rta = mysql_prepd($sql, $params);
     header('Content-Type: application/json; charset=utf-8'); 
     echo json_encode($rta);
     exit;
