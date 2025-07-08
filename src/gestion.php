@@ -541,7 +541,12 @@ function mysql_prepd($sql, $params) {
         $error_message = "Error en la consulta (mysqli_sql_exception): " . $e->getCode() . " - " . $e->getMessage();
         log_error($error_message);
         $response['status'] = 'error';
-        $response['message'] = "Error en la consulta. Por favor, contacte al administrador del sistema. (Error interno: " . $e->getCode() . ")"; // Mensaje con código de error
+        if($e->getCode()==1062){
+          $response['status'] = 'duplicate'; // Estado para duplicados
+          $response['message'] = "Error: El registro ya existe. Por favor, verifique los datos ingresados."; // Mensaje específico para duplicados
+        }else{
+          $response['message'] = "Error en la consulta. Por favor, contacte al administrador del sistema. (Error interno: " . $e->getCode() . ")"; // Mensaje con código de error
+        }
         $response['errorCode'] = $e->getCode();
     } finally {
         if (isset($con)) { // Verificar si la conexión se estableció antes de intentar cerrarla

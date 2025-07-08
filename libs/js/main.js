@@ -449,9 +449,11 @@ function handleResponse(response) {
         } else {
             enqueueMessage('success', response.message || 'Operación completada.', SUCCESS_DURATION);
         }
-    } else {
-        enqueueMessage('success', response, SUCCESS_DURATION); // Manejo de respuestas en texto plano
-    }
+	} else if(response.status === 'duplicate'){
+		enqueueMessage('duplicate', response.message || 'Duplicado.', SUCCESS_DURATION);
+	} else {
+		enqueueMessage('success', response, SUCCESS_DURATION); // Manejo de respuestas en texto plano
+	}
 }
 /**
  * Agrega un mensaje a la cola y lo muestra en orden.
@@ -499,6 +501,10 @@ function displayToast(type, message, duration) {
             titleText = 'Información';
             break;
         case 'warning':
+            iconClass = 'fas fa-exclamation-triangle warning';
+            titleText = 'Advertencia';
+            break;
+		case 'duplicate':
             iconClass = 'fas fa-exclamation-triangle warning';
             titleText = 'Advertencia';
             break;
