@@ -809,7 +809,7 @@ function input_num($a){
   $rta .= " class='" . saniti($a->w) . " " . ($a->v ? 'valido' : '') . " " . ($a->u ? 'captura' : 'bloqueo') . " " . ($a->t == 't' ? '' : 'txt-right') . "'";
   $rta .= " title='{$title}'";
   $rta .= "\" onblur=\"";
-  $rta .="onkeypress=\"return event.charCode >= 48 && event.charCode <= 57\";
+  // $rta .="onkeypress=\"return event.charCode >= 48 && event.charCode <= 57\";
   if ($a->v) $rta .= "if(valido(this))";
   if ($a->x) $rta .= "solo_reg(this," . saniti($a->x) . ");"; // Sanitizando la expresión regular
   $rta .= "\"";
