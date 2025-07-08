@@ -223,19 +223,18 @@ function gra_customer() {
         );
     }
     //depurar lo que se envia a la function mysql_prepd antes de enviarlo
-    // $sql = "INSERT INTO clientes VALUES (NULL,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
-    // $params = array(
-    //     $_POST['nit'], $_POST['cli'], $_POST['dir'], $_POST['web'], 
-    //     $_POST['cont'], $_POST['dep'], $_POST['ciu'], 
-    //     $_SESSION['documento'], $_POST['est']
-    // );
-    // $params = array_column($params, 'value');
-    // $params = array_map(function($param) { return ['type' => 's', 'value' => $param]; }, $params);
-    // $params = array_merge($params, [['type' => 'i', 'value' => $_SESSION['documento']]]);
-    // $params[] = ['type' => 's', 'value' => $_POST['est']];
-    // $params[] = ['type' => 'i', 'value' => $id[0]];
-    // $params = array_column($params, 'value');
-    // $params = array_map(function($param) { return $param['value']; }, $params);
+    $sql = "INSERT INTO clientes VALUES (NULL,?,?,?,?,?,?,?,?,DATE_SUB(NOW(), INTERVAL 5 HOUR),NULL,NULL,?)";
+    $params = array(
+         $_POST['nit'], $_POST['cli'], $_POST['dir'], $_POST['web'], 
+         $_POST['cont'], $_POST['dep'], $_POST['ciu'], 
+         $_SESSION['documento'], $_POST['est']
+     );
+    $params = array_column($params, 'value');
+    $params = array_merge($params, [['type' => 'i', 'value' => $_SESSION['documento']]]);
+    $params[] = ['type' => 's', 'value' => $_POST['est']];
+    $params[] = ['type' => 'i', 'value' => $id[0]];
+    $params = array_column($params, 'value');
+    $params = array_map(function($param) { return $param['value']; }, $params);
     $rta=$params;
 
     // $rta = mysql_prepd($sql, $params);
