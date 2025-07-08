@@ -222,7 +222,7 @@ function gra_customer() {
             ]
         );
     }
-    $rta=show_sql($sql, $params, "isssssssi");
+    $rta=show_sql($sql, $ array_column($params,'value'), "isssssssi");
     // $rta=show_sql($sql, $params,"iisssssiissss");
     // $rta = mysql_prepd($sql, $params);
     header('Content-Type: application/json; charset=utf-8'); 
