@@ -538,11 +538,18 @@ function mysql_prepd($sql, $params) {
             $response['message'] = "Error en la consulta. Por favor, contacte al administrador del sistema. (Error interno: Preparación de consulta fallida)";
         }
     } catch (mysqli_sql_exception $e) {
-        $error_message = "Error en la consulta (mysqli_sql_exception): " . $e->getCode() . " - " . $e->getMessage();
-        log_error($error_message);
-        $response['status'] = 'error';
-        $response['message'] = "Error en la consulta. Por favor, contacte al administrador del sistema. (Error interno: " . $e->getCode() . ")"; // Mensaje con código de error
-        $response['errorCode'] = $e->getCode();
+           if ($e->getCode() == 1062) {
+            // Error de clave duplicada
+            $response['status'] = 'duplicate';
+            $response['message'] = "Ya existe un registro con los mismos datos únicos. Por favor, verifique la información.";
+            $response['errorCode'] = 1062;
+        } else {
+            $error_message = "Error en la consulta (mysqli_sql_exception): " . $e->getCode() . " - " . $e->getMessage();
+            log_error($error_message);
+            $response['status'] = 'error';
+            $response['message'] = "Error en la consulta. Por favor, contacte al administrador del sistema. (Error interno: " . $e->getCode() . ")"; // Mensaje con código de error
+            $response['errorCode'] = $e->getCode();
+        }
     } finally {
         if (isset($con)) { // Verificar si la conexión se estableció antes de intentar cerrarla
             $con->close();
