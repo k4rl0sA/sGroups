@@ -793,7 +793,11 @@ function select_mult($a) {
   return $rta;
 }
 function input_num($a){
-  $name = saniti($a->n);$label = saniti($a->l);$value = is_numeric($a->d) ? $a->d : '';$title = saniti($a->tt);$x = saniti($a->x);
+  $name = saniti($a->n);
+  $label = saniti($a->l);
+  $value = is_numeric($a->d) ? $a->d : '';
+  $title = saniti($a->tt);
+  $x = saniti($a->x);
   $a->w = $a->w ?? '';
   $a->ww = $a->ww ?? '';
   $a->s = is_numeric($a->s) ? $a->s : ''; // Validar valor máximo
@@ -805,16 +809,16 @@ function input_num($a){
   $rta = "<div class='campo " . saniti($a->w) . " " . saniti($a->ww) . " borde1 oscuro'>";
   $rta .= "<div>{$label}</div>";
   $rta .= "<input type='number' id='{$name}' name='{$name}'";
-  if ($a->s !== '')$rta .= " max='" . saniti($a->s) . "'";
+  if ($a->s !== '') $rta .= " max='" . saniti($a->s) . "'";
   $rta .= " class='" . saniti($a->w) . " " . ($a->v ? 'valido' : '') . " " . ($a->u ? 'captura' : 'bloqueo') . " " . ($a->t == 't' ? '' : 'txt-right') . "'";
   $rta .= " title='{$title}'";
-  $rta .= "\" onblur=\"";
-  // $rta .="onkeypress=\"return event.charCode >= 48 && event.charCode <= 57\";
+  $rta .= " onkeypress=\"return event.charCode >= 48 && event.charCode <= 57;\"";
+  $rta .= " onblur=\"";
   if ($a->v) $rta .= "if(valido(this))";
-  if ($a->x) $rta .= "solo_reg(this," . saniti($a->x) . ");"; // Sanitizando la expresión regular
+  if ($a->x) $rta .= "solo_reg(this," . saniti($a->x) . ");";
   $rta .= "\"";
-  if ($a->vc !== '')$rta .= " onfocus=\"" . saniti($a->vc) . "\"";
-  if ($a->so !== '')$rta .= " onchange=\"" . saniti($a->so) . "\"";
+  if ($a->vc !== '') $rta .= " onfocus=\"" . saniti($a->vc) . "\"";
+  if ($a->so !== '') $rta .= " onchange=\"" . saniti($a->so) . "\"";
   if (!$a->u) $rta .= " readonly";
   if ($value !== '') $rta .= " value='" . saniti($value) . "'";
   $rta .= "></div>"; // Cerrar el div
