@@ -44,9 +44,9 @@ function whe_comreq() {
     $filtros = [];
     $perfil = obtenerPerfil($_SESSION['documento']);
     if (!empty($_POST['fidcata']) && ($perfil == '1' || $perfil == '10')) {
-        $filtros[] = ['campo' => 'RA.asignado', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
     } else {
-        $filtros[] = ['campo' => 'RA.asignado', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
     }
 /* if (!empty($_POST['fidcata'])) {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
@@ -123,10 +123,10 @@ function lis_comreq() {
             SUBSTRING(R.descripcion, 1, 50) AS Descripción,
             CTLG(10,R.estado_req) AS Estado
             FROM req_comercial R
-            LEFT JOIN clientes CL ON R.cod_empresa = CL.id_cliente
-            LEFT JOIN contactos C ON R.cod_contacto =C.id_contacto
-            LEFT JOIN oficinas O ON R.cod_oficina = O.id_oficina
-            LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom
+            LEFT JOIN clientes CL ON R.cod_empresa = CL.id_cliente 
+            LEFT JOIN contactos C ON R.cod_contacto =C.id_contacto 
+            LEFT JOIN oficinas O ON R.cod_oficina = O.id_oficina 
+            LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom 
              ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
