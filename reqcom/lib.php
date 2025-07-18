@@ -117,7 +117,7 @@ function lis_comreq() {
             CTLG(8,R.actividad) AS Actividad,
             CTLG(12,R.cotizacion) AS Cotización,
             CTLG(13,R.requerimiento) AS Requerimiento,
-            CTLG(1,R.cod_empresa) AS Empresa,
+            CL.cliente AS Empresa,
             C.nombre AS Contacto,
             O.oficina AS Oficina,
             SUBSTRING(R.descripcion, 1, 50) AS Descripción,
