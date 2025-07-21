@@ -76,7 +76,7 @@ function whe_comreq() {
 }
 
 function tot_comreq() {
-    $totals = [
+  /*   $totals = [
         ['titulo'=>'Total','icono'=>'fas fa-file-invoice','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
         ['titulo'=>'En Proceso','icono'=>'fas fa-spinner','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado_req=1"],
         ['titulo'=>'Completados','icono'=>'fas fa-check-circle','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado_req=2"]
@@ -102,7 +102,7 @@ function tot_comreq() {
             $rta .= generar_metrica($total['titulo'], $total['icono'], $total['indicador'], $resultado_consulta[0]['Total']);
         }
     }
-    return $rta;
+    return $rta; */
 }
 
 function lis_comreq() {
