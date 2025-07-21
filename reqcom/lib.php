@@ -81,7 +81,6 @@ function tot_comreq() {
         ['titulo'=>'En Proceso','icono'=>'fas fa-spinner','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado_req=1"],
         ['titulo'=>'Completados','icono'=>'fas fa-check-circle','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado_req=2"]
     ];
-    
     $rta = '';
     foreach ($totals as $total) {
         $sql = "SELECT count(*) AS Total FROM req_comercial R WHERE ";
