@@ -52,30 +52,6 @@ function whe_comreq() {
         'valor' => null,
         'operador' => 'RAW'
     ];
-
-    /*
-    if (isset($_POST['fidcata']) && !empty($_POST['fidcata']) && ($perfil == '1' || $perfil == '10')) {
-        $filtros[] = ['campo' => 'RA.asignado', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
-    } else {
-        $filtros[] = ['campo' => 'RA.asignado', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
-    }*/
-    /* if (!empty($_POST['fidcata']) && ($perfil == '1' || $perfil == '10')) {
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
-    } else {
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
-    } */
-/* if (!empty($_POST['fidcata'])) {
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
-    }   */
-
-    
-    /*  if (!empty($_POST['fusuario']) && $perfil == 'ADM') {
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fusuario'])), 'operador' => 'IN'];
-    } else {
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
-    } */
     if (!empty($_POST['fempresa'])) {
         $filtros[] = ['campo' => 'R.cod_empresa', 'valor' => $_POST['fempresa'], 'operador' => '='];
     }
@@ -152,7 +128,7 @@ function lis_comreq() {
              ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
-    show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
+    // show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
     if ($datos === []) return no_reg();
     return create_table($total, $datos, "comreq", $regxPag, "lib.php");
 }
