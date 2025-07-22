@@ -43,14 +43,24 @@ try {
 function whe_comreq() {
     $filtros = [];
     $perfil = obtenerPerfil($_SESSION['documento']);
-    
+     $documento = limpiar_y_escapar_array([$_SESSION['documento']]);
+    $in = implode(',', $documento);
+
+    // Filtro combinado OR
+    $filtros[] = [
+        'campo' => "(RA.asignado IN ($in) OR R.usu_create IN ($in))",
+        'valor' => null,
+        'operador' => 'RAW'
+    ];
+
+    /*
     if (isset($_POST['fidcata']) && !empty($_POST['fidcata']) && ($perfil == '1' || $perfil == '10')) {
         $filtros[] = ['campo' => 'RA.asignado', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
     } else {
         $filtros[] = ['campo' => 'RA.asignado', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
-    }
+    }*/
     /* if (!empty($_POST['fidcata']) && ($perfil == '1' || $perfil == '10')) {
         $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
     } else {

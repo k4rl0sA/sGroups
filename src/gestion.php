@@ -251,45 +251,44 @@ function show_sql($data_query, $params, $types) {
   echo "<pre>".$consulta_final."</pre>";//htmlentities($consulta_final)
 }
 function fil_where($filtros) {
-  $where = "1";
-  $params = [];
-  $types = "";
-  foreach ($filtros as $filtro) {
-      if (!isset($filtro['campo']) || !isset($filtro['valor'])) {
-          log_error("fil_where: Filtro incompleto.");
-          continue;
-      }
-      $campo = $filtro['campo'];
-      $valor = $filtro['valor'];
-      $operador = $filtro['operador'] ?? "=";
-      // Escapa el nombre del campo (importante para la seguridad)
-      $campo = preg_replace('/[^a-zA-Z0-9_.]/', '', $campo);//FALTA .
-      if (is_array($valor)) {
-          if (!empty($valor)) {
-              $placeholders = implode(',', array_fill(0, count($valor), '?'));
-              $where .= " AND $campo IN ($placeholders)";
-              // Escapa los valores del array ANTES de agregarlos a $params
-              $escaped_valor = limpiar_y_escapar_array($valor);
-              $params = array_merge($params, $escaped_valor);
-              $types .= str_repeat(determinar_tipo_dato($valor[0]), count($valor)); // Tipo de dato del primer elemento
-          } else {
-              $where .= " AND 0"; // Condición siempre falsa para arrays vacíos
-          }
-      } elseif ($valor !== null && $valor !== "") {
-        if ($operador === 'like') {
-          // Si el operador es LIKE, agregamos los caracteres % al valor
-          $valor = "%$valor%";
-      }
-          $where .= " AND $campo $operador ?";
-          // Escapa el valor ANTES de agregarlo a $params
-          $escaped_valor = limpiar_y_escapar_array($valor);
-          $params[] = $escaped_valor;
-          $types .= determinar_tipo_dato($valor);
-      } else {
-          $where .= " AND 0"; // Condición siempre falsa para valores vacíos
-      }
-  }
-  return ['where' => $where, 'params' => $params, 'types' => $types];
+    $where = "1";
+    $params = [];
+    $types = "";
+    foreach ($filtros as $idx => $filtro) {
+        if (!isset($filtro['campo'])) continue;
+        $campo = $filtro['campo'];
+        $valor = $filtro['valor'];
+        $operador = $filtro['operador'] ?? "=";
+        $logico = strtoupper($filtro['logico'] ?? 'AND'); // Nuevo: operador lógico
+        // RAW permite condiciones personalizadas
+        if ($operador === 'RAW') {
+            $where .= " $logico $campo";
+            continue;
+        }
+        // IN para arrays
+        if (is_array($valor)) {
+            if (!empty($valor)) {
+                $placeholders = implode(',', array_fill(0, count($valor), '?'));
+                $where .= " $logico $campo IN ($placeholders)";
+                $escaped_valor = limpiar_y_escapar_array($valor);
+                $params = array_merge($params, $escaped_valor);
+                $types .= str_repeat(determinar_tipo_dato($valor[0]), count($valor));
+            } else {
+                $where .= " $logico 0";
+            }
+        } elseif ($valor !== null && $valor !== "") {
+            if ($operador === 'like') {
+                $valor = "%$valor%";
+            }
+            $where .= " $logico $campo $operador ?";
+            $escaped_valor = limpiar_y_escapar_array($valor);
+            $params[] = $escaped_valor;
+            $types .= determinar_tipo_dato($valor);
+        } else {
+            $where .= " $logico 0";
+        }
+    }
+    return ['where' => $where, 'params' => $params, 'types' => $types];
 }
 function determinar_tipo_dato($valor) {
   if (is_int($valor)) {
