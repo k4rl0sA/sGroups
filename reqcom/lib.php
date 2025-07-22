@@ -43,14 +43,29 @@ try {
 function whe_comreq() {
     $filtros = [];
     $perfil = obtenerPerfil($_SESSION['documento']);
-    $documento = limpiar_y_escapar_array([$_SESSION['documento']]);
- // Filtro combinado para asignado o creado
-    $filtros[] = [
-        'campo' => "(RA.asignado IN (" . implode(',', $documento) . ") OR R.usu_create IN (" . implode(',', $documento) . "))",
-        'valor' => null,
-        'operador' => 'RAW'
-    ];
+    
+    if (isset($_POST['fidcata']) && !empty($_POST['fidcata']) && ($perfil == '1' || $perfil == '10')) {
+        $filtros[] = ['campo' => 'RA.asignado', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
+    } else {
+        $filtros[] = ['campo' => 'RA.asignado', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
+    }
+    /* if (!empty($_POST['fidcata']) && ($perfil == '1' || $perfil == '10')) {
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
+    } else {
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
+    } */
+/* if (!empty($_POST['fidcata'])) {
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
+    }   */
 
+    
+    /*  if (!empty($_POST['fusuario']) && $perfil == 'ADM') {
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fusuario'])), 'operador' => 'IN'];
+    } else {
+        $filtros[] = ['campo' => 'R.usu_create', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
+    } */
     if (!empty($_POST['fempresa'])) {
         $filtros[] = ['campo' => 'R.cod_empresa', 'valor' => $_POST['fempresa'], 'operador' => '='];
     }
