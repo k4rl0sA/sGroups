@@ -43,7 +43,7 @@ try {
 function whe_comreq() {
     $filtros = [];
     $perfil = obtenerPerfil($_SESSION['documento']);
-    if (!empty($_POST['fidcata']) && ($perfil == '1' || $perfil == '10')) {
+    if (isset($_POST['fidcata']) && !empty($_POST['fidcata']) && ($perfil == '1' || $perfil == '10')) {
         $filtros[] = ['campo' => 'RA.asignado', 'valor' => limpiar_y_escapar_array(explode(",", $_POST['fidcata'])), 'operador' => 'IN'];
     } else {
         $filtros[] = ['campo' => 'RA.asignado', 'valor' => limpiar_y_escapar_array([$_SESSION['documento']]), 'operador' => 'IN'];
@@ -84,7 +84,9 @@ function tot_comreq() {
     
     $rta = '';
     foreach ($totals as $total) {
-        $sql = "SELECT count(*) AS Total FROM req_comercial R WHERE ";
+        $sql = "SELECT count(*) AS Total FROM req_comercial R
+                LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom
+                WHERE ";
         $filter = whe_comreq();
         
         if (!isset($filter['where']) || !isset($filter['params']) || !isset($filter['types'])) {
@@ -115,7 +117,9 @@ function lis_comreq() {
     $types = $filter['types'];
 
     
-    $sqltot = "SELECT COUNT(*) total FROM req_comercial R WHERE " . $where;
+    $sqltot = "SELECT count(*) AS Total FROM req_comercial R
+                LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom
+                WHERE " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
     
     $sql = "SELECT R.id_reqcom AS ACCIONES, 
