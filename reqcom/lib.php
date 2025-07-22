@@ -81,9 +81,10 @@ function tot_comreq() {
         ['titulo'=>'En Proceso','icono'=>'fas fa-spinner','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado_req=1"],
         ['titulo'=>'Completados','icono'=>'fas fa-check-circle','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado_req=2"]
     ];
+    
     $rta = '';
     foreach ($totals as $total) {
-        $sql = "SELECT count(*) AS Total FROM req_comercial R LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom  WHERE ";
+        $sql = "SELECT count(*) AS Total FROM req_comercial R WHERE ";
         $filter = whe_comreq();
         
         if (!isset($filter['where']) || !isset($filter['params']) || !isset($filter['types'])) {
@@ -114,9 +115,7 @@ function lis_comreq() {
     $types = $filter['types'];
 
     
-    $sqltot = "SELECT COUNT(*) total FROM req_comercial R 
-            LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom 
-            WHERE " . $where;
+    $sqltot = "SELECT COUNT(*) total FROM req_comercial R WHERE " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
     
     $sql = "SELECT R.id_reqcom AS ACCIONES, 
@@ -136,7 +135,7 @@ function lis_comreq() {
              ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
-    // show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
+    show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
     if ($datos === []) return no_reg();
     return create_table($total, $datos, "comreq", $regxPag, "lib.php");
 }
