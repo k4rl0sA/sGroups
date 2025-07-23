@@ -94,7 +94,7 @@ function lis_employee() {
     CTLG(2,ciudad) Ciudad,CTLG(3,perfil) Perfil,U.`n_contacto` AS Telefono, CTLG(4,eps) AS EPS, CTLG(5,U.arl) AS ARL, 
     U.correo AS Correo,CTLG(6,estado) Estado
  FROM `usuarios` U ";
-$where.=" GROUP BY U.Departamento,U.nombre";
+$where.=" GROUP BY U.Departamento,U.nombre ORDER BY U.id ";
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
 	// show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
      if ($datos === []) return no_reg();
