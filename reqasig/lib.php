@@ -57,6 +57,7 @@ function whe_comreq() {
     if (!empty($_POST['festado'])) {
         $filtros[] = ['campo' => 'R.estado_req', 'valor' => $_POST['festado'], 'operador' => '='];
     }
+    if (empty($filtros)) return '1=1';
     return fil_where($filtros);
 }
 
@@ -104,7 +105,7 @@ function lis_comreq() {
     
     $sqltot = "SELECT count(*) AS Total FROM req_comercial R
                 LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom
-                WHERE 1 " . $where;
+                WHERE " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
     
     $sql = "SELECT R.id_reqcom AS ACCIONES, 
