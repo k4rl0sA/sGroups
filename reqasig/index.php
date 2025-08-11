@@ -103,7 +103,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                     <div class='load' id='loader' z-index='0'></div>
                 </div>
                 <div class="content content-2">
-                    <div class="title txt-center"><h2>Requerimientos Comerciales</h2></div>
+                    <div class="title txt-center"><h2>Asignación de Requerimientos Comerciales</h2></div>
                     <div id='<?php echo $mod; ?>-btns' class="header">
                         <?php echo $btns ?>
                         <div class="totals" id='<?php echo $mod; ?>-tot'></div>
