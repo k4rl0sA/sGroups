@@ -47,11 +47,7 @@ function whe_comreq() {
     $in = implode(',', $documento);
 
     // Filtro combinado OR
-    $filtros[] = [
-        'campo' => "(RA.asignado IN ($in) OR R.usu_create IN ($in))",
-        'valor' => null,
-        'operador' => 'RAW'
-    ];
+    $filtros[] = [];
     if (!empty($_POST['fempresa'])) {
         $filtros[] = ['campo' => 'R.cod_empresa', 'valor' => $_POST['fempresa'], 'operador' => '='];
     }
