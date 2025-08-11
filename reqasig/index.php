@@ -71,27 +71,17 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                     <div class="title txt-center"><h2>Asignación de Requerimientos Comerciales</h2></div>
                     <div class="frm-filter poppins-font" id='<?php echo $mod; ?>-fil'>
                         <div class="input-box">
-                            <label for="fempresa">Empresa:</label>
-                            <select class='choices-single' id="fempresa" name="fempresa" OnChange="actualizar();">
-                                <option value="">Todas</option>
-                                <?php echo $empresas; ?>
-                            </select>
-                        </div>
-                        <div class="input-box">
-                            <label for="fcontacto">Contacto:</label>
-                            <select class='choices-single' id="fcontacto" name="fcontacto" OnChange="actualizar();">
-                                <option value="">Todos</option>
-                                <?php echo $contactos; ?>
-                            </select>
-                        </div>
-
-                        <div class="input-box">
-                            <label for="choices-multiple-remove-button">Funcionarios :</label>
+                            <label for="choices-multiple-remove-button">Creados Por: </label>
                 			    <select class='choices-multiple-remove-button' id="fidcata" name="fidcata" multiple OnChange="actualizar();">
 								    <?php echo $catalogos; ?>
                 			    </select>
     					</div>
-
+                        <div class="input-box">
+                            <label for="choices-multiple-remove-button">Asignados A: </label>
+                			    <select class='choices-multiple-remove-button' id="fidcata" name="fidcata" multiple OnChange="actualizar();">
+								    <?php echo $catalogos; ?>
+                			    </select>
+    					</div>
                         <div class="input-box">
                             <label for="festado">Estado Requerimiento:</label>
                             <select class='choices-single' id="festado" name="festado" OnChange="actualizar();">
