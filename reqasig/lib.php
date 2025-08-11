@@ -278,9 +278,6 @@ function formato_dato($a, $b, $c, $d) {
         if ($perfil == '1'|| $perfil == '10' ) {
             $rta .= "<li class='fa-solid fa-paper-plane icon' title='Asignar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('reqasig','pro',event,'','asigna.php',3,'Asignación de Requerimientos');\"></li>";
         }
-        if ($perfil == '1'|| $perfil == '7' ) {
-            $rta .= "<li class='fa-solid fa-tasks icon' title='Gestionar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('reqlidser','pro',event,'','gestiona.php',3,'Gestión de Requerimientos');\"></li>";
-        }
         $rta .= "</nav>";
     }    
     return $rta;
