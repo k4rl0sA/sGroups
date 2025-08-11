@@ -68,7 +68,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
             </nav>
             <section>
                 <div class="content content-1">
-                    <div class="title txt-center"><h2>Requerimientos Comerciales</h2></div>
+                    <div class="title txt-center"><h2>Gestionar Requerimientos Comerciales</h2></div>
                     <div class="frm-filter poppins-font" id='<?php echo $mod; ?>-fil'>
                         <div class="input-box">
                             <label for="fempresa">Empresa:</label>
