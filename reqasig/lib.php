@@ -104,7 +104,7 @@ function lis_comreq() {
     
     $sqltot = "SELECT count(*) AS Total FROM req_comercial R
                 LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom
-                WHERE " . $where;
+                WHERE 1 " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
     
     $sql = "SELECT R.id_reqcom AS ACCIONES, 
