@@ -73,7 +73,7 @@ function cmp_reqlidser() {
     $c[] = new cmp('des', 'lb', 500, $r['descripcion']?? '', $w.' '.$o, 'Descripción', 'descripcion', '', '', true, true, '', 'col-2');
     $c[] = new cmp('pen', 'lb', 500, $r['pendientes']?? '', $w.' '.$o, 'Pendientes', 'pendientes', '', '', false, true, '', 'col-12');
 
-    $c[] = new cmp('tec', 'm', 3, $d['tecnicos'], $w, 'Técnicos', 'usuarios', '', '', true, $uPd, '', 'col-6');
+    $c[] = new cmp('tec', 's', 3, $d['tecnicos'], $w, 'Técnicos', 'usuarios', '', '', true, $uPd, '', 'col-6');
     $c[] = new cmp('fec', 'd', 3, $d['fecha_ejecu'], $w, 'Fecha Ejecución', '', '', '', true, $uPd, '', 'col-3');
     $c[] = new cmp('act', 't', 500, $d['activi_realiza'], $w, 'Actividades Realizadas', '', '', '', true, $uPd, '', 'col-12');
     $c[] = new cmp('obs', 't', 500, $d['obs_gestor'], $w, 'Observaciones Gestor', '', '', '', true, $uPd, '', 'col-12');
