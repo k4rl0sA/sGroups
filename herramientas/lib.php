@@ -233,7 +233,7 @@ function opc_herramientas($id='') {
     return opc_sql("SELECT id_herramienta, nombre FROM herramientas WHERE estado=1 ORDER BY nombre", $id);
 }
 
-function tot_herramienta_prestamo() {
+function tot_herramientas() {
     $totals = [
         ['titulo'=>'Total','icono'=>'fas fa-tools','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
         ['titulo'=>'Disponibles','icono'=>'fas fa-check','indicador'=>'fa fa-level-up arrow-icon','condicion' => ' AND stock_disponible > 0'],
