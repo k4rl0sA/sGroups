@@ -180,7 +180,7 @@ function opc_estado_ejecucion($id='') {
 }
 
 function opc_usuarios($id='') {
-    $sql = "SELECT id_usuario, CONCAT(nombre, ' ', apellido) AS nombre FROM usuarios WHERE estado = 'A' ORDER BY nombre";
+ /*    $sql = "SELECT id_usuario, CONCAT(nombre, ' ', apellido) AS nombre FROM usuarios WHERE estado = 'A' ORDER BY nombre";
     $info = datos_mysql($sql);
     if ($id === '') {
         return json_encode($info['responseResult']);
@@ -192,6 +192,8 @@ function opc_usuarios($id='') {
         }
         return json_encode([]);
     }
+ */
+     return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=1 and estado="A" ORDER BY 1', $id);
 }
 
 function formato_dato($a, $b, $c, $d) {
