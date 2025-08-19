@@ -273,7 +273,7 @@ function formato_dato($a, $b, $c, $d) {
     $rta = $c[$d];
     if (($a == 'comreq') && ($b == 'acciones')) {
         $rta = "<nav class='menu left'>";
-        $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('comreq','pro',event,'','lib.php',3,'Requerimientos');\"></li>";
+        // $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('comreq','pro',event,'','lib.php',3,'Requerimientos');\"></li>";
         $perfil = obtenerPerfil($_SESSION['documento']);
         if ($perfil == '1'|| $perfil == '7' ) {
             $rta .= "<li class='fa-solid fa-tasks icon' title='Gestionar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('reqlidser','pro',event,'','gestiona.php',3,'Gestión de Requerimientos');\"></li>";
@@ -287,9 +287,9 @@ function bgcolor($a, $c, $f='c') {
     $rta = "";
     if ($a == 'comreq') {
         switch($c['Estado']) {
-            case 'Pendiente': $rta = 'bg-light-yellow'; break;
+            case '1': $rta = 'bg-light-yellow'; break;
             case 'En Proceso': $rta = 'bg-light-blue'; break;
-            case 'Completado': $rta = 'bg-light-green'; break;
+            case '2': $rta = 'bg-light-green'; break;
         }
     }
     return $rta;
