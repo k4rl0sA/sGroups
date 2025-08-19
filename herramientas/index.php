@@ -10,7 +10,7 @@ $ya = new DateTime();
 
 // Obtener datos para filtros
 $requerimientos = opc_sql("SELECT id_reqcom, CONCAT('REQ-', id_reqcom) as descripcion FROM req_comercial WHERE estado = 1 ORDER BY id_reqcom", '');
-$tecnicos = opc_sql("SELECT id_usuario, nombre FROM usuarios WHERE perfil = 5 AND estado = 1 ORDER BY nombre", ''); // Asumiendo perfil 5 es técnico
+$tecnicos = opc_sql("SELECT id_usuario, nombre FROM usuarios WHERE estado = 1 ORDER BY nombre", ''); // Asumiendo perfil 5 es técnico
 $usuarios = opc_sql("SELECT id_usuario, nombre FROM usuarios WHERE estado = 1 ORDER BY nombre", '');
 $herramientas = opc_sql("SELECT id_herramienta, nombre FROM herramientas WHERE estado = 1 AND stock_disponible > 0 ORDER BY nombre", '');
 $estados_prestamo = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 11 AND estado='A' ORDER BY descripcion", ''); // Asumiendo catálogo 15 para estados préstamo
