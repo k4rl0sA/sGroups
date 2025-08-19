@@ -57,7 +57,8 @@ function cmp_reqlidser() {
     $rta = "";
     $t = ['id_reqser' => '','idreqcom' => '','tecnicos' => '','fecha_ejecu' => '','activi_realiza' => '','obs_gestor' => '','no_tecnicos' => 1,'no_dias' => 1,'inversion' => '','estado_ejecu' => 'PEN']; 
     $w = 'reqlidser';
-    $uPd = $_REQUEST['id'] == '0' ? true : false;
+    // $uPd = $_REQUEST['id'] == '0' ? true : false;
+    $uPd= true; // Always allow update for simplicity
     $d = get_reqlidser();
     $r = get_comreq();
     if ($d == "") $d = $t; 
