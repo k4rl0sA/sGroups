@@ -179,6 +179,21 @@ function opc_estado_ejecucion($id='') {
     }
 }
 
+function opc_usuarios($id='') {
+    $sql = "SELECT id_usuario, CONCAT(nombre, ' ', apellido) AS nombre FROM usuarios WHERE estado = 'A' ORDER BY nombre";
+    $info = datos_mysql($sql);
+    if ($id === '') {
+        return json_encode($info['responseResult']);
+    } else {
+        foreach ($info['responseResult'] as $usuario) {
+            if ($usuario['id_usuario'] == $id) {
+                return json_encode([$usuario]);
+            }
+        }
+        return json_encode([]);
+    }
+}
+
 function formato_dato($a, $b, $c, $d) {
     $b = strtolower($b);
     $rta = $c[$d];
