@@ -13,7 +13,7 @@ $requerimientos = opc_sql("SELECT id_reqcom, CONCAT('REQ-', id_reqcom) as descri
 $tecnicos = opc_sql("SELECT id_usuario, nombre FROM usuarios WHERE perfil = 5 AND estado = 1 ORDER BY nombre", ''); // Asumiendo perfil 5 es técnico
 $usuarios = opc_sql("SELECT id_usuario, nombre FROM usuarios WHERE estado = 1 ORDER BY nombre", '');
 $herramientas = opc_sql("SELECT id_herramienta, nombre FROM herramientas WHERE estado = 1 AND stock_disponible > 0 ORDER BY nombre", '');
-$estados_prestamo = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 15 AND estado='A' ORDER BY descripcion", ''); // Asumiendo catálogo 15 para estados préstamo
+$estados_prestamo = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 11 AND estado='A' ORDER BY descripcion", ''); // Asumiendo catálogo 15 para estados préstamo
 
 $acc = acceBtns('herramientas');
 $btns = '<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
