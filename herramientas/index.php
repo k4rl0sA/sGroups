@@ -23,9 +23,9 @@ if (isset($acc['crear']) && $acc['crear'] == 'SI') {
 if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     $btns .= '<button id="openModal" class="upload-btn" data-mod='.$mod.' title="Importar"><i class="fas fa-upload"></i></button>';
 }
-
+$acc = acceBtns('herramient');
 // Botones adicionales para gestión de herramientas
-if (isset($acc['admin']) && $acc['admin'] == 'SI') {
+if (isset($acc['crear']) && $acc['crear'] == 'SI') {
     $btns .= "<button class='tools-btn' onclick=\"mostrar('herramientas');\" title='Gestionar Herramientas'><i class='fas fa-tools'></i></button>";
 }
 ?>
@@ -195,19 +195,6 @@ if (isset($acc['admin']) && $acc['admin'] == 'SI') {
                             <input type="date" id="ffecha" name="ffecha" OnChange="actualizar();">
                         </div>
                     </div>
-                    
-                    <!-- Panel de herramientas disponibles -->
-                    <div class="tools-section">
-                        <h3>Herramientas Disponibles</h3>
-                        <div class="tools-grid" id="herramientas-disponibles">
-                            <?php
-                            $herramientas_lista = opc_sql("SELECT id_herramienta, nombre, descripcion, stock_disponible, stock_total 
-                                                          FROM herramientas WHERE estado = 1 ORDER BY nombre", '');
-                            // Esta función debería retornar el HTML de las herramientas
-                            ?>
-                        </div>
-                    </div>
-                    
                     <div class='load' id='loader' z-index='0'></div>
                 </div>
                 <div class="content content-2">
