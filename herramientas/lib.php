@@ -232,3 +232,22 @@ function opc_usuarios($id='') {
 function opc_herramientas($id='') {
     return opc_sql("SELECT id_herramienta, nombre FROM herramientas WHERE estado=1 ORDER BY nombre", $id);
 }
+
+function tot_herramienta_prestamo() {
+    $totals = [
+        ['titulo'=>'Total','icono'=>'fas fa-tools','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
+        ['titulo'=>'Disponibles','icono'=>'fas fa-check','indicador'=>'fa fa-level-up arrow-icon','condicion' => ' AND stock_disponible > 0'],
+        ['titulo'=>'Prestadas','icono'=>'fas fa-hand-holding','indicador'=>'fa fa-level-down arrow-icon','condicion' => ' AND stock_disponible = 0']
+    ];
+    $rta = '';
+    foreach ($totals as $total) {
+        $sql = "SELECT count(*) AS Total FROM herramientas WHERE estado=1" . $total['condicion'];
+        $resultado_consulta = datos_mysql($sql);
+        if ($resultado_consulta === null || !isset($resultado_consulta['responseResult'][0]['Total'])) {
+            $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
+        } else {
+            $rta .= generar_metrica($total['titulo'], $total['icono'], $total['indicador'], $resultado_consulta['responseResult'][0]['Total']);
+        }
+    }
+    return $rta;
+}
