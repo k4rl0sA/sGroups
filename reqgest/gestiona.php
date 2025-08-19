@@ -122,7 +122,7 @@ function gra_reqlidser() {
     
     if (empty($id[1])) {
         // Insert
-        $sql = "INSERT INTO req_lidser VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+        $sql = "INSERT INTO req_lidser VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $params = [['type' => 'i', 'value' => $id[0]],
             ['type' => 's', 'value' => $_POST['tec']],
             ['type' => 's', 'value' => $_POST['fec']],
