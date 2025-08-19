@@ -48,7 +48,7 @@ function whe_comreq() {
 
     // Filtro combinado OR
     $filtros[] = [
-        'campo' => "(RA.asignado IN ($in) OR R.usu_create IN ($in))",
+        'campo' => "(RA.asignado IN ($in))",
         'valor' => null,
         'operador' => 'RAW'
     ];
