@@ -161,22 +161,7 @@ function gra_reqlidser() {
     exit;
 }
 function opc_estado_ejecucion($id='') {
-    $opciones = [
-        ['value' => 'PEN', 'descripcion' => 'Pendiente'],
-        ['value' => 'PRO', 'descripcion' => 'En Proceso'],
-        ['value' => 'COM', 'descripcion' => 'Completado']
-    ];
-    
-    if ($id === '') {
-        return json_encode($opciones);
-    } else {
-        foreach ($opciones as $opcion) {
-            if ($opcion['value'] == $id) {
-                return json_encode([$opcion]);
-            }
-        }
-        return json_encode([]);
-    }
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=10 and estado="A" ORDER BY 1', $id);
 }
 
 function opc_usuarios($id='') {
