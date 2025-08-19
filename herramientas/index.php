@@ -212,6 +212,8 @@ if (isset($acc['crear']) && $acc['crear'] == 'SI') {
         </div>
         <div id='<?php echo $mod; ?>-frmcap'>
         </div>
+        <div id='<?php echo $mod1; ?>-frmcap'>
+        </div>
         </form>
     </div>
     
@@ -230,32 +232,6 @@ if (isset($acc['crear']) && $acc['crear'] == 'SI') {
         </div>
     </div>
     
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close" id="closeModal">&times;</span>
-            <h2>Cargar Registros</h2>
-            <p>Por favor, seleccione un archivo CSV para cargar a la base de datos.</p>
-            <div class="file-upload">
-                <input type="file" id="fileInput" accept=".csv" />
-                <i class="fa-solid fa-cloud-arrow-up cloud-icon"></i>
-                <p id="file-name">Selecciona un archivo aquí</p>
-                <button type="button" class="browse-btn" onclick="document.getElementById('fileInput').click();">
-                    Examinar
-                </button>
-            </div>
-            <div class="progress-container">
-                <div id="progressBar" class="progress-bar"></div>
-            </div>
-            <p id="progressText">0% completado</p>
-            <p id="statusMessage"></p>
-            <div class="button-container">
-                <button id="startLoading">Iniciar Carga</button>
-                <button id="cancelLoading" style="display: none;">Cancelar</button>
-                <button id="closeModal" style="display: none;">Cerrar</button>
-            </div>
-        </div>
-    </div>
-    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const csrfInput = document.querySelector('input[name="csrf_tkn"]');
@@ -265,37 +241,9 @@ if (isset($acc['crear']) && $acc['crear'] == 'SI') {
             new Choices('#freq', {searchEnabled: true, shouldSort: false});
             new Choices('#ftecnico', {searchEnabled: true, shouldSort: false});
             new Choices('#festado', {searchEnabled: false, shouldSort: false});
-            
-            const fileInput = document.getElementById('fileInput'),
-                startLoadingBtn = document.getElementById('startLoading');
-                
-            startLoadingBtn.onclick = async () => {
-                const file = fileInput.files[0];
-                if (file) {
-                    try {
-                        error.log(userData);
-                    } catch (error) {
-                        error.error('Error al obtener los datos: ', error);
-                        statusMessage.textContent = 'Error al procesar la solicitud.';
-                    }
-                } else {
-                    statusMessage.textContent = 'Por favor seleccione un archivo CSV.';
-                }
-            };
-            
             // Cargar herramientas disponibles
-            cargarHerramientasDisponibles();
         });
         
-        function cargarHerramientasDisponibles() {
-            myFetch(ruta_app, 'a=lis_herramientas&tb=herramientas')
-                .then(response => {
-                    document.getElementById('herramientas-disponibles').innerHTML = response;
-                })
-                .catch(error => {
-                    console.error('Error al cargar herramientas:', error);
-                });
-        }
         
         function grabar(tb = '', ev) {
             if (tb === '' && ev.target.classList.contains(proc)) tb = proc;
@@ -308,13 +256,6 @@ if (isset($acc['crear']) && $acc['crear'] == 'SI') {
                 }
             }
             
-            // Validar que se hayan agregado herramientas
-            const herramientasCount = document.querySelectorAll('#herramientas-lista .herramienta-item').length;
-            if (herramientasCount === 0) {
-                enqueueMessage('error', 'Debe agregar al menos una herramienta al préstamo', 5000);
-                return;
-            }
-            
             const res = confirm("¿Desea guardar el préstamo de herramientas?");
             if (res) {
                 myFetch(ruta_app, `a=gra&tb=${tb}`)
@@ -322,8 +263,6 @@ if (isset($acc['crear']) && $acc['crear'] == 'SI') {
                         handleResponse(rta);
                         if (rta && typeof rta === 'object' && rta.status !== 'error') {
                             act_lista(tb);
-                            // Recargar herramientas disponibles
-                            cargarHerramientasDisponibles();
                         }
                     })
                     .catch(error => {
