@@ -198,7 +198,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
             if(tb==='reqasig'){
                 res = confirm("¿Desea guardar la asignación del requerimiento comercial?");
             }else{
-                res = confirm("¿Desea guardar el requerimiento comercial?");
+                res = confirm("¿Desea guardar la gestión del requerimiento ?");
             }
             if (res) {
                 myFetch(ruta_app, `a=gra&tb=${tb}`)
