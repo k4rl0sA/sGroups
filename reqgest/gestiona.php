@@ -118,7 +118,7 @@ function get_comreq() {
 function gra_reqlidser() {
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
-    $fecha = time();
+    $fecha = date();
     
     if (empty($id[1])) {
         // Insert
