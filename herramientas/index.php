@@ -26,7 +26,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
 $acc = acceBtns('herramient');
 // Botones adicionales para gestión de herramientas
 if (isset($acc['crear']) && $acc['crear'] == 'SI') {
-    $btns .= "<button class='tools-btn' onclick=\"mostrar('herramientas');\" title='Gestionar Herramientas'><i class='fas fa-tools'></i></button>";
+    $btns .= "<button class='tools-btn' onclick=\"mostrar('herramient');\" title='Gestionar Herramientas'><i class='fas fa-tools'></i></button>";
 }
 ?>
 <!DOCTYPE html>
