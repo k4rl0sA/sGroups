@@ -193,7 +193,7 @@ function opc_usuarios($id='') {
         return json_encode([]);
     }
  */
-     return opc_sql("SELECT id_usuario, CONCAT(nombre, ' ', apellido) AS nombre FROM usuarios WHERE estado = 'A' ORDER BY nombre", $id);
+     return opc_sql("SELECT id_usuario, nombres AS nombre FROM usuarios WHERE estado = 'A' ORDER BY nombre", $id);
 }
 
 function formato_dato($a, $b, $c, $d) {
