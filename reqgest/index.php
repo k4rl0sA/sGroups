@@ -192,7 +192,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                     return;
                 }
             }
-            const rutaMap = {'reqasig':'asigna.php'};
+            const rutaMap = {'reqasig':'asigna.php','reqlidser':'gestiona.php'};
             let ruta_app = rutaMap[tb] || 'lib.php';
             let res;
             if(tb==='reqasig'){
