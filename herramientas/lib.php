@@ -40,7 +40,7 @@ try {
     echo json_encode(['error' => 'Error interno del servidor']);
 }
 
-function whe_herramienta_prestamo() {
+function whe_prestamo() {
     $filtros = [];
     if (!empty($_POST['ftecnico'])) {
         $filtros[] = ['campo' => 'tecnico', 'valor' => $_POST['ftecnico'], 'operador' => '='];
@@ -54,11 +54,11 @@ function whe_herramienta_prestamo() {
     return fil_where($filtros);
 }
 
-function lis_herramienta_prestamo() {
+function lis_prestamo() {
     $regxPag = 15;
-    $pag = si_noexiste('pag-herramienta_prestamo', 1);
+    $pag = si_noexiste('pag-prestamo', 1);
     $offset = ($pag - 1) * $regxPag;
-    $filter = whe_herramienta_prestamo();
+    $filter = whe_prestamo();
     $where = $filter['where'];
     $params = $filter['params'];
     $types = $filter['types'];
@@ -72,10 +72,10 @@ function lis_herramienta_prestamo() {
     $types .= "ii";
     $datos = datos_mysql($sql, $params, $types);
     if ($datos['responseResult'] === []) return no_reg();
-    return create_table($total, $datos['responseResult'], "herramienta_prestamo", $regxPag, "lib.php");
+    return create_table($total, $datos['responseResult'], "prestamo", $regxPag, "lib.php");
 }
 
-function gra_herramienta_prestamo() {
+function gra_prestamo() {
     $usu = $_SESSION['documento'];
     $fecha = date('Y-m-d H:i:s');
     $sql = "INSERT INTO herramienta_prestamo (fecha_prestamo, idusu_presto, idreqcom, tecnico, observaciones, estado_prestamo, usu_create, fecha_create, estado) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)";
@@ -113,7 +113,7 @@ function lis_prestamo_detalle() {
 
 // --- Funcionalidades extra ---
 
-function cmp_herramienta_prestamo() {
+function cmp_prestamo() {
     $t = [
         'id_prestamo' => '',
         'fecha_prestamo' => '',
@@ -121,9 +121,9 @@ function cmp_herramienta_prestamo() {
         'observaciones' => '',
         'estado_prestamo' => 'PEN'
     ];
-    $w = 'herramienta_prestamo';
+    $w = 'prestamo';
     $uPd = true;
-    $d = get_herramienta_prestamo();
+    $d = get_prestamo();
     if ($d == "") $d = $t;
     $c = [];
     $c[] = new cmp('id', 'h', 100, $d['id_prestamo'], $w, '', 0, '', '', '', false, '', 'col-1');
@@ -137,7 +137,7 @@ function cmp_herramienta_prestamo() {
     return $rta;
 }
 
-function get_herramienta_prestamo() {
+function get_prestamo() {
     $id = $_POST['id'] ?? '';
     if ($id === '0' || empty($id)) return "";
     $sql = "SELECT * FROM herramienta_prestamo WHERE id_prestamo = ?";
@@ -168,7 +168,7 @@ function gra_prestamo_detalle() {
     exit;
 }
 
-function upd_herramienta_prestamo() {
+function upd_prestamo() {
     $usu = $_SESSION['documento'];
     $fecha = date('Y-m-d H:i:s');
     $sql = "UPDATE herramienta_prestamo SET fecha_prestamo=?, tecnico=?, observaciones=?, estado_prestamo=?, usu_update=?, fecha_update=? WHERE id_prestamo=?";
@@ -187,7 +187,7 @@ function upd_herramienta_prestamo() {
     exit;
 }
 
-function del_herramienta_prestamo() {
+function del_prestamo() {
     $id = $_POST['id'] ?? 0;
     $sql = "UPDATE herramienta_prestamo SET estado=0 WHERE id_prestamo=?";
     $params = [['type' => 'i', 'value' => $id]];
@@ -254,7 +254,7 @@ function tot_herramient() {
 function formato_dato($a, $b, $c, $d) {
     $b = strtolower($b);
     $rta = $c[$d];
-    if (($a == 'herramienta_prestamo') && ($b == 'acciones')) {
+    if (($a == 'prestamo') && ($b == 'acciones')) {
         $rta = "<nav class='menu left'>";
         // $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('comreq','pro',event,'','lib.php',3,'Requerimientos');\"></li>";
         $perfil = obtenerPerfil($_SESSION['documento']);
@@ -268,7 +268,7 @@ function formato_dato($a, $b, $c, $d) {
 
 function bgcolor($a, $c, $f='c') {
     $rta = "";
-    if ($a == 'herramienta_prestamo') {
+    if ($a == 'prestamo') {
         
     }
     return $rta;
