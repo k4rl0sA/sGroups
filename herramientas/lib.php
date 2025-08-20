@@ -251,3 +251,25 @@ function tot_herramient() {
     }
     return $rta;
 }
+function formato_dato($a, $b, $c, $d) {
+    $b = strtolower($b);
+    $rta = $c[$d];
+    if (($a == 'herramienta_prestamo') && ($b == 'acciones')) {
+        $rta = "<nav class='menu left'>";
+        // $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('comreq','pro',event,'','lib.php',3,'Requerimientos');\"></li>";
+        $perfil = obtenerPerfil($_SESSION['documento']);
+        if ($perfil == '1'|| $perfil == '7' ) {
+            $rta .= "<li class='fa-solid fa-tasks icon' title='Gestionar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('reqlidser','pro',event,'','gestiona.php',3,'Gestión de Requerimientos');\"></li>";
+        }
+        $rta .= "</nav>";
+    }    
+    return $rta;
+}
+
+function bgcolor($a, $c, $f='c') {
+    $rta = "";
+    if ($a == 'herramienta_prestamo') {
+        
+    }
+    return $rta;
+}

@@ -5,7 +5,8 @@ if (!isset($_SESSION['nombre'])) {
     exit();
 }
 require_once __DIR__.'/../src/gestion.php';
-$mod='herramientas'; // Módulo para herramientas y préstamos
+$mod='herramienta_prestamo'; // Módulo para herramientas y préstamos
+$mod1='herramientas'; // Módulo para gestión de herramientas
 $ya = new DateTime();
 
 // Obtener datos para filtros
