@@ -95,11 +95,11 @@ function gra_herramienta_prestamo() {
     exit;
 }
 
-function lis_herramientas() {
+function lis_herramient() {
     $sql = "SELECT id_herramienta, nombre, descripcion, stock_total, stock_disponible FROM herramientas WHERE estado=1";
     $datos = datos_mysql($sql);
     if ($datos['responseResult'] === []) return no_reg();
-    return create_table(0, $datos['responseResult'], "herramientas", 15, "lib.php");
+    return create_table(0, $datos['responseResult'], "herramient", 15, "lib.php");
 }
 
 function lis_prestamo_detalle() {
@@ -233,7 +233,7 @@ function opc_herramientas($id='') {
     return opc_sql("SELECT id_herramienta, nombre FROM herramientas WHERE estado=1 ORDER BY nombre", $id);
 }
 
-function tot_herramientas() {
+function tot_herramient() {
     $totals = [
         ['titulo'=>'Total','icono'=>'fas fa-tools','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
         ['titulo'=>'Disponibles','icono'=>'fas fa-check','indicador'=>'fa fa-level-up arrow-icon','condicion' => ' AND stock_disponible > 0'],
