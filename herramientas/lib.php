@@ -131,7 +131,23 @@ function lis_prestamo_detalle() {
     return create_table(0, $datos['responseResult'], "prestamo_detalle", 15, "lib.php");
 }
 
-// --- Funcionalidades extra ---
+function focus_comreq() {
+    return 'comreq';
+}
+
+function men_comreq() {
+    $rta = cap_menus('comreq','pro');
+    return $rta;
+}
+
+function cap_menus($a, $b='cap', $con='con') {
+    $rta = "";
+    $acc = rol($a);
+    if ($a == 'comreq' && isset($acc['crear']) && $acc['crear'] == 'SI') {  
+        $rta .= "<button class='frm-btn $a grabar' onclick=\"grabar('$a', this);\"><span class='frm-txt'>Grabar</span><i class='fa-solid fa-floppy-disk icon'></i></button>";
+    }
+    return $rta;
+}
 
 function cmp_prestamo() {
     $t = [
