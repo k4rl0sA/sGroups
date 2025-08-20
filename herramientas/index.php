@@ -24,6 +24,11 @@ if (isset($acc['crear']) && $acc['crear'] == 'SI') {
 if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     $btns .= '<button id="openModal" class="upload-btn" data-mod='.$mod.' title="Importar"><i class="fas fa-upload"></i></button>';
 }
+$acc = acceBtns('herramient');
+// Botones adicionales para gestión de herramientas
+if (isset($acc['crear']) && $acc['crear'] == 'SI') {
+    $btns .= "<button class='tools-btn' onclick=\"mostrar('herramient');\" title='Gestionar Herramientas'><i class='fas fa-tools'></i></button>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
