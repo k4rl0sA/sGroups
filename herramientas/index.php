@@ -52,105 +52,7 @@ if (isset($acc['crear']) && $acc['crear'] == 'SI') {
             act_lista(mod);
             badgeFilter(mod);
         }
-        
-        function mostrarHerramientas() {
-            // Función para mostrar el modal de gestión de herramientas
-            myFetch(ruta_app, 'a=cmp&tb=herramientas&id=0')
-                .then(response => {
-                    document.getElementById('herramientas-frmcap').innerHTML = response;
-                    document.getElementById('overlay').style.visibility = 'visible';
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    enqueueMessage('error', 'Error al cargar herramientas', 5000);
-                });
-        }
-        
-        function agregarHerramienta() {
-            // Función para agregar nueva herramienta al préstamo
-            const herramientaSelect = document.getElementById('herramienta');
-            const cantidadInput = document.getElementById('cantidad');
-            const fechaDevolucionInput = document.getElementById('fecha_devolucion');
-            
-            if (herramientaSelect.value && cantidadInput.value && fechaDevolucionInput.value) {
-                const herramientaId = herramientaSelect.value;
-                const herramientaNombre = herramientaSelect.options[herramientaSelect.selectedIndex].text;
-                const cantidad = cantidadInput.value;
-                const fechaDevolucion = fechaDevolucionInput.value;
-                
-                // Agregar a la lista temporal
-                const lista = document.getElementById('herramientas-lista');
-                const item = document.createElement('div');
-                item.className = 'herramienta-item';
-                item.innerHTML = `
-                    <input type="hidden" name="herramientas[]" value="${herramientaId}">
-                    <input type="hidden" name="cantidades[]" value="${cantidad}">
-                    <input type="hidden" name="fechas_devolucion[]" value="${fechaDevolucion}">
-                    <span>${herramientaNombre} (x${cantidad}) - Devolución: ${fechaDevolucion}</span>
-                    <button type="button" onclick="this.parentElement.remove()" class="btn-eliminar">
-                        <i class="fas fa-times"></i>
-                    </button>
-                `;
-                lista.appendChild(item);
-                
-                // Limpiar campos
-                herramientaSelect.value = '';
-                cantidadInput.value = '1';
-                fechaDevolucionInput.value = '';
-            }
-        }
     </script>
-    <style>
-        .herramienta-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 12px;
-            margin: 5px 0;
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 4px;
-        }
-        
-        .btn-eliminar {
-            background: none;
-            border: none;
-            color: #dc3545;
-            cursor: pointer;
-        }
-        
-        .btn-eliminar:hover {
-            color: #c82333;
-        }
-        
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-        
-        .tool-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            background-color: #fff;
-        }
-        
-        .stock-info {
-            font-size: 0.9em;
-            color: #666;
-        }
-        
-        .stock-disponible {
-            color: #28a745;
-            font-weight: bold;
-        }
-        
-        .stock-total {
-            color: #6c757d;
-        }
-    </style>
     <?php include __DIR__.'/../src/nav.php'; ?>
 </head>
 <body Onload="actualizar();">
@@ -258,7 +160,7 @@ if (isset($acc['crear']) && $acc['crear'] == 'SI') {
             </div>
         </div>
     </div>
-    
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const csrfInput = document.querySelector('input[name="csrf_tkn"]');
