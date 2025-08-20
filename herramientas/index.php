@@ -233,6 +233,32 @@ if (isset($acc['crear']) && $acc['crear'] == 'SI') {
         </div>
     </div>
     
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="closeModal">&times;</span>
+            <h2>Cargar Registros</h2>
+            <p>Por favor, seleccione un archivo CSV para cargar a la base de datos.</p>
+            <div class="file-upload">
+                <input type="file" id="fileInput" accept=".csv" />
+                <i class="fa-solid fa-cloud-arrow-up cloud-icon"></i>
+                <p id="file-name">Selecciona un archivo aquí</p>
+                <button type="button" class="browse-btn" onclick="document.getElementById('fileInput').click();">
+                    Examinar
+                </button>
+            </div>
+            <div class="progress-container">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+            <p id="progressText">0% completado</p>
+            <p id="statusMessage"></p>
+            <div class="button-container">
+                <button id="startLoading">Iniciar Carga</button>
+                <button id="cancelLoading" style="display: none;">Cancelar</button>
+                <button id="closeModal" style="display: none;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const csrfInput = document.querySelector('input[name="csrf_tkn"]');
