@@ -5,8 +5,8 @@ if (!isset($_SESSION['nombre'])) {
     exit();
 }
 require_once __DIR__.'/../src/gestion.php';
-$mod='herramienta_prestamo'; // Módulo para herramientas y préstamos
-$mod1='herramientas'; // Módulo para gestión de herramientas
+$mod='prestamo'; // Módulo para herramientas y préstamos
+$mod1='herramient'; // Módulo para gestión de herramientas
 $ya = new DateTime();
 
 // Obtener datos para filtros
@@ -16,7 +16,7 @@ $usuarios = opc_sql("SELECT id_usuario, nombre FROM usuarios WHERE estado = 1 OR
 $herramientas = opc_sql("SELECT id_herramienta, nombre FROM herramientas WHERE estado = 1 AND stock_disponible > 0 ORDER BY nombre", '');
 $estados_prestamo = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 11 AND estado='A' ORDER BY descripcion", ''); // Asumiendo catálogo 15 para estados préstamo
 
-$acc = acceBtns('herramientas');
+$acc = acceBtns('prestamo');
 $btns = '<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
 if (isset($acc['crear']) && $acc['crear'] == 'SI') {
     $btns .= '<button class="add-btn" data-mod='.$mod.' title="Nuevo Préstamo"><i class="fas fa-plus"></i></button>';
@@ -45,7 +45,7 @@ if (isset($acc['crear']) && $acc['crear'] == 'SI') {
     <script src="../libs/js/choices.min.js"></script>
     <script src="../../libs/js/menu.js?v=1.0"></script>
     <script>
-        let mod = 'herramientas';
+        let mod = 'prestamo';
         let ruta_app = 'lib.php';
         
         function actualizar() {
