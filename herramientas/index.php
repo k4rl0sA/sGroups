@@ -98,7 +98,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                     <div class='load' id='loader' z-index='0'></div>
                 </div>
                 <div class="content content-2">
-                    <div class="title txt-center"><h2>Creación de Requerimientos Comerciales</h2></div>
+                    <div class="title txt-center"><h2>Historial de Préstamos</h2></div>
                     <div id='<?php echo $mod; ?>-btns' class="header">
                         <?php echo $btns ?>
                         <div class="totals" id='<?php echo $mod; ?>-tot'></div>
@@ -187,13 +187,13 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                     return;
                 }
             }
-            const rutaMap = {'reqasig':'asigna.php'};
+            const rutaMap = {'herramient':'herramient.php'};
             let ruta_app = rutaMap[tb] || 'lib.php';
             let res;
-            if(tb==='reqasig'){
-                res = confirm("¿Desea guardar la asignación del requerimiento comercial?");
+            if(tb==='prestamo'){
+                res = confirm("¿Desea guardar el préstamo de herramientas?");
             }else{
-                res = confirm("¿Desea guardar el requerimiento comercial?");
+                res = confirm("¿Desea guardar los cambios?");
             }
             if (res) {
                 myFetch(ruta_app, `a=gra&tb=${tb}`)
@@ -205,7 +205,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                     })
                     .catch(error => {
                         console.error("Error en la petición:", error);
-                        enqueueMessage('error', "Error al guardar el requerimiento.", 7000);
+                        enqueueMessage('error', "Error al procesar la solicitud. Por favor, inténtelo de nuevo.", 7000);
                     });
             }
         }
