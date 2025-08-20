@@ -242,7 +242,22 @@ if (isset($acc['crear']) && $acc['crear'] == 'SI') {
             new Choices('#freq', {searchEnabled: true, shouldSort: false});
             new Choices('#ftecnico', {searchEnabled: true, shouldSort: false});
             new Choices('#festado', {searchEnabled: false, shouldSort: false});
-            // Cargar herramientas disponibles
+            // Cargar herramientas disponiblesconst fileInput = document.getElementById('fileInput'),
+                startLoadingBtn = document.getElementById('startLoading');
+            startLoadingBtn.onclick = async () => {
+                const file = fileInput.files[0];
+                if (file) {
+                    try {
+                        // Lógica para importar proveedores
+                        error.log(userData);
+                    } catch (error) {
+                        error.error('Error al obtener los datos: ', error);
+                        statusMessage.textContent = 'Error al procesar la solicitud.';
+                    }
+                } else {
+                    statusMessage.textContent = 'Por favor seleccione un archivo CSV.';
+                }
+            };
         });
         
         
