@@ -131,19 +131,19 @@ function lis_prestamo_detalle() {
     return create_table(0, $datos['responseResult'], "prestamo_detalle", 15, "lib.php");
 }
 
-function focus_comreq() {
-    return 'comreq';
+function focus_prestamo() {
+    return 'prestamo';
 }
 
-function men_comreq() {
-    $rta = cap_menus('comreq','pro');
+function men_prestamo() {
+    $rta = cap_menus('prestamo','pro');
     return $rta;
 }
 
 function cap_menus($a, $b='cap', $con='con') {
     $rta = "";
     $acc = rol($a);
-    if ($a == 'comreq' && isset($acc['crear']) && $acc['crear'] == 'SI') {  
+    if ($a == 'prestamo' && isset($acc['crear']) && $acc['crear'] == 'SI') {  
         $rta .= "<button class='frm-btn $a grabar' onclick=\"grabar('$a', this);\"><span class='frm-txt'>Grabar</span><i class='fa-solid fa-floppy-disk icon'></i></button>";
     }
     return $rta;
@@ -293,7 +293,7 @@ function formato_dato($a, $b, $c, $d) {
     $rta = $c[$d];
     if (($a == 'prestamo') && ($b == 'acciones')) {
         $rta = "<nav class='menu left'>";
-        // $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('comreq','pro',event,'','lib.php',3,'Requerimientos');\"></li>";
+        // $rta .= "<li class='fa-solid fa-pen-to-square icon' title='Editar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('prestamo','pro',event,'','lib.php',3,'Requerimientos');\"></li>";
         $perfil = obtenerPerfil($_SESSION['documento']);
         if ($perfil == '1'|| $perfil == '7' ) {
             $rta .= "<li class='fa-solid fa-tasks icon' title='Gestionar Requerimiento' id='".$c['ACCIONES']."' Onclick=\"mostrar('reqlidser','pro',event,'','gestiona.php',3,'Gestión de Requerimientos');\"></li>";
