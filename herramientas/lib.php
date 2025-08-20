@@ -54,6 +54,26 @@ function whe_prestamo() {
     return fil_where($filtros);
 }
 
+function tot_prestamo() {
+    $totals = [
+        ['titulo'=>'Total','icono'=>'fas fa-tasks','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
+        ['titulo'=>'Pendientes','icono'=>'fas fa-clock','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado_prestamo='PEN'"],
+        ['titulo'=>'En Proceso','icono'=>'fas fa-spinner','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado_prestamo='PRO'"],
+        ['titulo'=>'Completados','icono'=>'fas fa-check-circle','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado_prestamo='COM'"]
+    ];
+    $rta = '';
+    foreach ($totals as $total) {
+        $sql = "SELECT count(*) AS Total FROM herramienta_prestamo WHERE estado=1" . $total['condicion'];
+        $resultado_consulta = datos_mysql($sql);
+        if ($resultado_consulta === null || !isset($resultado_consulta['responseResult'][0]['Total'])) {
+            $rta .= generar_metrica('Error', 'fas fa-exclamation-circle', 'fa fa-level-up arrow-icon', 'N/A');
+        } else {
+            $rta .= generar_metrica($total['titulo'], $total['icono'], $total['indicador'], $resultado_consulta['responseResult'][0]['Total']);
+        }
+    }
+    return $rta;
+}
+
 function lis_prestamo() {
     $regxPag = 15;
     $pag = si_noexiste('pag-prestamo', 1);
@@ -232,6 +252,7 @@ function opc_usuarios($id='') {
 function opc_herramientas($id='') {
     return opc_sql("SELECT id_herramienta, nombre FROM herramientas WHERE estado=1 ORDER BY nombre", $id);
 }
+
 
 function tot_herramient() {
     $totals = [
