@@ -110,6 +110,7 @@ function lis_comreq() {
     $total = obtener_total_registros($sqltot, $params, $types);
     
     $sql = "SELECT R.id_reqcom AS ACCIONES, 
+            R.id_reqcom  Codigo_REQ,
             CTLG(8,R.actividad) AS Actividad,
             CTLG(12,R.cotizacion) AS Cotización,
             CTLG(13,R.requerimiento) AS Requerimiento,
