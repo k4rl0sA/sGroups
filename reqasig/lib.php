@@ -49,7 +49,7 @@ function whe_comreq() {
     // Filtro combinado OR
     $filtros[] = [];
     if (!empty($_POST['fcrea'])) {
-        $filtros[] = ['campo' => 'RA.asignado','valor' => limpiar_y_escapar_array(explode(",", $_POST['fcrea'])), 'operador' => 'IN'];
+        $filtros[] = ['campo' => 'R.usu_create','valor' => limpiar_y_escapar_array(explode(",", $_POST['fcrea'])), 'operador' => 'IN'];
     }
     if (!empty($_POST['fasig'])) {
         $filtros[] = ['campo' => 'RA.asignado', 'valor' => $_POST['fasig'], 'operador' => 'IN'];
@@ -118,12 +118,16 @@ function lis_comreq() {
             C.nombre AS Contacto,
             O.oficina AS Oficina,
             SUBSTRING(R.descripcion, 1, 50) AS Descripción,
+            UC.nombre AS creo,
+            U.nombre AS 'Asignado A',
             CTLG(10,R.estado_req) AS Estado
             FROM req_comercial R
             LEFT JOIN clientes CL ON R.cod_empresa = CL.id_cliente 
             LEFT JOIN contactos C ON R.cod_contacto =C.id_contacto 
             LEFT JOIN oficinas O ON R.cod_oficina = O.id_oficina 
             LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom 
+             LEFT JOIN usuarios U ON RA.asignado = U.id_usuario
+            LEFT JOIN usuarios UC ON R.usu_create = UC.id_usuario 
              ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
