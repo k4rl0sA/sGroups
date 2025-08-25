@@ -117,8 +117,8 @@ function lis_comreq() {
                 WHERE " . $where;
     $total = obtener_total_registros($sqltot, $params, $types);
     
-    $sql = "SELECT R.id_reqcom AS ACCIONES, 
-            R.id_reqcom AS id,
+    $sql = "SELECT R.id_reqcom AS ACCIONES,
+            R.id_reqcom  Codigo_REQ, 
             CTLG(8,R.actividad) AS Actividad,
             CTLG(12,R.cotizacion) AS Cotización,
             CTLG(13,R.requerimiento) AS Requerimiento,
@@ -126,14 +126,16 @@ function lis_comreq() {
             C.nombre AS Contacto,
             O.oficina AS Oficina,
             SUBSTRING(R.descripcion, 1, 50) AS Descripción,
+            UC.nombre AS creo,
             U.nombre AS 'Asignado A',
             CTLG(10,R.estado_req) AS Estado
             FROM req_comercial R
             LEFT JOIN clientes CL ON R.cod_empresa = CL.id_cliente 
             LEFT JOIN contactos C ON R.cod_contacto =C.id_contacto 
             LEFT JOIN oficinas O ON R.cod_oficina = O.id_oficina 
-            LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom 
-            LEFT JOIN usuarios U ON RA.asignado = U.id_usuario 
+            LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom
+            LEFT JOIN usuarios U ON RA.asignado = U.id_usuario
+            LEFT JOIN usuarios UC ON R.usu_create = UC.id_usuario 
              ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
