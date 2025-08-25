@@ -62,6 +62,9 @@ function whe_comreq() {
     if (!empty($_POST['fcontacto'])) {
         $filtros[] = ['campo' => 'R.cod_contacto', 'valor' => $_POST['fcontacto'], 'operador' => '='];
     }
+    if(!empty($_POST['fasig'])){
+        $filtros[]=['campo'=>'RA.asignado','valor'=>$_POST['fasig'],'operador'=>'IN'];
+    }
     if (!empty($_POST['festado'])) {
         $filtros[] = ['campo' => 'R.estado_req', 'valor' => $_POST['festado'], 'operador' => '='];
     }
