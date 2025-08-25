@@ -16,6 +16,7 @@ $oficinas = opc_sql("SELECT id_oficina, oficina FROM oficinas WHERE estado =1 OR
 $estados = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo=10 AND estado='A' ORDER BY descripcion",'');
 // $usuarios = opc_sql("SELECT DISTINCT usu_create, usu_create AS nombre FROM req_comercial ORDER BY usu_create", [$_SESSION['documento']]);
 $catalogos=opc_sql("SELECT id_usuario,nombre FROM usuarios ORDER BY 2 ",$_SESSION['documento']);
+$empleados = opc_sql("SELECT id_usuario,nombre FROM usuarios ORDER BY 2 ",$_SESSION['documento']);
 
 $acc = acceBtns('comreq');
 $btns = '<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="fas fa-rotate"></i></button>';
@@ -70,6 +71,13 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                 <div class="content content-1">
                     <div class="title txt-center"><h2>Requerimientos Comerciales</h2></div>
                     <div class="frm-filter poppins-font" id='<?php echo $mod; ?>-fil'>
+                        <div class="input-box">
+                            <label for="fempresa">Empleados:</label>
+                            <select class='choices-single' id="fempresa" name="fempresa" OnChange="actualizar();">
+                                <option value="">Todos</option>
+                                <?php echo $empleados; ?>
+                            </select>
+                        </div>
                         <div class="input-box">
                             <label for="fempresa">Empresa:</label>
                             <select class='choices-single' id="fempresa" name="fempresa" OnChange="actualizar();">
