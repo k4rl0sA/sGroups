@@ -130,6 +130,7 @@ function cmp_reqasig() {
     $uPd = $_REQUEST['id'] == '0' ? true : false;
     $d = get_reqasig();
     $r=get_comreq();
+    var_dump($r);
     if ($d == "") $d = $t; 
     $o = 'req';
     $up = (!empty($d['asignado'])) ? false  : true ;
