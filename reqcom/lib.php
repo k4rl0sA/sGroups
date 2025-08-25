@@ -53,6 +53,9 @@ function whe_comreq() {
         'operador' => 'RAW'
     ]; */
     $filtros=[];
+    if(!empty($_POST['fworkers'])){
+        $filtros[]=['campo'=>'(RA.asignado)','valor'=>$_POST['fworkers'],'operador'=>'='];
+    }
     if (!empty($_POST['fempresa'])) {
         $filtros[] = ['campo' => 'R.cod_empresa', 'valor' => $_POST['fempresa'], 'operador' => '='];
     }
