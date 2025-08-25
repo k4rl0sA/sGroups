@@ -119,12 +119,16 @@ function lis_comreq() {
             C.nombre AS Contacto,
             O.oficina AS Oficina,
             SUBSTRING(R.descripcion, 1, 50) AS Descripción,
+            U.nombre AS creo,
+            UC.nombre AS Asignado A,
             CTLG(10,R.estado_req) AS Estado
             FROM req_comercial R
             LEFT JOIN clientes CL ON R.cod_empresa = CL.id_cliente 
             LEFT JOIN contactos C ON R.cod_contacto =C.id_contacto 
             LEFT JOIN oficinas O ON R.cod_oficina = O.id_oficina 
-            LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom 
+            LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom
+            LEFT JOIN usuarios U ON RA.asignado = U.documento
+            LEFT JOIN usuarios UC ON R.usu_create = UC.documento 
              ";
     
     $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
