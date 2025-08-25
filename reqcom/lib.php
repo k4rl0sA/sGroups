@@ -53,17 +53,14 @@ function whe_comreq() {
         'operador' => 'RAW'
     ]; */
     $filtros=[];
-    if(!empty($_POST['fworkers'])){
-        $filtros[]=['campo'=>'(RA.asignado)','valor'=>$_POST['fworkers'],'operador'=>'='];
+    if (!empty($_POST['fworkers'])) {
+        $filtros[] = ['campo' => 'RA.asignado','valor' => limpiar_y_escapar_array(explode(",", $_POST['fworkers'])), 'operador' => 'IN'];
     }
     if (!empty($_POST['fempresa'])) {
         $filtros[] = ['campo' => 'R.cod_empresa', 'valor' => $_POST['fempresa'], 'operador' => '='];
     }
     if (!empty($_POST['fcontacto'])) {
         $filtros[] = ['campo' => 'R.cod_contacto', 'valor' => $_POST['fcontacto'], 'operador' => '='];
-    }
-    if(!empty($_POST['fasig'])){
-        $filtros[]=['campo'=>'RA.asignado','valor'=>$_POST['fasig'],'operador'=>'IN'];
     }
     if (!empty($_POST['festado'])) {
         $filtros[] = ['campo' => 'R.estado_req', 'valor' => $_POST['festado'], 'operador' => '='];

@@ -73,7 +73,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                     <div class="frm-filter poppins-font" id='<?php echo $mod; ?>-fil'>
                         <div class="input-box">
                             <label for="fworkers">Creados Por:</label>
-                            <select class='choices-single' id="fworkers" name="fworkers" OnChange="actualizar();">
+                            <select class='choices-multiple-remove-button' id="fworkers" name="fworkers" OnChange="actualizar();">
                                 <option value="">Todos</option>
                                 <?php echo $empleados; ?>
                             </select>
@@ -93,12 +93,12 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                             </select>
                         </div>
 
-                        <div class="input-box">
+                       <!--  <div class="input-box">
                             <label for="choices-multiple-remove-button">Asignados A:</label>
                 			    <select class='choices-multiple-remove-button' id="fasig" name="fasig" multiple OnChange="actualizar();">
-								    <?php echo $asignados; ?>
+								    <?php //echo $asignados; ?>
                 			    </select>
-    					</div>
+    					</div> -->
 
                         <div class="input-box">
                             <label for="festado">Estado Requerimiento:</label>
