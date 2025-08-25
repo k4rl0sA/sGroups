@@ -177,7 +177,6 @@ function cmp_comreq() {
     $c[] = new cmp('ofi', 's', 3, $d['cod_oficina'], $w.' '.$o, 'Oficina', 'oficinas', '', '', true, true, '', 'col-2');
     $c[] = new cmp('des', 'a', 500, $d['descripcion'], $w.' '.$o, 'Descripción', 'descripcion', '', '', true, true, '', 'col-2');
     $c[] = new cmp('pen', 'a', 500, $d['pendientes'], $w.' '.$o, 'Pendientes', 'pendientes', '', '', false, true, '', 'col-12');
-    $c[] = new cmp('est', 's', 3, $d['estado_req'], $w.' '.$o, 'Estado', 'estado', '', '', true, true, '', 'col-2');
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     $rta .= "</div>";
     return $rta;
@@ -208,7 +207,7 @@ function gra_comreq() {
         ['type' => 'i', 'value' => $_POST['ofi']],
         ['type' => 's', 'value' => $_POST['des']],
         ['type' => 's', 'value' => $_POST['pen']],
-        ['type' => 'i', 'value' => $_POST['est']]
+        ['type' => 'i', 'value' => 1]
     ];
     
     if (empty($id[0])) {
@@ -227,7 +226,7 @@ function gra_comreq() {
         $sql = "UPDATE req_comercial SET 
             actividad=?,cotizacion=?,requerimiento=?,
             cod_empresa=?,cod_contacto=?,cod_oficina=?,
-            descripcion=?,pendientes=?,estado_req=?,
+            descripcion=?,pendientes=?,
             usu_update=?,fecha_update=?
             WHERE id_reqcom = ?";
         $params = array_merge(
@@ -270,10 +269,6 @@ function opc_contactos($id='') {
 
 function opc_oficinas($id='') {
     return opc_sql('SELECT id_oficina,oficina FROM oficinas WHERE estado=1 ORDER BY oficina', $id);
-}
-
-function opc_estado($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=10 and estado="A" ORDER BY 1', $id);
 }
 
 function formato_dato($a, $b, $c, $d) {
