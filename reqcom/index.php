@@ -96,7 +96,7 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                         <div class="input-box">
                             <label for="choices-multiple-remove-button">Asignados A:</label>
                 			    <select class='choices-multiple-remove-button' id="fasig" name="fasig" multiple OnChange="actualizar();">
-								    <?php echo $asignado; ?>
+								    <?php echo $asignados; ?>
                 			    </select>
     					</div>
 
