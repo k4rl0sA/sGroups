@@ -65,6 +65,7 @@ function tot_comreq() {
     $totals = [
         ['titulo'=>'Total','icono'=>'fas fa-file-invoice','indicador'=>'fa fa-level-up arrow-icon','condicion' => ''],
         ['titulo'=>'En Proceso','icono'=>'fas fa-spinner','indicador'=>'fa fa-level-up arrow-icon','condicion'=>" AND estado_req=1"],
+        ['titulo'=>'Asignados','icono'=>'fas fa-hourglass-half','indicador'=>'fa fa-level-up arrow-icon','condicion' =>" AND estado_req=3"],
         ['titulo'=>'Completados','icono'=>'fas fa-check-circle','indicador'=>'fa fa-level-down arrow-icon','condicion' =>" AND estado_req=2"]
     ];
     
@@ -262,7 +263,7 @@ function opc_oficinas($id='') {
 }
 
 function opc_estado($id='') {
-    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=10 and estado="A" ORDER BY 1', $id);
+    return opc_sql('SELECT idcatadeta,descripcion FROM catadeta WHERE idcatalogo=10 and estado="A" and idcatadeta!=1 ORDER BY 1', $id);
 }
 
 function formato_dato($a, $b, $c, $d) {
