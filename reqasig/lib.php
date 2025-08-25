@@ -49,7 +49,7 @@ function whe_comreq() {
     // Filtro combinado OR
     $filtros[] = [];
     if (!empty($_POST['fcrea'])) {
-        $filtros[] = ['campo' => 'R.usu_create', 'valor' => $_POST['fcrea'], 'operador' => 'IN'];
+        $filtros[] = ['campo' => 'RA.asignado','valor' => limpiar_y_escapar_array(explode(",", $_POST['fcrea'])), 'operador' => 'IN'];
     }
     if (!empty($_POST['fasig'])) {
         $filtros[] = ['campo' => 'RA.asignado', 'valor' => $_POST['fasig'], 'operador' => 'IN'];
