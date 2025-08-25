@@ -10,7 +10,8 @@ $mod1='reqasig';
 $mod2='reqlidser';
 $ya = new DateTime();
 
-$empresas = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 1 AND estado='A' ORDER BY descripcion", '');
+// $empresas = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo = 1 AND estado='A' ORDER BY descripcion", '');
+$empresas = opc_sql("SELECT id_cliente,cliente FROM clientes WHERE estado=1 ORDER BY 2", '');
 $contactos = opc_sql("SELECT id_contacto, nombre FROM contactos WHERE estado = 1 ORDER BY nombre", '');
 $oficinas = opc_sql("SELECT id_oficina, oficina FROM oficinas WHERE estado =1 ORDER BY oficina", '');
 $estados = opc_sql("SELECT idcatadeta, descripcion FROM catadeta WHERE idcatalogo=10 AND estado='A' ORDER BY descripcion",'');
