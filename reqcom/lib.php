@@ -121,7 +121,7 @@ function lis_comreq() {
             O.oficina AS Oficina,
             SUBSTRING(R.descripcion, 1, 50) AS Descripción,
             U.nombre AS creo,
-            UC.nombre AS Asignado A,
+            UC.nombre AS 'Asignado A',
             CTLG(10,R.estado_req) AS Estado
             FROM req_comercial R
             LEFT JOIN clientes CL ON R.cod_empresa = CL.id_cliente 
