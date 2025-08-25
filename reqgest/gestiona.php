@@ -182,7 +182,7 @@ function opc_usuarios($id='') {
         return json_encode([]);
     }
  */
-     return opc_sql("SELECT id_usuario, nombre FROM usuarios WHERE estado = 1 ORDER BY nombre", $id);
+     return opc_sql("SELECT id_usuario, nombre FROM usuarios WHERE estado = 1 and perfil=14 ORDER BY nombre", $id);
 }
 
 function formato_dato($a, $b, $c, $d) {
