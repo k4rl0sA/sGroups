@@ -206,6 +206,11 @@ function gra_reqasig() {
                 ['type' => 'i', 'value' => 1]
             ]
         );
+        $sql1 = "UPDATE req_comercial SET estado_req=3 WHERE id_reqcom=?";
+        $params1 = [
+            ['type' => 'i', 'value' => $id[0]]
+        ];
+        $rta1 = mysql_prepd($sql1, $params1);
     } else {
         $sql = "UPDATE req_asig SET 
             asignado=?,
