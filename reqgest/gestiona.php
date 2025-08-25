@@ -131,13 +131,18 @@ function gra_reqlidser() {
             ['type' => 'i', 'value' => $_POST['nte']],
             ['type' => 'i', 'value' => $_POST['ndi']],
             ['type' => 's', 'value' => $_POST['inv']],
-            ['type' => 's', 'value' => $_POST['est']],
+            ['type' => 'i', 'value' => $_POST['est']],
             ['type' => 's', 'value' => $usu],
             ['type' => 's', 'value' => $fecha],
             ['type' => 's', 'value' => NULL],
             ['type' => 's', 'value' => NULL],
             ['type' => 'i', 'value' => 1]
         ];
+        $sql1 = "UPDATE req_comercial SET estado_req=2 WHERE id_reqcom=?";
+        $params1 = [
+            ['type' => 'i', 'value' => $id[0]]
+        ];
+        $rta1 = mysql_prepd($sql1, $params1);
     } else {
         // Update
         $sql = "UPDATE req_lidser SET tecnicos = ?,fecha_ejecu = ?,activi_realiza = ?,obs_gestor = ?,no_tecnicos = ?,no_dias = ?,inversion = ?,estado_ejecu = ?,usu_update = ?,fecha_update = ?
@@ -149,7 +154,7 @@ function gra_reqlidser() {
             ['type' => 'i', 'value' => $_POST['nte']],
             ['type' => 'i', 'value' => $_POST['ndi']],
             ['type' => 's', 'value' => $_POST['inv']],
-            ['type' => 's', 'value' => $_POST['est']],
+            ['type' => 'i', 'value' => $_POST['est']],
             ['type' => 's', 'value' => $usu],
             ['type' => 's', 'value' => $fecha],
             ['type' => 'i', 'value' => $id[1]]];
