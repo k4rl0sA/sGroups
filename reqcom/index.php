@@ -72,11 +72,10 @@ if (isset($acc['importar']) && $acc['importar'] == 'SI') {
                     <div class="title txt-center"><h2>Requerimientos Comerciales</h2></div>
                     <div class="frm-filter poppins-font" id='<?php echo $mod; ?>-fil'>
                         <div class="input-box">
-                            <label for="fworkers">Creados Por:</label>
-                            <select class='choices-multiple-remove-button' id="fworkers" name="fworkers" OnChange="actualizar();">
-                                <option value="">Todos</option>
-                                <?php echo $empleados; ?>
-                            </select>
+                            <label for="choices-multiple-remove-button">Creados Por:</label>
+                			    <select class='choices-multiple-remove-button' id="fworkers" name="fworkers" multiple OnChange="actualizar();">
+								    <?php echo $asignados; ?>
+                			    </select>
                         </div>
                         <div class="input-box">
                             <label for="fempresa">Empresa:</label>
