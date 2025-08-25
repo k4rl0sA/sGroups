@@ -47,11 +47,17 @@ function whe_comreq() {
     $in = implode(',', $documento);
 
     // Filtro combinado OR
-    $filtros[] = [
+    if ($perfil == '1') {
+        if (!empty($_POST['fasig'])) {
+            $filtros[] = ['campo' => 'RA.asignado','valor' => limpiar_y_escapar_array(explode(",", $_POST['fasig'])), 'operador' => 'IN'];
+        }
+    }else{
+        $filtros[] = [
         'campo' => "(RA.asignado IN ($in))",
         'valor' => null,
         'operador' => 'RAW'
     ];
+    }
     if (!empty($_POST['fempresa'])) {
         $filtros[] = ['campo' => 'R.cod_empresa', 'valor' => $_POST['fempresa'], 'operador' => '='];
     }
