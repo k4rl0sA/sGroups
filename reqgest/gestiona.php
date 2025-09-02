@@ -90,15 +90,9 @@ function cmp_reqlidser() {
 function get_reqlidser() {
     $id = $_POST['id'];
     if ($id === '0' || empty($id)) return "";
-    $sql = "SELECT * FROM req_lidser WHERE idreq = ?";
-    $params = [['type' => 'i', 'value' => $id]];
-    // show_sql1($sql, $params,['i']);
-    $info = mysql_prepd($sql, $params);
-    var_dump($info);
-    if (isset($info['responseResult']) && !empty($info['responseResult'])) {
-        return $info['responseResult'][0];
-    }
-    return "";
+    $sql = "SELECT * FROM req_lidser WHERE idreq = $id";    
+    $info = datos_mysql($sql);
+    return $info['responseResult'][0];   
 }
 
 /* function show_sql1($data_query, $params, $types) {
