@@ -92,7 +92,7 @@ function get_reqlidser() {
     if ($id === '0' || empty($id)) return "";
     $sql = "SELECT * FROM req_lidser WHERE idreq = ?";
     $params = [['type' => 'i', 'value' => $id]];
-    show_sql($sql, $params,['i']);
+    show_sql1($sql, $params,['i']);
     $info = mysql_prepd($sql, $params);
     if (isset($info['responseResult']) && !empty($info['responseResult'])) {
         return $info['responseResult'][0];
@@ -100,7 +100,7 @@ function get_reqlidser() {
     return "";
 }
 
-function show_sql($data_query, $params, $types) {
+function show_sql1($data_query, $params, $types) {
     if (is_array($types)) $types = implode('', $types);
     if (empty($params)) {
         echo "<pre>" . htmlentities($data_query) . "</pre>";
