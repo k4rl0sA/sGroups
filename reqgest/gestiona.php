@@ -100,6 +100,34 @@ function get_reqlidser() {
     return "";
 }
 
+function show_sql($data_query, $params, $types) {
+    if (is_array($types)) $types = implode('', $types);
+    if (empty($params)) {
+        echo "<pre>" . htmlentities($data_query) . "</pre>";
+        return;
+    }
+    $consulta_final = $data_query;
+    $param_index = 0;
+    for ($i = 0; $i < strlen($types); $i++) {
+        $type = $types[$i];
+        $param = $params[$param_index];
+        // Si el parámetro es un array, extrae el valor
+        if (is_array($param) && isset($param['value'])) {
+            $param = $param['value'];
+        }
+        if ($type == 's') {
+            $valor_escapado = "'" . str_replace("'", "''", $param) . "'";
+        } elseif ($type == 'i' || $type == 'd') {
+            $valor_escapado = $param;
+        } else {
+            $valor_escapado = "'" . str_replace("'", "''", $param) . "'";
+        }
+        $consulta_final = preg_replace('/\?/', $valor_escapado, $consulta_final, 1);
+        $param_index++;
+    }
+    echo "<pre>".$consulta_final."</pre>";
+}
+
 function get_comreq() {
     if ($_POST['id'] == '0') {
         return "";
