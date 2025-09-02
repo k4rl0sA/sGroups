@@ -136,8 +136,7 @@ function lis_comreq() {
             LEFT JOIN req_asig RA ON R.id_reqcom = RA.idreqcom
             LEFT JOIN usuarios U ON RA.asignado = U.id_usuario
             LEFT JOIN usuarios UC ON R.usu_create = UC.id_usuario  ";
-        $sql .= " ORDER BY R.id_reqcom DESC ";
-    $datos = obtener_datos_paginados($sql, $where, $params, $types, $offset, $regxPag);
+    $datos = obtener_datos_paginados($sql,  $where . " ORDER BY R.id_reqcom DESC", $params, $types, $offset, $regxPag);
     // show_sql($sql." WHERE ".$where. " LIMIT ?,?",array_merge($params,[$offset,$regxPag]),$types ."ii");
     if ($datos === []) return no_reg();
     return create_table($total, $datos, "comreq", $regxPag, "lib.php");
