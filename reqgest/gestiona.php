@@ -61,7 +61,7 @@ function cmp_reqlidser() {
      // Always allow update for simplicity
     $d = get_reqlidser();
     $r = get_comreq();
-    $uPd= $d['estado_ejecu'] == 2 ? false : true;
+    $uPd= isset($d['estado_ejecu']) == 2 ? false : true;
     if ($d == "") $d = $t; 
     $o = 'req';
     // var_dump($d);
