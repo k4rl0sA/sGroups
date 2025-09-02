@@ -170,7 +170,7 @@ function cmp_comreq() {
     if ($d == "") {$d = $t;}
     $o = 'req';
     $v1='aCt';
-    var_dump($d);
+    // var_dump($d);
     $c[] = new cmp('id', 'h', 100, $d['id_reqcom'], $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('act', 's',500 , $d['actividad'], $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3','ActiRequCome();');
     $c[] = new cmp('cot', 'n', 3, $d['cotizacion'], $w.' '.$v1.' '.$o, 'Cotización', 'cotizaciones', '', '', true, false, '', 'col-3');
