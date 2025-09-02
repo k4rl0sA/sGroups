@@ -90,7 +90,7 @@ function cmp_reqlidser() {
 function get_reqlidser() {
     $id = $_POST['id'];
     if ($id === '0' || empty($id)) return "";
-    $sql = "SELECT * FROM req_lidser WHERE id_reqser = ?";
+    $sql = "SELECT * FROM req_lidser WHERE idreq = ?";
     $params = [['type' => 'i', 'value' => $id]];
     $info = mysql_prepd($sql, $params);
     if (isset($info['responseResult']) && !empty($info['responseResult'])) {
