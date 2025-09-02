@@ -93,6 +93,9 @@ function get_reqlidser() {
     if ($id === '0' || empty($id)) return "";
     $sql = "SELECT * FROM req_lidser WHERE idreq = $id";    
     $info = datos_mysql($sql);
+    if (isset($info['responseResult']) && empty($info['responseResult'])) {
+        return "";
+    }
     return $info['responseResult'][0];   
 }
 
