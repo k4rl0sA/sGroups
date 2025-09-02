@@ -91,9 +91,8 @@ function get_reqlidser() {
     $id = $_POST['id'];
     if ($id === '0' || empty($id)) return "";
     $sql = "SELECT * FROM req_lidser WHERE idreq = ?";
-    echo "<pre>" . htmlentities($sql) . "</pre>";
     $params = [['type' => 'i', 'value' => $id]];
-    show_sql($sql, $params,'i');
+    show_sql($sql, $params,['i']);
     $info = mysql_prepd($sql, $params);
     if (isset($info['responseResult']) && !empty($info['responseResult'])) {
         return $info['responseResult'][0];
