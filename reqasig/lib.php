@@ -119,6 +119,7 @@ function lis_comreq() {
             O.oficina AS Oficina,
             SUBSTRING(R.descripcion, 1, 50) AS Descripción,
             UC.nombre AS creo,
+            FROM_UNIXTIME(R.fecha_create, '%d/%m/%Y %H:%i') AS Fecha_Creación,
             U.nombre AS 'Asignado A',
             CTLG(10,R.estado_req) AS Estado
             FROM req_comercial R
