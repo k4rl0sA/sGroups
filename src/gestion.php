@@ -229,6 +229,7 @@ function divide($a){
 	return ($id);
 }
 function show_sql($data_query, $params, $types) {
+   if (is_array($types)) $types = implode('', $types);
   if (empty($params)) {
       echo "<pre>" . htmlentities($data_query) . "</pre>";
       return;
