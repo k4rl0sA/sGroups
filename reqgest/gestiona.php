@@ -77,7 +77,7 @@ function cmp_reqlidser() {
     $c[] = new cmp('fec', 'd', 3, $d['fecha_ejecu'], $w, 'Fecha Ejecución', '', '', '', true, $uPd, '', 'col-3');
     $c[] = new cmp('act', 't', 500, $d['activi_realiza'], $w, 'Actividades Realizadas', '', '', '', true, $uPd, '', 'col-12');
     $c[] = new cmp('obs', 't', 500, $d['obs_gestor'], $w, 'Observaciones Gestor', '', '', '', true, $uPd, '', 'col-12');
-    $c[] = new cmp('nte', 'n', 2, $d['no_tecnicos'], $w, 'N° Técnicos', '', '', '', true, $uPd, '', 'col-2');
+    $c[] = new cmp('nte', 'n', 99, $d['no_tecnicos'], $w, 'N° Técnicos', '', '', '', true, $uPd, '', 'col-2');
     $c[] = new cmp('ndi', 'n', 999, $d['no_dias'], $w, 'N° Días', '', '', '', true, $uPd, '', 'col-2');
     $c[] = new cmp('inv', 't', 500, $d['inversion'], $w, 'Inversión', '', '', '', true, $uPd, '', 'col-6');
     $c[] = new cmp('est', 's', 3, $d['estado_ejecu'], $w, 'Estado Ejecución', 'estado_ejecucion', '', '', true, $uPd, '', 'col-3');
