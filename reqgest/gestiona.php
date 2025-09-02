@@ -63,7 +63,6 @@ function cmp_reqlidser() {
     $r = get_comreq();
     if ($d == "") $d = $t; 
     $o = 'req';
-    var_dump($d);
     var_dump($r);
     $c[] = new cmp('id', 'h', 100, $r['req'].'_'.$d['id_reqser'], $w, '', 0, '', '', '', false, '', 'col-1');
     $c[] = new cmp('act', 'lb',500 , $r['actividad'] ?? '', $w.' '.$o, 'Actividad', 'actividades', '', '', true, true, '', 'col-3','ActiRequCome();');
