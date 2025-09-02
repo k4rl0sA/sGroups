@@ -127,6 +127,7 @@ function lis_comreq() {
             O.oficina AS Oficina,
             SUBSTRING(R.descripcion, 1, 50) AS Descripción,
             UC.nombre AS creo,
+            R.fecha_create AS Fecha_Creación,
             U.nombre AS 'Asignado A',
             CTLG(10,R.estado_req) AS Estado
             FROM req_comercial R
