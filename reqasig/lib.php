@@ -57,6 +57,9 @@ function whe_comreq() {
     if (!empty($_POST['festado'])) {
         $filtros[] = ['campo' => 'R.estado_req', 'valor' => $_POST['festado'], 'operador' => '='];
     }
+     if (!empty($_POST['freq'])) {
+        $filtros[] = ['campo' => 'R.id_reqcom', 'valor' => $_POST['freq'], 'operador' => '='];
+    }
     if (empty($filtros)) return '1=1';
     return fil_where($filtros);
 }

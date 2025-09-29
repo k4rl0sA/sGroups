@@ -54,6 +54,9 @@ function whe_leadserv() {
     if (!empty($_POST['factividad'])) {
         $filtros[] = ['campo' => 'R.actividad', 'valor' => $_POST['factividad'], 'operador' => '='];
     }
+    if (!empty($_POST['freq'])) {
+        $filtros[] = ['campo' => 'R.id_reqcom', 'valor' => $_POST['freq'], 'operador' => '='];
+    }
     return fil_where($filtros);
 }
 
