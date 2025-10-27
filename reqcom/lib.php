@@ -223,7 +223,7 @@ function gra_comreq() {
             $commonParams,
             [
                 ['type' => 's', 'value' => $usu],
-                ['type' => 'i', 'value' => $fecha],
+                ['type' => 's', 'value' => $fecha],
                 ['type' => 'i', 'value' => 1]
             ]
         );
