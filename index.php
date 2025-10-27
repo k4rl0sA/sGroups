@@ -11,7 +11,7 @@ include __DIR__ . '/config/claves.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="referrer" content="no-referrer">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.google.com https://www.gstatic.com 'sha256-NYXvD0OuUHzREFi7qe8/qfEoi1ThJvW5g80vXESTWlE=';">
-    <link href="./libs/css/styleLogin.css?v=4.0" rel="stylesheet" type="text/css">
+    <link href="./libs/css/styleLogin.css?v=5.0" rel="stylesheet" type="text/css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <script src="https://www.google.com/recaptcha/api.js?render=<?php echo htmlspecialchars($claves['publica'], ENT_QUOTES, 'UTF-8'); ?>"></script>
 </head>
