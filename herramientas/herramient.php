@@ -49,7 +49,7 @@ function lis_herramientas() {
 
 function gra_herramientas() {
     $usu = $_SESSION['documento'];
-    $fecha = date('Y-m-d H:i:s');
+    $fecha = date('Y-m-d H:i:s', strtotime('-5 hours');
     $sql = "INSERT INTO herramientas (nombre, descripcion, stock_total, stock_disponible, usu_create, fecha_create, estado) VALUES (?, ?, ?, ?, ?, ?, 1)";
     $params = [
         ['type' => 's', 'value' => $_POST['nombre']],
@@ -67,7 +67,7 @@ function gra_herramientas() {
 
 function upd_herramientas() {
     $usu = $_SESSION['documento'];
-    $fecha = date('Y-m-d H:i:s');
+    $fecha = date('Y-m-d H:i:s', strtotime('-5 hours');
     $sql = "UPDATE herramientas SET nombre=?, descripcion=?, stock_total=?, stock_disponible=?, usu_update=?, fecha_update=? WHERE id_herramienta=?";
     $params = [
         ['type' => 's', 'value' => $_POST['nombre']],

@@ -187,7 +187,7 @@ function get_prestamo() {
 
 function gra_prestamo_detalle() {
     $usu = $_SESSION['documento'];
-    $fecha = date('Y-m-d H:i:s');
+    $fecha = date('Y-m-d H:i:s', strtotime('-5 hours'));
     $sql = "INSERT INTO prestamo_detalle (idprestamo, idherramienta, cantidad, fecha_prestamo, fecha_devolucion, usu_create, fecha_create, estado) VALUES (?, ?, ?, ?, ?, ?, ?, 1)";
     $params = [
         ['type' => 'i', 'value' => $_POST['idprestamo']],
@@ -206,7 +206,7 @@ function gra_prestamo_detalle() {
 
 function upd_prestamo() {
     $usu = $_SESSION['documento'];
-    $fecha = date('Y-m-d H:i:s');
+    $fecha = date('Y-m-d H:i:s', strtotime('-5 hours'));
     $sql = "UPDATE herramienta_prestamo SET fecha_prestamo=?, tecnico=?, observaciones=?, estado_prestamo=?, usu_update=?, fecha_update=? WHERE id_prestamo=?";
     $params = [
         ['type' => 's', 'value' => $_POST['fecha_prestamo']],
