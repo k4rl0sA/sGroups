@@ -459,7 +459,7 @@ function opc_comerciales($id='') {
 }
 
 function opc_gestores($id='') {
-    return opc_sql('SELECT id_usuario,nombre FROM usuarios WHERE id_usuario=.'$_SESSION['documento']'. AND estado=1 ORDER BY nombre', $id);
+    return opc_sql('SELECT id_usuario,nombre FROM usuarios WHERE id_usuario='.$_SESSION['documento'].' AND estado=1 ORDER BY nombre', $id);
 }
 
 function opc_estado_orden($id='') {
