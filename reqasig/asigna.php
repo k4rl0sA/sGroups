@@ -188,7 +188,7 @@ function get_comreq() {
 function gra_reqasig() {
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
-    $fecha = time();
+    $fecha = date('Y-m-d H:i:s', strtotime('-5 hours'));
     $commonParams = [
         ['type' => 'i', 'value' => $id[0]],
         ['type' => 's', 'value' => $_POST['asi']]

@@ -186,7 +186,7 @@ function get_leadserv() {
 function gra_leadserv() {
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
-    $fecha = time();
+    $fecha = date('Y-m-d H:i:s', strtotime('-5 hours'));
     
     $commonParams = [
         ['type' => 's', 'value' => $_POST['act']],
