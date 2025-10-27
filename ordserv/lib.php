@@ -169,7 +169,7 @@ function get_ordser() {
 function gra_ordser() {
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
-    $fecha = date('Y-m-d H:i:s');
+    $fecha = date('Y-m-d H:i:s', strtotime('-5 hours');
 
     $commonParams = [
         ['type' => 'i', 'value' => $_POST['req']],

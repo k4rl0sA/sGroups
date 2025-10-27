@@ -395,7 +395,7 @@ function get_ordcom() {
 function gra_ordcom() {
     $id = divide($_POST['id']);
     $usu = $_SESSION['documento'];
-    $fecha = time();
+    $fecha = date('Y-m-d H:i:s', strtotime('-5 hours'));
     
     $valor = str_replace(['$', '.', ','], '', $_POST['val']);
     $valor = filter_var($valor, FILTER_SANITIZE_NUMBER_INT);
