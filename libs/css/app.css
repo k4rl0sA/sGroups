@@ -179,7 +179,7 @@
         content: 'SI';
         font: 15px/30px Arial, sans-serif;
         color: #ffeb00;
-        /*position: absolute;*/
+        position: absolute;
         left: 10px;
         z-index: 0;
         font-weight: bold;

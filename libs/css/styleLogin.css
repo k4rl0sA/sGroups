@@ -176,5 +176,5 @@
     }
 
 
-    .error {padding: 20px; background-color: #ff0909a6;color: white; border-radius: 25px;position:absolute;z-index:100;top:-150;}
+    .error {padding: 20px; background-color: #ff0909a6;color: white; border-radius: 25px;z-index:100;top:-150;}/*position:absolute;*/
     .ok {padding: 20px;background-color: #00f372d6;color: white;border-radius: 25px;position:absolute;z-index:100;top:0;}
