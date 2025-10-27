@@ -180,8 +180,8 @@ function cmp_comreq() {
     $c[] = new cmp('emp', 's', 3, $d['cod_empresa'], $w.' '.$o, 'Empresa', 'empresas', '', '', true, true, '', 'col-3');
     $c[] = new cmp('con', 's', 3, $d['cod_contacto'], $w.' '.$o, 'Contacto', 'contactos', '', '', true, true, '', 'col-3');
     $c[] = new cmp('ofi', 's', 3, $d['cod_oficina'], $w.' '.$o, 'Oficina', 'oficinas', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('des', 'a', 500, $d['descripcion'], $w.' '.$o, 'Descripción', 'descripcion', '', '', true, true, '', 'col-2');
-    $c[] = new cmp('pen', 'a', 500, $d['pendientes'], $w.' '.$o, 'Pendientes', 'pendientes', '', '', false, true, '', 'col-12');
+    $c[] = new cmp('des', 'a', 5000, $d['descripcion'], $w.' '.$o, 'Descripción', 'descripcion', '', '', true, true, '', 'col-2');
+    $c[] = new cmp('pen', 'a', 5000, $d['pendientes'], $w.' '.$o, 'Pendientes', 'pendientes', '', '', false, true, '', 'col-12');
     for ($i = 0; $i < count($c); $i++) $rta .= $c[$i]->put();
     $rta .= "</div>";
     return $rta;
