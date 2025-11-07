@@ -19,9 +19,9 @@ $btns = '<button class="act-btn" data-mod='.$mod.' title="Actualizar"><i class="
 if (isset($acc['crear']) && $acc['crear'] == 'SI') {
     $btns .= '<button class="add-btn" data-mod='.$mod.' title="Nuevo"><i class="fas fa-plus"></i></button>';
 }
-if (isset($acc['importar']) && $acc['importar'] == 'SI') {
+/* if (isset($acc['importar']) && $acc['importar'] == 'SI') {
     $btns .= '<button id="openModal" class="upload-btn" data-mod='.$mod.' title="Importar"><i class="fas fa-upload"></i></button>';
-}
+} */
 ?>
 <!DOCTYPE html>
 <html lang="es">
